@@ -1,0 +1,3 @@
+C:\Users\Almas\source\repos\ebs\test\obj\Debug\netcoreapp3.1\unit.test.csprojAssemblyReference.cache
+C:\Users\Almas\source\repos\ebs\test\obj\Debug\netcoreapp3.1\unit.test.AssemblyInfoInputs.cache
+C:\Users\Almas\source\repos\ebs\test\obj\Debug\netcoreapp3.1\unit.test.AssemblyInfo.cs
