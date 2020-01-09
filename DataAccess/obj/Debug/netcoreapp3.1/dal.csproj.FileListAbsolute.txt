@@ -1,0 +1,8 @@
+C:\Users\Almas\source\repos\ebs\dal\bin\Debug\netcoreapp3.1\dal.deps.json
+C:\Users\Almas\source\repos\ebs\dal\bin\Debug\netcoreapp3.1\dal.dll
+C:\Users\Almas\source\repos\ebs\dal\bin\Debug\netcoreapp3.1\dal.pdb
+C:\Users\Almas\source\repos\ebs\dal\obj\Debug\netcoreapp3.1\dal.csprojAssemblyReference.cache
+C:\Users\Almas\source\repos\ebs\dal\obj\Debug\netcoreapp3.1\dal.AssemblyInfoInputs.cache
+C:\Users\Almas\source\repos\ebs\dal\obj\Debug\netcoreapp3.1\dal.AssemblyInfo.cs
+C:\Users\Almas\source\repos\ebs\dal\obj\Debug\netcoreapp3.1\dal.dll
+C:\Users\Almas\source\repos\ebs\dal\obj\Debug\netcoreapp3.1\dal.pdb

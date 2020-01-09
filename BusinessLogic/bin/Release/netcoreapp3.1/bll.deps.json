@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "bll/1.0.0": {
+        "dependencies": {
+          "dal": "1.0.0"
+        },
+        "runtime": {
+          "bll.dll": {}
+        }
+      },
+      "dal/1.0.0": {
+        "runtime": {
+          "dal.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "bll/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "dal/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
