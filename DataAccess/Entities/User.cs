@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DataAccess.Entities
 {
-    public class User : Entity<int>
+    public class User : AuditableEntity<int>
     {
         public string Email { get; set; }
         public string Password { get; set; }

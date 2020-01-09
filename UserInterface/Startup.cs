@@ -4,8 +4,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using DataAccess;
+using AutoMapper;
+using UserInterface.Mappings;
+using BusinessLogic.Services;
 
-namespace ebs
+namespace UserInterface
 {
     public class Startup
     {
@@ -20,8 +24,24 @@ namespace ebs
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            //services.AddDbContext<EbsContext>(options =>
-            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            // DbContext Configurations
+            services.AddDbContext<EbsContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            
+            // Auto Mapper Configurations
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
+            // Dependency Injection Configurations
+            services.AddTransient<IUserService, UserService>();
+
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

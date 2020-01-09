@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DataAccess.Entities
 {
-    public class Book : Entity<int>
+    public class Book : AuditableEntity<int>
     {
         public string Title { get; set; }
         public string Description { get; set; }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DataAccess.Entities.Base
 {
-    public abstract class Entity<T>
+    public abstract class AuditableEntity<T>
     {
         public T Id { get; set; }
 

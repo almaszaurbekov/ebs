@@ -1,6 +1,6 @@
 using System;
 
-namespace ebs.ViewModels
+namespace UserInterface.ViewModels
 {
     public class ErrorViewModel
     {
