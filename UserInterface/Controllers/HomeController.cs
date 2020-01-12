@@ -5,7 +5,6 @@ using UserInterface.ViewModels;
 
 namespace UserInterface.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         public HomeController() { }
@@ -15,7 +14,17 @@ namespace UserInterface.Controllers
             return View();
         }
 
+        public IActionResult About()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult Contacts()
         {
             return View();
         }

@@ -4,43 +4,71 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ebs</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Pacifico|Vollkorn|Lato&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
+    <div class="se-pre-con"></div>
+    <div class="progress-container">
+        <div class="progress-bar" id="windowBar"></div>
+    </div>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ebs</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <div class="ebs-navbar">
+            <span class="ebs-title">
+                ebs<span class="ebs-dot">.</span>
+            </span>
+            <button class="ebs-menu">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <nav class="ebs-menu-body">
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <p style="margin:0;padding:0;" class="ebs-menu-target"><a href="#">Home</a></p>
+            <p style="margin:0;padding:0;" class="ebs-menu-target"><a href="#">About</a></p>
+            <p style="margin:0;padding:0;" class="ebs-menu-target"><a href="#">Contacts</a></p>
+            <p style="margin:0;padding:0;" class="ebs-menu-target"><a href="#">Privacy</a></p>
+            <p style="margin:0;padding:0;" class="ebs-menu-target"><a href="#">Login</a> | <a href="#">Sign Up</a></p>
+        }
+        else
+        {
+            <p style="margin:0;padding:0;" class="ebs-menu-target"><a href="#">My account</a></p>
+            <p style="margin:0;padding:0;" class="ebs-menu-target"><a href="#">My ELibrary</a></p>
+            <p style="margin:0;padding:0;" class="ebs-menu-target"><a href="#">Add new book</a></p>
+            <p style="margin:0;padding:0;" class="ebs-menu-target"><a href="#">Logout</a></p>
+        }
+        <button class="ebs-menu-target ebs-menu-close">
+            <i class="fa fa-arrow-circle-o-right"></i>
+        </button>
+    </nav>
+    <div>
+        <main role="main">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - ebs - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="border-top ebs-footer">
+        <div class="container-fluid text-light">
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="ebs-title text-light">
+                        ebs<span class="ebs-dot">.</span>
+                    </p>
+                    <span class="mr-3">&copy; 2020 </span>
+                    <a class="mr-3" asp-controller="Home" asp-action="About">About us</a>
+                    <a class="mr-3" asp-controller="Home" asp-action="Contacts">Our contacts</a>
+                    <a asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </div>
+            </div>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/modernizr/modernizr.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
