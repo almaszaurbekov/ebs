@@ -75,6 +75,70 @@ namespace DataAccess.Migrations
                     b.ToTable("Books");
                 });
 
+            modelBuilder.Entity("DataAccess.Entities.Role", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Role");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("da9b144b-f631-47cf-a30a-23fe0f0a6672"),
+                            CreatedBy = "ebs",
+                            CreatedDate = new DateTime(2020, 1, 10, 8, 2, 54, 708, DateTimeKind.Utc).AddTicks(2621),
+                            DeletedBy = "ebs",
+                            DeletedDate = new DateTime(2020, 1, 10, 8, 2, 54, 708, DateTimeKind.Utc).AddTicks(2642),
+                            IsDeleted = false,
+                            Name = "admin",
+                            UpdatedBy = "ebs",
+                            UpdatedDate = new DateTime(2020, 1, 10, 8, 2, 54, 708, DateTimeKind.Utc).AddTicks(2641)
+                        },
+                        new
+                        {
+                            Id = new Guid("82fad6cd-3eec-45cc-9b59-e8020c2433f9"),
+                            CreatedBy = "ebs",
+                            CreatedDate = new DateTime(2020, 1, 10, 8, 2, 54, 708, DateTimeKind.Utc).AddTicks(5229),
+                            DeletedBy = "ebs",
+                            DeletedDate = new DateTime(2020, 1, 10, 8, 2, 54, 708, DateTimeKind.Utc).AddTicks(5237),
+                            IsDeleted = false,
+                            Name = "user",
+                            UpdatedBy = "ebs",
+                            UpdatedDate = new DateTime(2020, 1, 10, 8, 2, 54, 708, DateTimeKind.Utc).AddTicks(5235)
+                        });
+                });
+
             modelBuilder.Entity("DataAccess.Entities.User", b =>
                 {
                     b.Property<int>("Id")
@@ -117,6 +181,9 @@ namespace DataAccess.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
@@ -126,7 +193,25 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RoleId");
+
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = "ebs",
+                            CreatedDate = new DateTime(2020, 1, 10, 8, 2, 54, 708, DateTimeKind.Utc).AddTicks(7726),
+                            DeletedBy = "ebs",
+                            DeletedDate = new DateTime(2020, 1, 10, 8, 2, 54, 708, DateTimeKind.Utc).AddTicks(7733),
+                            Email = "foxxychmoxy@gmail.com",
+                            IsDeleted = false,
+                            Password = "d9edce5cc424444d5c03fb834de779e9924eb69d05ea3f7be7dd5041bb87864e18b1b75c4d7a9b4abd9d9c784dc482701bdb711256c1f93610a107a161ceb2c2",
+                            RoleId = new Guid("da9b144b-f631-47cf-a30a-23fe0f0a6672"),
+                            UpdatedBy = "ebs",
+                            UpdatedDate = new DateTime(2020, 1, 10, 8, 2, 54, 708, DateTimeKind.Utc).AddTicks(7732)
+                        });
                 });
 
             modelBuilder.Entity("DataAccess.Entities.Book", b =>
@@ -136,6 +221,13 @@ namespace DataAccess.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DataAccess.Entities.User", b =>
+                {
+                    b.HasOne("DataAccess.Entities.Role", "Role")
+                        .WithMany("Users")
+                        .HasForeignKey("RoleId");
                 });
 #pragma warning restore 612, 618
         }

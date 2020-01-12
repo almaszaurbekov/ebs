@@ -14,5 +14,12 @@ namespace DataAccess.Entities
         public string ImageSource { get; set; }
         public string Address { get; set; }
         public List<Book> ELibrary { get; set; }
+        public Guid? RoleId { get; set; }
+        public Role Role { get; set; }
+
+        public User()
+        {
+            ELibrary = new List<Book>();
+        }
     }
 }

@@ -8,6 +8,10 @@ using DataAccess;
 using AutoMapper;
 using UserInterface.Mappings;
 using BusinessLogic.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using BusinessLogic.Services.BusinessService;
 
 namespace UserInterface
 {
@@ -39,9 +43,18 @@ namespace UserInterface
             services.AddSingleton(mapper);
 
             // Dependency Injection Configurations
+            services.AddTransient<IUserBusinessService, UserBusinessService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IBookService, BookService>();
+            services.AddTransient<IRoleService, RoleService>();
 
-            services.AddMvc();
+            // Authentication Configurations
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options =>
+            {
+                options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/User/Login");
+                options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/User/Login");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,6 +75,7 @@ namespace UserInterface
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
