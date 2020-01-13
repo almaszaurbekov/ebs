@@ -13,9 +13,8 @@ namespace UserInterface.Mappings
     {
         public MappingProfile()
         {
-            CreateMap<User, UserViewModel>();
-            CreateMap<UserViewModel, User>()
-                .ForAllOtherMembers(opt => opt.IgnoreSourceWhenDefault());
+            CreateMap<User, UserViewModel>(MemberList.Source);
+            CreateMap<UserViewModel, User>(MemberList.None);
         }
     }
 

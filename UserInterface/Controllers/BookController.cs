@@ -31,6 +31,7 @@ namespace UserInterface.Controllers
         // GET: Books
         public async Task<IActionResult> Index(string search)
         {
+            ViewBag.Search = search;
             return View();
         }
 
@@ -42,18 +43,23 @@ namespace UserInterface.Controllers
                 return NotFound();
             }
 
+            ViewBag.Id = id;
             var books = await bookBusinessService.GetBooksByUserId(id);
             var booksVM = mapper.Map<List<Book>, List<BookViewModel>>(books);
 
             return View(booksVM);
         }
 
-        //// GET: Books/Create
-        //public IActionResult Create()
-        //{
-        //    ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
-        //    return View();
-        //}
+        [HttpGet]
+        public IActionResult Create(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            return View();
+        }
 
         //// POST: Books/Create
         //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 

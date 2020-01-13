@@ -49,9 +49,9 @@
         }
         else
         {
-            <p style="margin:0;padding:0;" class="ebs-menu-target"><a href="#">My account</a></p>
-            <p style="margin:0;padding:0;" class="ebs-menu-target"><a href="#">My ELibrary</a></p>
-            <p style="margin:0;padding:0;" class="ebs-menu-target"><a href="#">Add new book</a></p>
+            <p style="margin:0;padding:0;" class="ebs-menu-target"><a asp-controller="User" asp-action="Details" asp-route-id="#">My account</a></p>
+            <p style="margin:0;padding:0;" class="ebs-menu-target"><a asp-controller="Book" asp-action="Details" asp-route-id="#">My ELibrary</a></p>
+            <p style="margin:0;padding:0;" class="ebs-menu-target"><a asp-controller="Book" asp-action="Create" asp-route-id="#">Add new book</a></p>
             <p style="margin:0;padding:0;" class="ebs-menu-target"><a asp-controller="User" asp-action="Logout">Logout</a></p>
         }
         <button class="ebs-menu-target ebs-menu-close">

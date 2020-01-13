@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using BusinessLogic.Services.BusinessService;
+using Microsoft.AspNetCore.Http;
 
 namespace UserInterface
 {

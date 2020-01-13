@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,6 +23,14 @@ namespace BusinessLogic.Services
         public async Task<List<Book>> GetBooksByUserId(int? id)
         {
             return await DbSet.Where(s => s.UserId == id).ToListAsync();
+        }
+
+        public override async Task<Book> Find(Expression<Func<Book, bool>> predicate)
+        {
+            return await DbSet
+                .Include(u => u.User)
+                .Where(predicate)
+                .FirstOrDefaultAsync();
         }
     }
 }

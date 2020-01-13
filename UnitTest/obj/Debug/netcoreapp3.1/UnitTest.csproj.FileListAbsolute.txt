@@ -219,3 +219,12 @@ C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\runtimes\win-ar
 C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\e_sqlite3.dll
 C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\e_sqlite3.dll
+C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\Microsoft.Dynamic.dll
+C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\Microsoft.Scripting.Metadata.dll
+C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\Microsoft.Scripting.dll
+C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\IronPython.Modules.dll
+C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\IronPython.SQLite.dll
+C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\IronPython.dll
+C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\System.CodeDom.dll
+C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\Castle.Core.dll
+C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\Moq.dll

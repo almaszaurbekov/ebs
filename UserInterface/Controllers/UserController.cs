@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using System;
+using BusinessLogic;
 
 namespace UserInterface.Controllers
 {
@@ -114,17 +115,15 @@ namespace UserInterface.Controllers
                 try
                 {
                     var entity = await userBusinessService.GetUserById(model.Id);
-                    entity = mapper.Map<UserViewModel, User>(model);
+                    entity = mapper.Map(model, entity);
 
-                    // Обновляем фотку
                     if (model.Image != null)
                         entity.ImageSource = CreateFile(model.Image.FileName, model.Image);
 
-                    // Если фотку хотят удалить
                     if (model.RemoveImage)
                         entity.ImageSource = null;
 
-                    //await userBusinessService.UpdateUser(user);
+                    await userBusinessService.UpdateUser(entity);
 
                     if (User.Identity.Name != entity.Email)
                     {
@@ -150,7 +149,7 @@ namespace UserInterface.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Details));
+                return RedirectToAction(nameof(Details), new { id = model.Id });
             }
             return View(model);
         }
@@ -279,11 +278,14 @@ namespace UserInterface.Controllers
         private string CreateFile(string imgfileName, IFormFile image)
         {
             string fileName = null;
-            string folder = Path.Combine(hostEnvironment.WebRootPath, "images");
+            string folder = Path.Combine(hostEnvironment.WebRootPath, "img");
             fileName = Guid.NewGuid().ToString() + "_" + imgfileName;
             string filepath = Path.Combine(folder, fileName);
             image.CopyTo(new FileStream(filepath, FileMode.Create));
-            return fileName;
+            string mimeType = image.ContentType;
+            byte[] fileData = new byte[image.Length];
+            BlobStorageService objBlobService = new BlobStorageService();
+            return objBlobService.UploadFileToBlob(fileName, fileData, mimeType);
         }
     }
 }

@@ -151,7 +151,6 @@ C:\Users\Almas\source\repos\ebs\UserInterface\bin\Debug\netcoreapp3.1\runtimes\w
 C:\Users\Almas\source\repos\ebs\UserInterface\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\e_sqlite3.dll
 C:\Users\Almas\source\repos\ebs\UserInterface\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\Almas\source\repos\ebs\UserInterface\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\e_sqlite3.dll
-C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\UserInterface.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\User\Create.cshtml.g.cs
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\User\Delete.cshtml.g.cs
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\User\Details.cshtml.g.cs
@@ -168,3 +167,15 @@ C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\View
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\Book\Details.cshtml.g.cs
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\Book\Edit.cshtml.g.cs
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\Book\Index.cshtml.g.cs
+C:\Users\Almas\source\repos\ebs\UserInterface\bin\Debug\netcoreapp3.1\Microsoft.Dynamic.dll
+C:\Users\Almas\source\repos\ebs\UserInterface\bin\Debug\netcoreapp3.1\Microsoft.Scripting.Metadata.dll
+C:\Users\Almas\source\repos\ebs\UserInterface\bin\Debug\netcoreapp3.1\Microsoft.Scripting.dll
+C:\Users\Almas\source\repos\ebs\UserInterface\bin\Debug\netcoreapp3.1\IronPython.Modules.dll
+C:\Users\Almas\source\repos\ebs\UserInterface\bin\Debug\netcoreapp3.1\IronPython.SQLite.dll
+C:\Users\Almas\source\repos\ebs\UserInterface\bin\Debug\netcoreapp3.1\IronPython.dll
+C:\Users\Almas\source\repos\ebs\UserInterface\bin\Debug\netcoreapp3.1\System.CodeDom.dll
+C:\Users\Almas\source\repos\ebs\UserInterface\bin\Debug\netcoreapp3.1\Microsoft.Azure.KeyVault.Core.dll
+C:\Users\Almas\source\repos\ebs\UserInterface\bin\Debug\netcoreapp3.1\Microsoft.Rest.ClientRuntime.dll
+C:\Users\Almas\source\repos\ebs\UserInterface\bin\Debug\netcoreapp3.1\Microsoft.Rest.ClientRuntime.Azure.dll
+C:\Users\Almas\source\repos\ebs\UserInterface\bin\Debug\netcoreapp3.1\Microsoft.WindowsAzure.Storage.dll
+C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\UserInterface.MvcApplicationPartsAssemblyInfo.cache
