@@ -163,3 +163,8 @@ C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\View
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\User\Signup.cshtml.g.cs
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\Home\Contacts.cshtml.g.cs
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\Home\About.cshtml.g.cs
+C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\Book\Create.cshtml.g.cs
+C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\Book\Delete.cshtml.g.cs
+C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\Book\Details.cshtml.g.cs
+C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\Book\Edit.cshtml.g.cs
+C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\Book\Index.cshtml.g.cs

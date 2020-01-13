@@ -35,8 +35,8 @@
             <div class="col-md-3">
                 <div class="ebs-left-menu mb-4">
                     <p class="border-bottom"><a asp-controller="User" asp-action="Details" asp-route-id="@ViewBag.Id"><i class="fa fa-user-circle mr-2"></i> My Account</a></p>
-                    <p class="border-bottom"><a href="#"><i class="fa fa-comments-o mr-2"></i> Messages</a></p>
-                    <p class="border-bottom"><a href="#"><i class="fa fa-book mr-2"></i> ELibrary</a></p>
+                    <p class="border-bottom"><a asp-controller="Message" asp-action="Index" asp-route-id="@ViewBag.Id"><i class="fa fa-comments-o mr-2"></i> Messages</a></p>
+                    <p class="border-bottom"><a asp-controller="Book" asp-action="Details" asp-route-id="@ViewBag.Id"><i class="fa fa-book mr-2"></i> ELibrary</a></p>
                     <p class="border-bottom"><a href="#"><i class="fa fa-calendar mr-2"></i> Transactions</a></p>
                     <p class="border-bottom"><a href="#"><i class="fa fa-bookmark mr-3"></i> Favorites</a></p>
                     <p><a asp-controller="User" asp-action="Logout"><i class="fa fa-sign-out mr-2"></i> Logout</a></p>

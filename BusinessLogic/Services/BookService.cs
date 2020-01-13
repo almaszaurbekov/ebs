@@ -1,16 +1,27 @@
 ﻿using BusinessLogic.Services.Base;
 using DataAccess;
 using DataAccess.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BusinessLogic.Services
 {
-    public interface IBookService : IService<Book> { }
+    public interface IBookService : IService<Book>
+    {
+        Task<List<Book>> GetBooksByUserId(int? id);
+    }
 
     public class BookService : EntityService<Book>, IBookService
     {
         public BookService(EbsContext context) : base(context) { }
+
+        public async Task<List<Book>> GetBooksByUserId(int? id)
+        {
+            return await DbSet.Where(s => s.UserId == id).ToListAsync();
+        }
     }
 }

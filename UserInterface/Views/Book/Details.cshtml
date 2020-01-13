@@ -1,0 +1,29 @@
+﻿@model List<UserInterface.ViewModels.Entities.BookViewModel>
+
+@{
+    ViewData["Title"] = "Details";
+}
+<section style="padding-top:50px;">
+    <div class="container pt-5">
+        <h1>ELibrary - @User.Identity.Name</h1>
+        <div class="row">
+            @if (Model.Count < 1)
+            {
+                <div class="col-md-12 text-center">
+                    <h3 class="display-3">There is no one book :(</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
+                    <a class="btn btn-outline-success">Add book</a>
+                </div>
+            }
+            else
+            {
+                @foreach(var book in Model)
+                {
+                    <div class="col-md-4">
+                        @book.Author
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</section>

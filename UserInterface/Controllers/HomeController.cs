@@ -31,13 +31,6 @@ namespace UserInterface.Controllers
             return View();
         }
 
-        [Authorize]
-        [HttpGet]
-        public IActionResult Search(string search)
-        {
-            return View();
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
