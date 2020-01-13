@@ -1,59 +1,94 @@
-﻿@model DataAccess.Entities.User
+﻿@model UserInterface.ViewModels.Entities.UserViewModel
 
 @{
     ViewData["Title"] = "Edit";
+    var imagePath = (Model.ImageSource ?? "no-user.png");
 }
 
-<h1>Edit</h1>
-
-<h4>User</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+    <section style="padding-top:50px">
+        <div class="container pt-5 pb-5">
+            <h1>Edit</h1>
+            <h4>User</h4>
+            <hr />
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <form enctype="multipart/form-data" method="post" asp-controller="User" asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" value="@Model.Id" />
+                        <input type="hidden" asp-for="ImageSource" value="@Model.ImageSource" />
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control" required/>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="FirstName" class="control-label"></label>
+                            <input asp-for="FirstName" class="form-control" placeholder="Пусто" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="LastName" class="control-label"></label>
+                            <input asp-for="LastName" class="form-control" placeholder="Пусто" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Address" class="control-label"></label>
+                            <input asp-for="Address" class="form-control" placeholder="Пусто" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Image" class="control-label"></label>
+                            <div class="custom-file">
+                                <input asp-for="Image" class="form-control custom-file-input" />
+                                <label class="custom-file-label">Choose file...</label>
+                                <span asp-validation-for="Image" class="text-danger"></span>
+                            </div>
+                        </div>
+                        @if (Model.ImageSource != null)
+                        {
+                            <div class="form-group">
+                                <label class="text-danger">
+                                    <input asp-for="RemoveImage" /> Remove image
+                                </label>
+                                <span asp-validation-for="RemoveImage" class="text-danger"></span>
+                            </div>
+                        }
+                        <div class="pt-3">
+                            <input type="submit" value="Сохранить" class="btn ebs-submit" style="background:#6C63FF;color:white; width:100%;" />
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6 mb-3 text-center">
+                    <img src="~/img/@imagePath" width="50%" style="margin:0 auto !important" />
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
+            <div class="pt-3">
+                <a asp-action="Index">Back to dashboard</a>
             </div>
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ImageSource" class="control-label"></label>
-                <input asp-for="ImageSource" class="form-control" />
-                <span asp-validation-for="ImageSource" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+        </div>
+    </section>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $(".custom-file-input").on("change", function () {
+                var filename = $(this).val().split("\\").pop();
+                $(this).next(".custom-file-label").html(filename);
+            });
+            $("#RemoveImage").change(function () {
+                if (this.checked) { $("#Image").attr("disabled", "true"); }
+                else { $("#Image").removeAttr("disabled"); }
+            });
+        });
+
+        $(".ebs-submit").click(function () {
+            var entity = {
+                "Email": $("#Email").val(),
+                "FirstName" : $("#Email").val(),
+                "LastName" : $("#Email").val(),
+                "Address": $("#Email").val()
+            }
+        });
+    </script>
 }
