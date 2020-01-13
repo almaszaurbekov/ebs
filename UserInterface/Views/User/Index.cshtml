@@ -3,63 +3,92 @@
 @{
     ViewData["Title"] = "Index";
 }
-
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Password)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ImageSource)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageSource)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<style>
+    .ebs-menu{display:none}
+    .card{margin:0 auto;}
+    .ebs-left-menu {
+        background: #3C3A52;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        border-radius: 5px;
+        padding: 20px;
+    }
+    .ebs-left-menu a{
+        color:white;
+        font-size:20px;
+        padding-bottom:10px;
+        text-decoration:none;
+        transition:all ease .3s;
+    }
+    .ebs-left-menu a:hover{
+        color:#6C63FF;
+        text-decoration:none;
+        padding-left:10px;
+    }
+    .ebs-left-menu p {
+        border-color: #6C63FF !important;
+    }
+</style>
+<section style="padding-top:60px;">
+    <div class="container-fluid">
+        <hr />
+        <div class="row pt-3">
+            <div class="col-md-3">
+                <div class="ebs-left-menu mb-4">
+                    <p class="border-bottom"><a href="#"><i class="fa fa-user-circle mr-2"></i> My Account</a></p>
+                    <p class="border-bottom"><a href="#"><i class="fa fa-comments-o mr-2"></i> Messages</a></p>
+                    <p class="border-bottom"><a href="#"><i class="fa fa-book mr-2"></i> ELibrary</a></p>
+                    <p class="border-bottom"><a href="#"><i class="fa fa-calendar mr-2"></i> Transactions</a></p>
+                    <p class="border-bottom"><a href="#"><i class="fa fa-bookmark mr-3"></i> Favorites</a></p>
+                    <p><a asp-controller="User" asp-action="Logout"><i class="fa fa-sign-out mr-2"></i> Logout</a></p>
+                </div>
+                @if (ViewBag.Role == "admin")
+                {
+                    <div class="ebs-left-menu">
+                        <p class="border-bottom"><a href="#"><i class="fa fa-users mr-2"></i> Users</a></p>
+                        <p class="border-bottom"><a href="#"><i class="fa fa-book mr-2"></i> Books</a></p>
+                    </div>
+                }
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="card" style="width: 18rem;">
+                            <img src="~/img/index-1.svg" class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">Create your own ELibrary</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                            <div class="card-footer">
+                                <a href="#" class="btn btn-primary pull-right">View</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card" style="width: 18rem;">
+                            <img src="~/img/index-3.svg" class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">Looking for a book?</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                            <div class="card-footer">
+                                <a href="#" class="btn btn-primary pull-right">View</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card" style="width: 18rem;">
+                            <img src="~/img/index-1.svg" class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">Easy to track book</h5>
+                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            </div>
+                            <div class="card-footer">
+                                <a href="#" class="btn btn-primary pull-right">View</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

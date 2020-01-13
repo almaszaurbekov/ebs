@@ -161,3 +161,5 @@ C:\Users\Almas\source\repos\ebs\UserInterface\bin\Debug\netcoreapp3.1\Resources.
 C:\Users\Almas\source\repos\ebs\UserInterface\bin\Debug\netcoreapp3.1\Resources.pdb
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\User\Login.cshtml.g.cs
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\User\Signup.cshtml.g.cs
+C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\Home\Contacts.cshtml.g.cs
+C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\Home\About.cshtml.g.cs

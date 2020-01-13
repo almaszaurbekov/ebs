@@ -44,9 +44,12 @@ namespace UserInterface
 
             // Dependency Injection Configurations
             services.AddTransient<IUserBusinessService, UserBusinessService>();
+            services.AddTransient<IBookBusinessService, BookBusinessService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IBookService, BookService>();
             services.AddTransient<IRoleService, RoleService>();
+            services.AddTransient<IMessageService, MessageService>();
+            services.AddTransient<ICommentService, CommentService>();
 
             // Authentication Configurations
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

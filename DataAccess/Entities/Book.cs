@@ -14,5 +14,11 @@ namespace DataAccess.Entities
         public string ImageSource { get; set; }
         public int UserId { get; set; }
         public User User { get; set; }
+        public List<Comment> Comments { get; set; }
+
+        public Book()
+        {
+            Comments = new List<Comment>();
+        }
     }
 }

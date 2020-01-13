@@ -13,13 +13,15 @@ namespace DataAccess.Entities
         public string LastName { get; set; }
         public string ImageSource { get; set; }
         public string Address { get; set; }
-        public List<Book> ELibrary { get; set; }
+        public List<Book> Books { get; set; }
         public Guid? RoleId { get; set; }
         public Role Role { get; set; }
+        public List<Message> Messages { get; set; }
 
         public User()
         {
-            ELibrary = new List<Book>();
+            Books = new List<Book>();
+            Messages = new List<Message>();
         }
     }
 }

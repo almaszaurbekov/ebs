@@ -17,9 +17,18 @@
     </div>
     <header>
         <div class="ebs-navbar">
-            <span class="ebs-title">
-                ebs<span class="ebs-dot">.</span>
-            </span>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a class="ebs-title" asp-controller="User" asp-action="Index" style="text-decoration:none;text-transform:none;">
+                    ebs<span class="ebs-dot">.</span>
+                </a>
+            }
+            else
+            {
+                <a class="ebs-title" asp-controller="Home" asp-action="Index" style="text-decoration:none;text-transform:none;">
+                    ebs<span class="ebs-dot">.</span>
+                </a>
+            }
             <button class="ebs-menu">
                 <i class="fa fa-bars"></i>
             </button>
@@ -28,18 +37,18 @@
     <nav class="ebs-menu-body">
         @if (!User.Identity.IsAuthenticated)
         {
-            <p style="margin:0;padding:0;" class="ebs-menu-target"><a href="#">Home</a></p>
-            <p style="margin:0;padding:0;" class="ebs-menu-target"><a href="#">About</a></p>
-            <p style="margin:0;padding:0;" class="ebs-menu-target"><a href="#">Contacts</a></p>
-            <p style="margin:0;padding:0;" class="ebs-menu-target"><a href="#">Privacy</a></p>
-            <p style="margin:0;padding:0;" class="ebs-menu-target"><a href="#">Login</a> | <a href="#">Sign Up</a></p>
+            <p style="margin:0;padding:0;" class="ebs-menu-target"><a asp-controller="Home" asp-action="Index">Home</a></p>
+            <p style="margin:0;padding:0;" class="ebs-menu-target"><a asp-controller="Home" asp-action="About">About</a></p>
+            <p style="margin:0;padding:0;" class="ebs-menu-target"><a asp-controller="Home" asp-action="Contacts">Contacts</a></p>
+            <p style="margin:0;padding:0;" class="ebs-menu-target"><a asp-controller="Home" asp-action="Privacy">Privacy</a></p>
+            <p style="margin:0;padding:0;" class="ebs-menu-target"><a asp-controller="User" asp-action="Login">Login</a> | <a asp-controller="User" asp-action="Signup">Sign Up</a></p>
         }
         else
         {
             <p style="margin:0;padding:0;" class="ebs-menu-target"><a href="#">My account</a></p>
             <p style="margin:0;padding:0;" class="ebs-menu-target"><a href="#">My ELibrary</a></p>
             <p style="margin:0;padding:0;" class="ebs-menu-target"><a href="#">Add new book</a></p>
-            <p style="margin:0;padding:0;" class="ebs-menu-target"><a href="#">Logout</a></p>
+            <p style="margin:0;padding:0;" class="ebs-menu-target"><a asp-controller="User" asp-action="Logout">Logout</a></p>
         }
         <button class="ebs-menu-target ebs-menu-close">
             <i class="fa fa-arrow-circle-o-right"></i>
@@ -61,7 +70,8 @@
                     <span class="mr-3">&copy; 2020 </span>
                     <a class="mr-3" asp-controller="Home" asp-action="About">About us</a>
                     <a class="mr-3" asp-controller="Home" asp-action="Contacts">Our contacts</a>
-                    <a asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    <a class="mr-3" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    <a class="text-danger" asp-controller="User" asp-action="Logout">Logout</a>
                 </div>
             </div>
         </div>

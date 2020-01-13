@@ -75,6 +75,103 @@ namespace DataAccess.Migrations
                     b.ToTable("Books");
                 });
 
+            modelBuilder.Entity("DataAccess.Entities.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("DataAccess.Entities.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeletedBy")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserReceiverId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserSenderId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("DataAccess.Entities.Role", b =>
                 {
                     b.Property<Guid>("Id")
@@ -110,32 +207,32 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Role");
+                    b.ToTable("Roles");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("da9b144b-f631-47cf-a30a-23fe0f0a6672"),
+                            Id = new Guid("648d229f-e9b9-4ff9-b448-33a78cd5072c"),
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 1, 10, 8, 2, 54, 708, DateTimeKind.Utc).AddTicks(2621),
+                            CreatedDate = new DateTime(2020, 1, 13, 3, 26, 55, 855, DateTimeKind.Utc).AddTicks(65),
                             DeletedBy = "ebs",
-                            DeletedDate = new DateTime(2020, 1, 10, 8, 2, 54, 708, DateTimeKind.Utc).AddTicks(2642),
+                            DeletedDate = new DateTime(2020, 1, 13, 3, 26, 55, 855, DateTimeKind.Utc).AddTicks(81),
                             IsDeleted = false,
                             Name = "admin",
                             UpdatedBy = "ebs",
-                            UpdatedDate = new DateTime(2020, 1, 10, 8, 2, 54, 708, DateTimeKind.Utc).AddTicks(2641)
+                            UpdatedDate = new DateTime(2020, 1, 13, 3, 26, 55, 855, DateTimeKind.Utc).AddTicks(80)
                         },
                         new
                         {
-                            Id = new Guid("82fad6cd-3eec-45cc-9b59-e8020c2433f9"),
+                            Id = new Guid("91f94a7b-d96a-42df-b7af-086259d597bb"),
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 1, 10, 8, 2, 54, 708, DateTimeKind.Utc).AddTicks(5229),
+                            CreatedDate = new DateTime(2020, 1, 13, 3, 26, 55, 855, DateTimeKind.Utc).AddTicks(1325),
                             DeletedBy = "ebs",
-                            DeletedDate = new DateTime(2020, 1, 10, 8, 2, 54, 708, DateTimeKind.Utc).AddTicks(5237),
+                            DeletedDate = new DateTime(2020, 1, 13, 3, 26, 55, 855, DateTimeKind.Utc).AddTicks(1329),
                             IsDeleted = false,
                             Name = "user",
                             UpdatedBy = "ebs",
-                            UpdatedDate = new DateTime(2020, 1, 10, 8, 2, 54, 708, DateTimeKind.Utc).AddTicks(5235)
+                            UpdatedDate = new DateTime(2020, 1, 13, 3, 26, 55, 855, DateTimeKind.Utc).AddTicks(1328)
                         });
                 });
 
@@ -202,25 +299,41 @@ namespace DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 1, 10, 8, 2, 54, 708, DateTimeKind.Utc).AddTicks(7726),
+                            CreatedDate = new DateTime(2020, 1, 13, 3, 26, 55, 855, DateTimeKind.Utc).AddTicks(2924),
                             DeletedBy = "ebs",
-                            DeletedDate = new DateTime(2020, 1, 10, 8, 2, 54, 708, DateTimeKind.Utc).AddTicks(7733),
+                            DeletedDate = new DateTime(2020, 1, 13, 3, 26, 55, 855, DateTimeKind.Utc).AddTicks(2928),
                             Email = "foxxychmoxy@gmail.com",
                             IsDeleted = false,
                             Password = "d9edce5cc424444d5c03fb834de779e9924eb69d05ea3f7be7dd5041bb87864e18b1b75c4d7a9b4abd9d9c784dc482701bdb711256c1f93610a107a161ceb2c2",
-                            RoleId = new Guid("da9b144b-f631-47cf-a30a-23fe0f0a6672"),
+                            RoleId = new Guid("648d229f-e9b9-4ff9-b448-33a78cd5072c"),
                             UpdatedBy = "ebs",
-                            UpdatedDate = new DateTime(2020, 1, 10, 8, 2, 54, 708, DateTimeKind.Utc).AddTicks(7732)
+                            UpdatedDate = new DateTime(2020, 1, 13, 3, 26, 55, 855, DateTimeKind.Utc).AddTicks(2927)
                         });
                 });
 
             modelBuilder.Entity("DataAccess.Entities.Book", b =>
                 {
                     b.HasOne("DataAccess.Entities.User", "User")
-                        .WithMany("ELibrary")
+                        .WithMany("Books")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DataAccess.Entities.Comment", b =>
+                {
+                    b.HasOne("DataAccess.Entities.Book", null)
+                        .WithMany("Comments")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DataAccess.Entities.Message", b =>
+                {
+                    b.HasOne("DataAccess.Entities.User", null)
+                        .WithMany("Messages")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("DataAccess.Entities.User", b =>

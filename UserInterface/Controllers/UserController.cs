@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
 using BusinessLogic.Services.BusinessService;
+using UserInterface.ViewModels.Entities;
 
 namespace UserInterface.Controllers
 {
@@ -26,8 +27,9 @@ namespace UserInterface.Controllers
         // GET: User
         public async Task<IActionResult> Index()
         {
-            ViewBag.User = User.Identity.Name;
-            return View(await userBusinessService.GetUsers());
+            var user = await userBusinessService.GetUserByEmail(User.Identity.Name);
+            ViewBag.Role = user.Role.Name;
+            return View();
         }
 
         // GET: User/Details/5
@@ -180,6 +182,7 @@ namespace UserInterface.Controllers
         // POST: User/SignUp
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> SignUp(SignupViewModel model)
         {
             if (ModelState.IsValid)
@@ -196,7 +199,7 @@ namespace UserInterface.Controllers
 
                     await Authenticate(user);
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "User");
                 }
                 else
                     ModelState.AddModelError("", "Пользователь с таким email уже существует");
