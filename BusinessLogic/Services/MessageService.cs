@@ -11,12 +11,18 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Services
 {
-    public interface IMessageService : IService<Message> { }
+    public interface IMessageService : IService<Message>
+    {
+        //Task<List<Message>> GetMessagesByUsers(int senderId, int receiverId);
+    }
 
     public class MessageService : EntityService<Message>, IMessageService
     {
         public MessageService(EbsContext context) : base(context) { }
 
-
+        //public async Task<List<Message>> GetMessagesByUsers(int senderId, int receiverId)
+        //{
+        //    return await DbSet.Where(s => s.UserSenderId == senderId && s.UserReceiverId == receiverId).ToListAsync();
+        //}
     }
 }
