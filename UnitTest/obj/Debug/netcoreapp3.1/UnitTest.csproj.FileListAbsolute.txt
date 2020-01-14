@@ -228,3 +228,7 @@ C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\IronPython.dll
 C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\System.CodeDom.dll
 C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\Castle.Core.dll
 C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\Moq.dll
+C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\Microsoft.Azure.KeyVault.Core.dll
+C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\Microsoft.Rest.ClientRuntime.dll
+C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\Microsoft.Rest.ClientRuntime.Azure.dll
+C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\Microsoft.WindowsAzure.Storage.dll
