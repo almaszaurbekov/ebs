@@ -7,6 +7,7 @@ namespace DataAccess.Entities.Base
 {
     public abstract class AuditableEntity<T>
     {
+        [Key]
         public T Id { get; set; }
 
         /// <summary>
