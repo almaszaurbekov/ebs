@@ -16,5 +16,9 @@ def bookcity_search(book):
 def amazon_search(book):
     return jsonify(amazon_parse(book))
 
+@app.route('/ebs/isbn/<string:book>', methods=['GET'])
+def isbn_search(book):
+    return jsonify(isbn_parse(book))
+
 if __name__ == '__main__':
     app.run(debug=True)

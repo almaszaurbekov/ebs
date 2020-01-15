@@ -87,5 +87,7 @@ def amazon_parse(word):
             pass
     return result
 
+def isbn_parse(book):
+    pass
+
 proxies = proxy_init()
-print(amazon_parse('python'))
