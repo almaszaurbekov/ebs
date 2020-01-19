@@ -180,3 +180,4 @@ C:\Users\Almas\source\repos\ebs\UserInterface\bin\Debug\netcoreapp3.1\Microsoft.
 C:\Users\Almas\source\repos\ebs\UserInterface\bin\Debug\netcoreapp3.1\Microsoft.WindowsAzure.Storage.dll
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\Home\Help.cshtml.g.cs
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\UserInterface.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\Book\ByUser.cshtml.g.cs

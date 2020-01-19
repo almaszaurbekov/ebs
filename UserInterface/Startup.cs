@@ -51,6 +51,7 @@ namespace UserInterface
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IMessageService, MessageService>();
             services.AddTransient<ICommentService, CommentService>();
+            services.AddTransient<IBcBookService, BcBookService>();
 
             // Authentication Configurations
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

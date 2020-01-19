@@ -5,7 +5,9 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
+using BusinessLogic.Services;
 using BusinessLogic.Services.BusinessService;
+using DataAccess.Entities;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Hosting;
@@ -15,22 +17,33 @@ using UserInterface.ViewModels.Entities;
 
 namespace UserInterface.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/ebs")]
     [ApiController]
     public class EbsApiController : ControllerBase
     {
         private readonly IUserBusinessService userBusinessService;
+        private readonly IBookBusinessService bookBusinessService;
+        private readonly IBcBookService bookcityService;
         private readonly IMapper mapper;
         private readonly IWebHostEnvironment hostEnvironment;
         private string folder;
 
         public EbsApiController(IUserBusinessService userBusinessService, IMapper mapper,
-            IWebHostEnvironment hostEnvironment)
+            IWebHostEnvironment hostEnvironment, IBookBusinessService bookBusinessService,
+            IBcBookService bookcityService)
         {
             this.userBusinessService = userBusinessService;
+            this.bookBusinessService = bookBusinessService;
+            this.bookcityService = bookcityService;
             this.mapper = mapper;
             this.hostEnvironment = hostEnvironment;
             this.folder = Path.Combine(hostEnvironment.WebRootPath, "files");
+        }
+
+        [HttpGet("test")]
+        public string Test()
+        {
+            return "200 OK";
         }
 
         // GET: api/EbsApi
@@ -71,6 +84,13 @@ namespace UserInterface.Controllers
             {
                 return 0;
             }
+        }
+
+        [HttpGet("books/byvalue")]
+        public async Task<List<BcBook>> BooksByValue(string value)
+        {
+            var books = await bookcityService.GetBooksByValue(value);
+            return books.Take(20).ToList();
         }
 
         private void ReplaceValue(object newValue, object oldValue)

@@ -46,10 +46,10 @@ namespace UserInterface.Controllers
         {
             try
             {
-                MailAddress from = new MailAddress("kz.ebooksharing@gmail.com", "Almas Zaurbekov");
+                MailAddress from = new MailAddress("kz.ebooksharing@gmail.com", "kz.ebooksharing@gmail.com");
                 MailAddress to = new MailAddress(email);
                 MailMessage m = new MailMessage(from, to);
-                m.Subject = "EBS - Weekly news";
+                m.Subject = "EBookSharing - Weekly news";
                 m.Body = "<h2>Спасибо большое за подписку!</h2>";
                 m.IsBodyHtml = true;
                 SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);

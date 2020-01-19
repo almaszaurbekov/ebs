@@ -1,54 +1,97 @@
-﻿@model DataAccess.Entities.Book
+﻿@model UserInterface.ViewModels.Entities.BookViewModel
 
 @{
     ViewData["Title"] = "Create";
 }
-
-<h1>Create</h1>
-
-<h4>Book</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+<style>
+    #book-list{
+        width:100%;
+        height:500px;
+        background: rgba(0,0,0,.1);
+        border-radius:5px;
+        overflow:hidden;
+        overflow-y:scroll;
+        padding:10px;
+    }
+</style>
+<section style="padding-top:50px;">
+    <div class="container pt-5">
+        <a asp-controller="User" asp-action="Index">Come back to Dashboard</a>
+        <div class="row pt-3">
+            <div class="col-md-7">
+                <input type="hidden" asp-for="UserId" class="form-control" value="@ViewBag.UserId" />
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Bookcity</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">ISBN</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Amazon</a>
+                    </li>
+                </ul>
+                <div class="tab-content pt-3" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="form-group">
+                            <label class="control-label">Title | Author</label>
+                            <input id="book" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <input id="book-search" type="button" value="Search" class="btn btn-primary" />
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
+            <div class="col-md-5">
+                <div class="container-fluid" id="book-list"></div>
             </div>
-            <div class="form-group">
-                <label asp-for="Author" class="control-label"></label>
-                <input asp-for="Author" class="form-control" />
-                <span asp-validation-for="Author" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Rate" class="control-label"></label>
-                <input asp-for="Rate" class="form-control" />
-                <span asp-validation-for="Rate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ImageSource" class="control-label"></label>
-                <input asp-for="ImageSource" class="form-control" />
-                <span asp-validation-for="ImageSource" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
+</section>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#book-search").click(function () {
+                var value = $("#book").val();
+                if (value.trim() != "") {
+                    $.ajax({
+                        method: "GET",
+                        url: "/api/ebs/books/byvalue",
+                        data: {
+                            value: value.trim()
+                        },
+                        headers: {
+                            RequestVerificationToken:
+                                $('input:hidden[name="__RequestVerificationToken"]').val()
+                        },
+                        beforeSend: function () {
+                            $("#book-list").empty();
+                            toastr.info("Your book is searching, please wait", "Got it!");
+                            //$('#loader').show();
+                        }
+                    })
+                    .done(function (result) {
+                        //$('#loader').hide();
+                        if (result) {
+                            toastr.success("A lot of books", "Yeah, we have it!");
+                            for (let val of result) {
+                                console.log(val);
+                                $("#book-list").append(`<div class="row bg-light mb-2 pl-2 pt-2 pr-2 pb-2">
+                                                            <div class="col-md-3"><img src="/img/no-user.png" width="100%"></div>
+                                                            <div class="col-md-9"><p class="border-bottom">${val.title}</p><p>${val.author}</p></div>
+                                                        </div>`);
+                            }
+                        } else {
+                            toastr.error("There is no one book what you are looking for", "Oops...");
+                        }
+                    });
+                    //toastr.info($(this).val(), "Value");
+                    //"https://localhost:44378/api/ebs/books/byvalue?value={}"
+                }
+            });
+        });
+    </script>
+}

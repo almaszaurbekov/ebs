@@ -11,19 +11,23 @@ using BusinessLogic.Services.BusinessService;
 using Microsoft.AspNetCore.Hosting;
 using AutoMapper;
 using UserInterface.ViewModels.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace UserInterface.Controllers
 {
+    [Authorize]
     public class BookController : Controller
     {
+        private readonly IUserBusinessService userBusinessService;
         private readonly IBookBusinessService bookBusinessService;
         private readonly IWebHostEnvironment hostEnvironment;
         private readonly IMapper mapper;
 
         public BookController(IBookBusinessService bookBusinessService, IMapper mapper,
-            IWebHostEnvironment hostEnvironment)
+            IWebHostEnvironment hostEnvironment, IUserBusinessService userBusinessService)
         {
             this.bookBusinessService = bookBusinessService;
+            this.userBusinessService = userBusinessService;
             this.hostEnvironment = hostEnvironment;
             this.mapper = mapper;
         }
@@ -50,15 +54,31 @@ namespace UserInterface.Controllers
             return View(booksVM);
         }
 
-        [HttpGet]
-        public IActionResult Create(int? id)
+        // GET: Books/ByUser/5
+        public async Task<IActionResult> ByUser(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            return View();
+            var books = await bookBusinessService.GetBooksByUserId(id);
+            var booksVM = mapper.Map<List<Book>, List<BookViewModel>>(books);
+
+            return View(booksVM);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            var user = await userBusinessService.GetUserByEmail(User.Identity.Name);
+            if(user == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.UserId = user.Id;
+            return View(new BookViewModel());
         }
 
         //// POST: Books/Create
