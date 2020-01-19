@@ -157,6 +157,7 @@ section {
 #ebs-home-messages {
     background-image: url("../img/index-bg-2.png");
     background-size: cover;
+    background-position: 100% 100%;
 }
 #ebs-home-services {
     background-image: url("../img/index-bg-3.png");
