@@ -1,47 +1,7 @@
-import requests
-from random import choice
+from base_functions import *
 from bs4 import BeautifulSoup
+import requests
 import os
-
-def proxy_init():
-    proxies = []
-    proxy_file = open("proxies.content.txt", "r")
-    soup = BeautifulSoup(proxy_file.read(), 'html.parser')
-    tr = soup.findAll('td', attrs={'class': 'tdl'})
-    for td in tr:
-        proxies.append(td.text)
-    proxy_file.close()
-    return proxies
-
-def get_proxy():
-    return {"http//": choice(proxies)}
-
-def get_user_agent():
-    return {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.117 Safari/537.36"}
-
-def bookcity_parse(word):
-    url = "https://www.bookcity.kz/search/?SORTBY=RELEVANSE&q={}".format(word)
-    main_url = "https://www.bookcity.kz/{}"
-
-    page = requests.get(url, headers=get_user_agent(), proxies=get_proxy())
-    soup = BeautifulSoup(page.content, 'html.parser')
-
-    links = soup.findAll('a', attrs={'class': 'product-card__link'})
-    titles = soup.findAll('div', attrs={'class': 'product-card-title'})
-    authors = soup.findAll('div', attrs={'class': 'product-card-author'})
-    images = soup.findAll('img', attrs={'class':'js-lazy'})
-
-    result = []
-    for i in range(len(links)):
-        result.append(
-            {
-                'href'   : main_url.format(links[i]['href']),
-                'title'  : titles[i].text,
-                'author' : authors[i].text,
-                'image'  : images[i]['data-src']
-            }
-        )
-    return result
 
 def amazon_parse(word):
     url = 'https://www.amazon.com/s?k={}&i=stripbooks-intl-ship&ref=nb_sb_noss_2'.format(word)
@@ -86,8 +46,3 @@ def amazon_parse(word):
         except:
             pass
     return result
-
-def isbn_parse(book):
-    pass
-
-proxies = proxy_init()

@@ -1,6 +1,8 @@
 #!flask/bin/python
 from flask import Flask, jsonify
-from functions import *
+from bc import *
+from amz import *
+from isbn import *
 
 app = Flask(__name__)
 
