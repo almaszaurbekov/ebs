@@ -4,14 +4,16 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(EbsContext))]
-    partial class EbsContextModelSnapshot : ModelSnapshot
+    [Migration("20200121053534_ModifiedBookEntity")]
+    partial class ModifiedBookEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -203,9 +205,6 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("DeletedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("HasRead")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -222,14 +221,8 @@ namespace DataAccess.Migrations
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserReceiverEmail")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("UserReceiverId")
                         .HasColumnType("int");
-
-                    b.Property<string>("UserSenderEmail")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserSenderId")
                         .HasColumnType("int");
@@ -281,27 +274,27 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("11ea3380-fac4-4fb6-91f8-301ffdd304d9"),
+                            Id = new Guid("58c1a956-025e-470b-a21d-7aba51f35714"),
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 1, 21, 6, 52, 0, 27, DateTimeKind.Utc).AddTicks(2569),
+                            CreatedDate = new DateTime(2020, 1, 21, 5, 35, 30, 309, DateTimeKind.Utc).AddTicks(6135),
                             DeletedBy = "ebs",
-                            DeletedDate = new DateTime(2020, 1, 21, 6, 52, 0, 27, DateTimeKind.Utc).AddTicks(2591),
+                            DeletedDate = new DateTime(2020, 1, 21, 5, 35, 30, 309, DateTimeKind.Utc).AddTicks(6154),
                             IsDeleted = false,
                             Name = "admin",
                             UpdatedBy = "ebs",
-                            UpdatedDate = new DateTime(2020, 1, 21, 6, 52, 0, 27, DateTimeKind.Utc).AddTicks(2590)
+                            UpdatedDate = new DateTime(2020, 1, 21, 5, 35, 30, 309, DateTimeKind.Utc).AddTicks(6153)
                         },
                         new
                         {
-                            Id = new Guid("13bd16d4-8541-4360-890a-c13764ae7821"),
+                            Id = new Guid("c71fd177-bb25-4b9c-8cdb-aa73fdddbd51"),
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 1, 21, 6, 52, 0, 27, DateTimeKind.Utc).AddTicks(4861),
+                            CreatedDate = new DateTime(2020, 1, 21, 5, 35, 30, 309, DateTimeKind.Utc).AddTicks(8148),
                             DeletedBy = "ebs",
-                            DeletedDate = new DateTime(2020, 1, 21, 6, 52, 0, 27, DateTimeKind.Utc).AddTicks(4871),
+                            DeletedDate = new DateTime(2020, 1, 21, 5, 35, 30, 309, DateTimeKind.Utc).AddTicks(8155),
                             IsDeleted = false,
                             Name = "user",
                             UpdatedBy = "ebs",
-                            UpdatedDate = new DateTime(2020, 1, 21, 6, 52, 0, 27, DateTimeKind.Utc).AddTicks(4869)
+                            UpdatedDate = new DateTime(2020, 1, 21, 5, 35, 30, 309, DateTimeKind.Utc).AddTicks(8154)
                         });
                 });
 
@@ -368,15 +361,15 @@ namespace DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 1, 21, 6, 52, 0, 27, DateTimeKind.Utc).AddTicks(8079),
+                            CreatedDate = new DateTime(2020, 1, 21, 5, 35, 30, 310, DateTimeKind.Utc).AddTicks(872),
                             DeletedBy = "ebs",
-                            DeletedDate = new DateTime(2020, 1, 21, 6, 52, 0, 27, DateTimeKind.Utc).AddTicks(8089),
+                            DeletedDate = new DateTime(2020, 1, 21, 5, 35, 30, 310, DateTimeKind.Utc).AddTicks(878),
                             Email = "foxxychmoxy@gmail.com",
                             IsDeleted = false,
                             Password = "d9edce5cc424444d5c03fb834de779e9924eb69d05ea3f7be7dd5041bb87864e18b1b75c4d7a9b4abd9d9c784dc482701bdb711256c1f93610a107a161ceb2c2",
-                            RoleId = new Guid("11ea3380-fac4-4fb6-91f8-301ffdd304d9"),
+                            RoleId = new Guid("58c1a956-025e-470b-a21d-7aba51f35714"),
                             UpdatedBy = "ebs",
-                            UpdatedDate = new DateTime(2020, 1, 21, 6, 52, 0, 27, DateTimeKind.Utc).AddTicks(8087)
+                            UpdatedDate = new DateTime(2020, 1, 21, 5, 35, 30, 310, DateTimeKind.Utc).AddTicks(877)
                         });
                 });
 

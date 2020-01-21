@@ -7,7 +7,8 @@ def isbn_parse(isbn):
         url = "https://www.triumph.ru/html/serv/find-isbn.php?isbn={}".format(isbn)
         page = requests.get(url, headers=get_user_agent(), proxies=get_proxy())
         soup = BeautifulSoup(page.content, 'html.parser')
-        print(soup)
+        return { "result": soup }
+    return { "result":None }
 
 def check_ean13(value):
     kof = [1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1, 3, 1]

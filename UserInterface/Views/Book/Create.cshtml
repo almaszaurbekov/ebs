@@ -4,14 +4,21 @@
     ViewData["Title"] = "Create";
 }
 <style>
-    #book-list{
-        width:100%;
-        height:500px;
-        background: rgba(0,0,0,.1);
-        border-radius:5px;
-        overflow:hidden;
-        overflow-y:scroll;
-        padding:10px;
+    #book-container {
+        width: 100%;
+        height: 550px;
+        background: #F1F2F3;
+        border-radius: 5px;
+        overflow: hidden;
+        overflow-y: scroll;
+        padding: 10px;
+        margin-bottom:50px;
+    }
+    .wait-pre-con{
+        width: 100%;
+        height:200px;
+        background: url('/img/loader.gif') center no-repeat #F1F2F3;
+        display:none;
     }
 </style>
 <section style="padding-top:50px;">
@@ -22,31 +29,65 @@
                 <input type="hidden" asp-for="UserId" class="form-control" value="@ViewBag.UserId" />
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Bookcity</a>
+                        <a class="nav-link active" id="autofill-tab" data-toggle="tab" href="#autofill" role="tab" aria-controls="autofill" aria-selected="true">Autofill</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">ISBN</a>
+                        <a class="nav-link" id="bookcity-tab" data-toggle="tab" href="#bookcity" role="tab" aria-controls="bookcity" aria-selected="false">Bookcity</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Amazon</a>
+                        <a class="nav-link" id="manually-tab" data-toggle="tab" href="#manually" role="tab" aria-controls="manually" aria-selected="false">Manually</a>
                     </li>
                 </ul>
                 <div class="tab-content pt-3" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    
+                    <div class="tab-pane fade show active" id="autofill" role="tabpanel" aria-labelledby="autofill-tab">
                         <div class="form-group">
-                            <label class="control-label">Title | Author</label>
-                            <input id="book" class="form-control" />
+                            <label class="control-label">Choose a book from our database, just enter a title or author</label>
+                            <input id="book-auto" class="form-control" />
                         </div>
                         <div class="form-group">
-                            <input id="book-search" type="button" value="Search" class="btn btn-primary" />
+                            <input id="book-search-auto" type="button" value="Search" class="btn btn-primary" />
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+
+                    <div class="tab-pane fade" id="bookcity" role="tabpanel" aria-labelledby="bookcity-tab">
+                        <div class="form-group">
+                            <label class="control-label">Choose a book from the Bookcity database</label>
+                            <input id="book-bc" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <input id="book-search-bc" type="button" value="Search" class="btn btn-primary" />
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="manually" role="tabpanel" aria-labelledby="manually-tab">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input class="form-control" type="text" name="book-title-man" placeholder="Enter book's title" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Author</label>
+                            <input class="form-control" type="text" name="book-author-man" placeholder="Enter book's author" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea class="form-control" name="book-desc-man" rows="5"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Rate</label>
+                            <input class="form-control" type="number" name="book-rate-man" min="0" max="5" value="0" required />
+                        </div>
+                        <div class="form-group pt-3 pb-5">
+                            <button class="btn btn-success btn-block">Submit</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-5">
-                <div class="container-fluid" id="book-list"></div>
+                <div class="container-fluid" id="book-container">
+                    <div class="wait-pre-con"></div>
+                    <div class="container" id="book-list"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -54,8 +95,8 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
-            $("#book-search").click(function () {
-                var value = $("#book").val();
+            $("#book-search-auto").click(function () {
+                var value = $("#book-auto").val();
                 if (value.trim() != "") {
                     $.ajax({
                         method: "GET",
@@ -69,27 +110,58 @@
                         },
                         beforeSend: function () {
                             $("#book-list").empty();
+                            $('.wait-pre-con').show();
                             toastr.info("Your book is searching, please wait", "Got it!");
-                            //$('#loader').show();
                         }
                     })
                     .done(function (result) {
-                        //$('#loader').hide();
-                        if (result) {
+                        $('.wait-pre-con').hide();
+                        if (result.length > 0) {
                             toastr.success("A lot of books", "Yeah, we have it!");
                             for (let val of result) {
-                                console.log(val);
                                 $("#book-list").append(`<div class="row bg-light mb-2 pl-2 pt-2 pr-2 pb-2">
-                                                            <div class="col-md-3"><img src="/img/no-user.png" width="100%"></div>
-                                                            <div class="col-md-9"><p class="border-bottom">${val.title}</p><p>${val.author}</p></div>
+                                                            <div class="col-md-4"><img src="/img/no-book.png" width="100%"></div>
+                                                            <div class="col-md-8"><p class="border-bottom"><b>${val.title}</b></p><a href="#${val.id}" class="btn btn-primary pull-right">Выбрать</a><p>${val.author}</p></div>
                                                         </div>`);
                             }
                         } else {
                             toastr.error("There is no one book what you are looking for", "Oops...");
                         }
                     });
-                    //toastr.info($(this).val(), "Value");
-                    //"https://localhost:44378/api/ebs/books/byvalue?value={}"
+                }
+            });
+
+            $("#book-search-bc").click(function () {
+                var value = $("#book-bc").val();
+                if (value.trim() != "") {
+                    var url = `http://127.0.0.1:5000/ebs/bookcity/${value.trim()}`
+                    $.ajax({
+                        method: "GET",
+                        url: url,
+                        headers: {
+                            RequestVerificationToken:
+                                $('input:hidden[name="__RequestVerificationToken"]').val()
+                        },
+                        beforeSend: function () {
+                            $("#book-list").empty();
+                            $('.wait-pre-con').show();
+                            toastr.info("Your book is searching, please wait", "Got it!");
+                        }
+                    })
+                    .done(function (result) {
+                        $('.wait-pre-con').hide();
+                        if (result.length > 0) {
+                            toastr.success("A lot of books", "Yeah, we have it!");
+                            for (let val of result) {
+                                $("#book-list").append(`<div class="row bg-light mb-2 pl-2 pt-2 pr-2 pb-2">
+                                                            <div class="col-md-4"><img src="${val.image}" width="100%"></div>
+                                                            <div class="col-md-8"><p class="border-bottom"><b>${val.title}</b></p><a href="#${val.href}" class="btn btn-primary pull-right">Выбрать</a><p>${val.author}</p></div>
+                                                        </div>`);
+                            }
+                        } else {
+                            toastr.error("There is no one book what you are looking for", "Oops...");
+                        }
+                    });
                 }
             });
         });

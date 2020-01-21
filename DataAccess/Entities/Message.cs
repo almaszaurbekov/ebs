@@ -11,5 +11,8 @@ namespace DataAccess.Entities
         public string Text { get; set; }
         public int UserSenderId { get; set; }
         public int UserReceiverId { get; set; }
+        public string UserSenderEmail { get; set; }
+        public string UserReceiverEmail { get; set; }
+        public bool HasRead { get; set; }
     }
 }
