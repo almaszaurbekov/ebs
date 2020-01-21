@@ -19,6 +19,7 @@ namespace DataAccess
         public DbSet<Message> Messages { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<BcBook> BcBooks { get; set; }
+        public DbSet<DialogControl> DialogControls { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

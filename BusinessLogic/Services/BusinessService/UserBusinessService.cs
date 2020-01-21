@@ -17,7 +17,6 @@ namespace BusinessLogic.Services.BusinessService
         Task<User> CreateUser(User entity);
         Task<int> UpdateUser(User entity);
         Task<int> DeleteUser(User entity);
-        //Task<List<Message>> GetUsersAllMessages(User sender, User receiver);
         Task<Role> GetRoleById(Guid? id);
         Task<Role> GetRoleByName(string name);
         Task<List<Role>> GetRoles();
@@ -27,15 +26,13 @@ namespace BusinessLogic.Services.BusinessService
     {
         private readonly IUserService userService;
         private readonly IRoleService roleService;
-        private readonly IMessageService messageService;
         private readonly IMemoryCache cache;
 
         public UserBusinessService(IUserService userService, IMemoryCache cache,
-            IRoleService roleService, IMessageService messageService)
+            IRoleService roleService)
         {
             this.userService = userService;
             this.roleService = roleService;
-            this.messageService = messageService;
             this.cache = cache;
         }
 

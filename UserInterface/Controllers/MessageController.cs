@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using BusinessLogic.Services;
+using AutoMapper;
 using BusinessLogic.Services.BusinessService;
+using DataAccess.Entities;
 using Microsoft.AspNetCore.Mvc;
 using UserInterface.ViewModels;
 
@@ -12,19 +11,21 @@ namespace UserInterface.Controllers
     public class MessageController : Controller
     {
         private readonly IUserBusinessService userBusinessService;
-        private readonly IMessageService messageService;
-
+        private readonly IMessageBusinessService messageBusinessService;
+        private readonly IMapper mapper;
         public MessageController(IUserBusinessService userBusinessService,
-            IMessageService messageService)
+            IMessageBusinessService messageBusinessService, IMapper mapper)
         {
             this.userBusinessService = userBusinessService;
-            this.messageService = messageService;
+            this.messageBusinessService = messageBusinessService;
+            this.mapper = mapper;
         }
 
         public async Task<IActionResult> Index()
         {
-            var messages = await messageService.GetMessagesByUserEmail(User.Identity.Name);
-            return View(messages);
+            var dialogs = await messageBusinessService.GetDialogs(User.Identity.Name);
+            var dialogsVM = mapper.Map<List<DialogControl>, List<DialogViewModel>>(dialogs);
+            return View(dialogsVM);
         }
 
         public async Task<IActionResult> Dialog(int? id)

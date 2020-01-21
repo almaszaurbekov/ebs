@@ -1,7 +1,28 @@
 ﻿@model List<UserInterface.ViewModels.DialogViewModel>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Messages";
 }
 
-<h1>Index</h1>
-
+<section style="padding-top:60px;">
+    <div class="container pt-5">
+        <a asp-controller="User" asp-action="Index">Back to dashboard</a>
+        <h1 class="border-bottom">Messages</h1>
+        <div class="row">
+            @foreach (var message in Model)
+            {
+                var email = message.UserReceiverEmail == User.Identity.Name ? message.UserSenderEmail : message.UserReceiverEmail;
+                <div class="col-md-12">
+                    <h3>@email</h3>
+                    <p>@message.LastMessage</p>
+                    <p class="text-secondary">@message.LastMessageDate</p>
+                </div>
+            }
+            @if (Model.Count < 1)
+            {
+                <div class="col-md-12 text-center pt-5">
+                    <h1>Empty dialogs</h1>
+                </div>
+            }
+        </div>
+    </div>
+</section>

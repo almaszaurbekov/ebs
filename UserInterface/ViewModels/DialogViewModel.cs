@@ -8,7 +8,8 @@ namespace UserInterface.ViewModels
     public class DialogViewModel
     {
         public int Id { get; set; }
-        public string Text { get; set; }
+        public string LastMessage { get; set; }
+        public DateTime LastMessageDate { get; set; }
         public string UserSenderEmail { get; set; }
         public string UserReceiverEmail { get; set; }
     }

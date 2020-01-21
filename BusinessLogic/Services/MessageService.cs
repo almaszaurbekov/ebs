@@ -13,22 +13,17 @@ namespace BusinessLogic.Services
 {
     public interface IMessageService : IService<Message>
     {
-        Task<List<Message>> GetMessagesByUserId(int userId);
-        Task<List<Message>> GetMessagesByUserEmail(string email);
+        Task<List<int>> GetDialogIds(string email);
     }
 
     public class MessageService : EntityService<Message>, IMessageService
     {
         public MessageService(EbsContext context) : base(context) { }
 
-        public async Task<List<Message>> GetMessagesByUserId(int userId)
+        public async Task<List<int>> GetDialogIds(string email)
         {
-            return await DbSet.Where(s => s.UserSenderId == userId || s.UserReceiverId == userId).OrderBy(m => m.CreatedDate).ToListAsync();
-        }
-
-        public async Task<List<Message>> GetMessagesByUserEmail(string email)
-        {
-            return await DbSet.Where(s => s.UserSenderEmail == email || s.UserReceiverEmail == email).OrderBy(m => m.CreatedDate).ToListAsync();
+            return await DbSet.Where(s => s.UserReceiverEmail == email || s.UserSenderEmail == email)
+                .Select(m => m.DialogControlId).ToListAsync();
         }
     }
 }
