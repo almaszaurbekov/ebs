@@ -16,12 +16,12 @@ namespace DataAccess.Entities
         public List<Book> Books { get; set; }
         public Guid RoleId { get; set; }
         public Role Role { get; set; }
-        public List<Message> Messages { get; set; }
+        public List<DialogControl> Dialogs { get; set; }
 
         public User()
         {
             Books = new List<Book>();
-            Messages = new List<Message>();
+            Dialogs = new List<DialogControl>();
         }
     }
 }

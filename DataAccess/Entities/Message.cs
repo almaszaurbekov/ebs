@@ -14,5 +14,6 @@ namespace DataAccess.Entities
         public string UserSenderEmail { get; set; }
         public string UserReceiverEmail { get; set; }
         public bool HasRead { get; set; }
+        public int DialogControlId { get; set; }
     }
 }

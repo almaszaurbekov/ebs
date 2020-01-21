@@ -2,23 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BusinessLogic.Services;
 using BusinessLogic.Services.BusinessService;
 using Microsoft.AspNetCore.Mvc;
+using UserInterface.ViewModels;
 
 namespace UserInterface.Controllers
 {
     public class MessageController : Controller
     {
         private readonly IUserBusinessService userBusinessService;
+        private readonly IMessageService messageService;
 
-        public MessageController(IUserBusinessService userBusinessService)
+        public MessageController(IUserBusinessService userBusinessService,
+            IMessageService messageService)
         {
             this.userBusinessService = userBusinessService;
+            this.messageService = messageService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var messages = await messageService.GetMessagesByUserEmail(User.Identity.Name);
+            return View(messages);
         }
 
         public async Task<IActionResult> Dialog(int? id)

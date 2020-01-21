@@ -16,7 +16,6 @@ using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using System;
-using BusinessLogic;
 
 namespace UserInterface.Controllers
 {
@@ -35,7 +34,7 @@ namespace UserInterface.Controllers
             this.mapper = mapper;
         }
 
-        // GET: User
+        // Главная страница приложения
         public async Task<IActionResult> Index()
         {
             var user = await userBusinessService.GetUserByEmail(User.Identity.Name);
@@ -44,7 +43,7 @@ namespace UserInterface.Controllers
             return View();
         }
 
-        // GET: User/Details/5
+        // Профиль пользователя
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -63,15 +62,15 @@ namespace UserInterface.Controllers
             return View(userVM);
         }
 
-        // GET: User/Create
+        // Создать пользователя
+        [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: User/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create([Bind("Email,Password,FirstName,LastName,ImageSource,Address,Id")] User user)
         {
             if (ModelState.IsValid)
@@ -82,7 +81,7 @@ namespace UserInterface.Controllers
             return View(user);
         }
 
-        // GET: User/Edit/5
+        // Изменить данные пользователя
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -100,7 +99,6 @@ namespace UserInterface.Controllers
             return View(userVM);
         }
 
-        // POST: User/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, UserViewModel model)
@@ -154,7 +152,7 @@ namespace UserInterface.Controllers
             return View(model);
         }
 
-        // GET: User/Delete/5
+        // Удалить профиль
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -171,7 +169,6 @@ namespace UserInterface.Controllers
             return View(user);
         }
 
-        // POST: User/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -181,7 +178,7 @@ namespace UserInterface.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: User/Login
+        // Аутентификация пользователя
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Login()
@@ -189,7 +186,6 @@ namespace UserInterface.Controllers
             return View();
         }
 
-        // POST: User/Login
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -209,7 +205,7 @@ namespace UserInterface.Controllers
             return View(model);
         }
 
-        // GET: User/SignUp
+        // Регистрация пользователя
         [HttpGet]
         [AllowAnonymous]
         public IActionResult SignUp()
@@ -217,7 +213,6 @@ namespace UserInterface.Controllers
             return View();
         }
 
-        // POST: User/SignUp
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
@@ -245,7 +240,7 @@ namespace UserInterface.Controllers
             return View(model);
         }
 
-        // GET: User/Logout
+        // Выйти из профиля
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -282,10 +277,7 @@ namespace UserInterface.Controllers
             fileName = Guid.NewGuid().ToString() + "_" + imgfileName;
             string filepath = Path.Combine(folder, fileName);
             image.CopyTo(new FileStream(filepath, FileMode.Create));
-            string mimeType = image.ContentType;
-            byte[] fileData = new byte[image.Length];
-            BlobStorageService objBlobService = new BlobStorageService();
-            return objBlobService.UploadFileToBlob(fileName, fileData, mimeType);
+            return fileName;
         }
     }
 }
