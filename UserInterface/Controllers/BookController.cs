@@ -32,7 +32,7 @@ namespace UserInterface.Controllers
             this.mapper = mapper;
         }
 
-        // GET: Books
+        // Поисковик
         public async Task<IActionResult> Index(string search)
         {
             ViewBag.Search = search;
@@ -54,7 +54,7 @@ namespace UserInterface.Controllers
             return View(booksVM);
         }
 
-        // GET: Books/ByUser/5
+        // ELibrary
         public async Task<IActionResult> ByUser(int? id)
         {
             if (id == null)
@@ -63,7 +63,7 @@ namespace UserInterface.Controllers
             }
 
             var books = await bookBusinessService.GetBooksByUserId(id);
-            var booksVM = mapper.Map<List<Book>, List<BookViewModel>>(books);
+            var booksVM = mapper.Map<List<Book>, List<BookViewModel>>(books.OrderBy(s => s.CreatedDate).ToList());
 
             return View(booksVM);
         }

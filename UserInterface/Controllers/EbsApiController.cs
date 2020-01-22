@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using BusinessLogic.Services;
@@ -13,6 +15,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Nancy.Json;
+using Newtonsoft.Json;
 using UserInterface.ViewModels.Entities;
 
 namespace UserInterface.Controllers
@@ -60,7 +64,7 @@ namespace UserInterface.Controllers
 
                 if (model.Image != null)
                     entity.ImageSource = CreateFile(model.Image.FileName, model.Image);
-                
+
                 if (model.RemoveImage)
                     entity.ImageSource = null;
 
@@ -92,13 +96,41 @@ namespace UserInterface.Controllers
             return books.Take(50).ToList();
         }
 
-        [HttpGet("books/add")]
-        public async Task<int> AddBook(int id)
+        [HttpGet("books/auto/add")]
+        public async Task<int> AddAutoBook(int id)
         {
             var user = await userBusinessService.GetUserByEmail(User.Identity.Name);
             var bcbook = await bookcityService.Find(s => s.Id == id);
             var book = mapper.Map<BcBook, Book>(bcbook);
             book.Id = 0;
+            book.UserId = user.Id;
+            return await bookBusinessService.AddBook(book);
+        }
+
+        [HttpGet("books/bc/add")]
+        public async Task<int> AddBcBook(string href)
+        {
+            var path = "http://127.0.0.1:5000/ebs/bookcity/details/" + href;
+            var user = await userBusinessService.GetUserByEmail(User.Identity.Name);
+            var client = new HttpClient();
+            var response = await client.GetAsync(path);
+            var result = response.Content.ReadAsStringAsync().Result;
+            var book = JsonConvert.DeserializeObject<Book>(result);
+            book.UserId = user.Id;
+            return await bookBusinessService.AddBook(book);
+        }
+
+        [HttpGet("books/manual/add")]
+        public async Task<int> AddManualBook(string title, string author, string desc, int rate)
+        {
+            var user = await userBusinessService.GetUserByEmail(User.Identity.Name);
+            var book = new Book()
+            {
+                Title = title,
+                Author = author,
+                Description = desc,
+                Rate = rate
+            };
             book.UserId = user.Id;
             return await bookBusinessService.AddBook(book);
         }

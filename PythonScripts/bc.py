@@ -44,10 +44,10 @@ def bookcity_parse_details(url):
     })
 
     return {
-        'title': bc_title(soup),
-        'image': bc_image(soup),
-        'desc': bc_desc(soup),
-        'author': bc_author(soup)
+        'Title': bc_title(soup),
+        'ImageSource': bc_image(soup),
+        'Description': bc_desc(soup),
+        'Author': bc_author(soup)
     }
 
 def bc_title(soup):

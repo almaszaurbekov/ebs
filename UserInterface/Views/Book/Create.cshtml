@@ -64,22 +64,22 @@
                     <div class="tab-pane fade" id="manually" role="tabpanel" aria-labelledby="manually-tab">
                         <div class="form-group">
                             <label>Title</label>
-                            <input class="form-control" type="text" name="book-title-man" placeholder="Enter book's title" required />
+                            <input class="form-control" type="text" id="book-title-man" placeholder="Enter book's title" required />
                         </div>
                         <div class="form-group">
                             <label>Author</label>
-                            <input class="form-control" type="text" name="book-author-man" placeholder="Enter book's author" required />
+                            <input class="form-control" type="text" id="book-author-man" placeholder="Enter book's author" required />
                         </div>
                         <div class="form-group">
                             <label>Description</label>
-                            <textarea class="form-control" name="book-desc-man" rows="5"></textarea>
+                            <textarea class="form-control" id="book-desc-man" rows="5"></textarea>
                         </div>
                         <div class="form-group">
                             <label>Rate</label>
-                            <input class="form-control" type="number" name="book-rate-man" min="0" max="5" value="0" required />
+                            <input class="form-control" type="number" id="book-rate-man" min="0" max="5" value="0" required />
                         </div>
                         <div class="form-group pt-3 pb-5">
-                            <button class="btn btn-success btn-block">Submit</button>
+                            <button id="book-man-submit" class="btn btn-success btn-block">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -123,7 +123,7 @@
                                 $("#book-list").append(`<div class="row bg-light mb-2 pl-2 pt-2 pr-2 pb-2">
                                                             <div class="col-md-4"><img src="/img/no-book.png" width="100%"></div>
                                                             <div class="col-md-8"><p class="border-bottom"><b>${val.title}</b></p>
-                                                            <button data-id="${val.id}" class="book-auto-details btn btn-primary pull-right">Выбрать</button>
+                                                            <button data-id="${val.id}" class="book-auto-details btn btn-primary pull-right">Добавить</button>
                                                             <p>${val.author}</p></div>
                                                         </div>`);
                             }
@@ -158,7 +158,9 @@
                             for (let val of result) {
                                 $("#book-list").append(`<div class="row bg-light mb-2 pl-2 pt-2 pr-2 pb-2">
                                                             <div class="col-md-4"><img src="${val.image}" width="100%"></div>
-                                                            <div class="col-md-8"><p class="border-bottom"><b>${val.title}</b></p><a href="#${val.href}" class="btn btn-primary pull-right">Выбрать</a><p>${val.author}</p></div>
+                                                            <div class="col-md-8"><p class="border-bottom"><b>${val.title}</b></p>
+                                                            <button data-id="${val.href}" class="book-bc-details btn btn-primary pull-right">Добавить</button>
+                                                            <p>${val.author}</p></div>
                                                         </div>`);
                             }
                         } else {
@@ -171,7 +173,7 @@
             $('#book-list').on('click', '.book-auto-details', function () {
                 $.ajax({
                     method: "GET",
-                    url: "/api/ebs/books/add",
+                    url: "/api/ebs/books/auto/add",
                     data: { id: $(this).attr("data-id") },
                     headers: {
                         RequestVerificationToken:
@@ -184,17 +186,82 @@
                 .done(function (result) {
                     if (result == 1) {
                         toastr.success("Book was added to your library", "Successful!");
-                        for (let val of result) {
-                            $("#book-list").append(`<div class="row bg-light mb-2 pl-2 pt-2 pr-2 pb-2">
-                                                        <div class="col-md-4"><img src="${val.image}" width="100%"></div>
-                                                        <div class="col-md-8"><p class="border-bottom"><b>${val.title}</b></p><a href="#${val.href}" class="btn btn-primary pull-right">Выбрать</a><p>${val.author}</p></div>
-                                                    </div>`);
-                        }
                     } else {
                         toastr.error("There is some problems", "Oops...");
                     }
                 });
             });
+
+            $('#book-list').on('click', '.book-bc-details', function () {
+                $.ajax({
+                    method: "GET",
+                    url: "/api/ebs/books/bc/add",
+                    data: { href: $(this).attr("data-id") },
+                    headers: {
+                        RequestVerificationToken:
+                            $('input:hidden[name="__RequestVerificationToken"]').val()
+                    },
+                    beforeSend: function () {
+                        toastr.info("We are adding your book", "Please wait");
+                    }
+                })
+                .done(function (result) {
+                    if (result == 1) {
+                        toastr.success("Book was added to your library", "Successful!");
+                    } else {
+                        toastr.error("There is some problems", "Oops...");
+                    }
+                });
+            });
+
+            $("#book-man-submit").click(function () {
+                var title = $("#book-title-man").val();
+                if(!formField(title, "Title"))
+                    return false;
+
+                var author = $("#book-author-man").val();
+                if(!formField(author, "Author"))
+                    return false;
+
+                var desc = $("#book-desc-man").val();
+                if(!formField(desc, "Description"))
+                    return false;
+
+                var rate = $("#book-rate-man").val();
+                
+                $.ajax({
+                    method: "GET",
+                    url: "/api/ebs/books/manual/add",
+                    data: {
+                        title: title,
+                        author: author,
+                        desc: desc,
+                        rate: rate
+                    },
+                    headers: {
+                        RequestVerificationToken:
+                            $('input:hidden[name="__RequestVerificationToken"]').val()
+                    },
+                    beforeSend: function () {
+                        toastr.info("We are adding your book", "Please wait");
+                    }
+                })
+                .done(function (result) {
+                    if (result == 1) {
+                        toastr.success("Book was added to your library", "Successful!");
+                    } else {
+                        toastr.error("There is some problems", "Oops...");
+                    }
+                });
+            });
+
+            function formField(field, fieldName) {
+                if (field != null && field.trim() != "") {
+                    return true;
+                }
+                toastr.error(`${fieldName} is required`, "Not all fields are filled")
+                return false;
+            }
         });
     </script>
 }
