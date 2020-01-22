@@ -232,3 +232,5 @@ C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\Microsoft.Azure
 C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\Microsoft.Rest.ClientRuntime.dll
 C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\Microsoft.Rest.ClientRuntime.Azure.dll
 C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\Microsoft.WindowsAzure.Storage.dll
+C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\Microsoft.Extensions.PlatformAbstractions.dll
+C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\Nancy.dll
