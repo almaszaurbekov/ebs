@@ -21,13 +21,15 @@ namespace BusinessLogic.Services.BusinessService
         private readonly IMemoryCache cache;
         private readonly IBookService bookService;
         private readonly IUserService userService;
+        private readonly ITransactionService transactionService;
 
         public BookBusinessService(IMemoryCache cache, IBookService bookService,
-            IUserService userService)
+            IUserService userService, ITransactionService transactionService)
         {
             this.cache = cache;
             this.bookService = bookService;
             this.userService = userService;
+            this.transactionService = transactionService;
         }
 
         public async Task<List<Book>> GetBooksByUserId(int? id) => await bookService.GetBooksByUserId(id);
