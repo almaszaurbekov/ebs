@@ -46,7 +46,6 @@ namespace UserInterface.Controllers
             return "200 OK";
         }
 
-        // GET: api/EbsApi
         [HttpPost("user/edit")]
         public async Task<int> Edit(UserViewModel model)
         {
@@ -90,7 +89,18 @@ namespace UserInterface.Controllers
         public async Task<List<BcBook>> BooksByValue(string value)
         {
             var books = await bookcityService.GetBooksByValue(value);
-            return books.Take(20).ToList();
+            return books.Take(50).ToList();
+        }
+
+        [HttpGet("books/add")]
+        public async Task<int> AddBook(int id)
+        {
+            var user = await userBusinessService.GetUserByEmail(User.Identity.Name);
+            var bcbook = await bookcityService.Find(s => s.Id == id);
+            var book = mapper.Map<BcBook, Book>(bcbook);
+            book.Id = 0;
+            book.UserId = user.Id;
+            return await bookBusinessService.AddBook(book);
         }
 
         private void ReplaceValue(object newValue, object oldValue)

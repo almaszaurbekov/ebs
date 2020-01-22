@@ -48,32 +48,31 @@ def amazon_parse(word):
     return result
 
 def amazon_parse_details(url):
-    with open("amz.txt", "r") as amz_file:
-        files = []
-        temp, const_number = 0, 20000
-        page = amz_file.read()
-        for i in range(len(page) // const_number):
-            file = 'page-{}.txt'.format(i)
-            with open(file, 'w', encoding="utf-8") as wr:
-                for j in range(const_number):
-                    wr.write(page[temp + j])
-                temp += const_number
-            files.append(file)
+    files = []
+    temp, const_number = 0, 20000
+    page = requests.get(url, headers=get_user_agent(), proxies=get_proxy())
+    for i in range(len(page.content) // const_number):
+        file = 'page-{}.txt'.format(i)
+        with open(file, 'w', encoding="utf-8") as wr:
+            for j in range(const_number):
+                wr.write(page.content[temp + j])
+            temp += const_number
+        files.append(file)
 
-        title = None
-        rate = None
+    title = None
+    rate = None
 
-        for file in files:
-            with open(file, 'r', encoding="utf-8") as rd:
-                soup = BeautifulSoup(rd.read(), 'html.parser')
-                title = amz_title(soup) or title
-                rate = amz_rate(soup) or rate
-                amz_image(soup)
+    for file in files:
+        with open(file, 'r', encoding="utf-8") as rd:
+            soup = BeautifulSoup(rd.read(), 'html.parser')
+            title = amz_title(soup) or title
+            rate = amz_rate(soup) or rate
+            amz_image(soup)
 
-            os.remove(file)
+        os.remove(file)
 
-        print(title)
-        print(rate)
+    print(title)
+    print(rate)
 
 def amz_title(soup):
     try:
@@ -102,9 +101,6 @@ def amz_image(soup):
     try:
         obj = soup.find('div', attrs={'id':'img-canvas'})
         var = (obj.text).split()
-
-        print
+        print()
     except:
         return None
-
-amazon_parse_details("123")

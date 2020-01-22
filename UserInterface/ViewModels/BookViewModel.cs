@@ -14,5 +14,6 @@ namespace UserInterface.ViewModels.Entities
         public IFormFile Image { get; set; }
         public int UserId { get; set; }
         public int Rate { get; set; }
+        public bool IsBorrowed { get; set; }
     }
 }

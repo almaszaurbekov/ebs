@@ -1,33 +1,24 @@
-﻿@model List<UserInterface.ViewModels.Entities.BookViewModel>
-
+﻿@model UserInterface.ViewModels.Entities.BookViewModel
 @{
     ViewData["Title"] = "Details";
+    var image = Model.ImageSource != null ? Model.ImageSource : "/img/no-book.png";
 }
 <section style="padding-top:50px;">
     <div class="container pt-5">
         <a asp-controller="User" asp-action="Index">Come back to Dashboard</a>
-        @if (Model.Count > 0)
-        {
-            <h1>ELibrary - @User.Identity.Name</h1>
-        }
+        <a asp-controller="Book" asp-action="ByUser" asp-route-id="@ViewBag.Id">Come back to ELibrary</a>
+        <hr />
         <div class="row">
-            @if (Model.Count < 1)
-            {
-                <div class="col-md-12 text-center pt-5 mt-5">
-                    <h3 class="display-3">There is no one book :(</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                    <a class="btn btn-success text-light" asp-controller="Book" asp-action="Create" asp-route-id="@ViewBag.Id"><i class="fa fa-plus-square mr-2"></i> Add book</a>
-                </div>
-            }
-            else
-            {
-                @foreach (var book in Model)
-                {
-                    <div class="col-md-4">
-                        @book.Author
-                    </div>
-                }
-            }
+            <div class="col-md-4">
+                <img src="@image" width="100%" />
+            </div>
+            <div class="col-md-8">
+                <p><b>Title:</b> @Model.Title</p>
+                <p><b>Author:</b> @Model.Author</p>
+                <p><b>Description:</b></p>
+                <p>@Model.Description</p>
+                <p><b>Rate:</b> @Model.Rate</p>
+            </div>
         </div>
     </div>
 </section>

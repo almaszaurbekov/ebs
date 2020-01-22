@@ -13,6 +13,7 @@ namespace BusinessLogic.Services.BusinessService
         Task<List<Book>> GetBooksByUserId(int? id);
         Task<List<Book>> GetBooksByUserEmail(string email);
         Task<List<Book>> GetBooksByValue(string value);
+        Task<int> AddBook(Book book);
     }
 
     public class BookBusinessService : IBookBusinessService
@@ -44,6 +45,19 @@ namespace BusinessLogic.Services.BusinessService
                 books.AddRange(await bookService.Filter(s => s.Author == value));
             }
             return books;
+        }
+
+        public async Task<int> AddBook(Book book)
+        {
+            try
+            {
+                await bookService.Create(book);
+                return 1;
+            }
+            catch
+            {
+                return 0;
+            }
         }
     }
 }

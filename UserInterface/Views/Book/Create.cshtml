@@ -23,7 +23,8 @@
 </style>
 <section style="padding-top:50px;">
     <div class="container pt-5">
-        <a asp-controller="User" asp-action="Index">Come back to Dashboard</a>
+        <a class="btn btn-primary mr-2" asp-controller="User" asp-action="Index">Come back to Dashboard</a>
+        <a class="btn btn-primary" asp-controller="Book" asp-action="ByUser" asp-route-id="@ViewBag.UserId">Come back to ELibrary</a>
         <div class="row pt-3">
             <div class="col-md-7">
                 <input type="hidden" asp-for="UserId" class="form-control" value="@ViewBag.UserId" />
@@ -39,7 +40,7 @@
                     </li>
                 </ul>
                 <div class="tab-content pt-3" id="myTabContent">
-                    
+
                     <div class="tab-pane fade show active" id="autofill" role="tabpanel" aria-labelledby="autofill-tab">
                         <div class="form-group">
                             <label class="control-label">Choose a book from our database, just enter a title or author</label>
@@ -121,7 +122,9 @@
                             for (let val of result) {
                                 $("#book-list").append(`<div class="row bg-light mb-2 pl-2 pt-2 pr-2 pb-2">
                                                             <div class="col-md-4"><img src="/img/no-book.png" width="100%"></div>
-                                                            <div class="col-md-8"><p class="border-bottom"><b>${val.title}</b></p><a href="#${val.id}" class="btn btn-primary pull-right">Выбрать</a><p>${val.author}</p></div>
+                                                            <div class="col-md-8"><p class="border-bottom"><b>${val.title}</b></p>
+                                                            <button data-id="${val.id}" class="book-auto-details btn btn-primary pull-right">Выбрать</button>
+                                                            <p>${val.author}</p></div>
                                                         </div>`);
                             }
                         } else {
@@ -163,6 +166,34 @@
                         }
                     });
                 }
+            });
+
+            $('#book-list').on('click', '.book-auto-details', function () {
+                $.ajax({
+                    method: "GET",
+                    url: "/api/ebs/books/add",
+                    data: { id: $(this).attr("data-id") },
+                    headers: {
+                        RequestVerificationToken:
+                            $('input:hidden[name="__RequestVerificationToken"]').val()
+                    },
+                    beforeSend: function () {
+                        toastr.info("We are adding your book", "Please wait");
+                    }
+                })
+                .done(function (result) {
+                    if (result == 1) {
+                        toastr.success("Book was added to your library", "Successful!");
+                        for (let val of result) {
+                            $("#book-list").append(`<div class="row bg-light mb-2 pl-2 pt-2 pr-2 pb-2">
+                                                        <div class="col-md-4"><img src="${val.image}" width="100%"></div>
+                                                        <div class="col-md-8"><p class="border-bottom"><b>${val.title}</b></p><a href="#${val.href}" class="btn btn-primary pull-right">Выбрать</a><p>${val.author}</p></div>
+                                                    </div>`);
+                        }
+                    } else {
+                        toastr.error("There is some problems", "Oops...");
+                    }
+                });
             });
         });
     </script>

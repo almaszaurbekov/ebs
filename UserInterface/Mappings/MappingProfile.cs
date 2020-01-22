@@ -16,7 +16,10 @@ namespace UserInterface.Mappings
         {
             CreateMap<User, UserViewModel>(MemberList.Source);
             CreateMap<UserViewModel, User>(MemberList.None);
+            CreateMap<Book, BookViewModel>(MemberList.Source);
+            CreateMap<BookViewModel, Book>(MemberList.None);
             CreateMap<DialogControl, DialogViewModel>();
+            CreateMap<BcBook, Book>();
         }
     }
 }
