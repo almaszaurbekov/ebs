@@ -5,8 +5,14 @@
 
 <section style="padding-top:60px;">
     <div class="container pt-5">
-        <a asp-controller="User" asp-action="Index">Back to dashboard</a>
-        <h1 class="border-bottom">Messages</h1>
+        <a class="btn btn-primary mb-3" asp-controller="User" asp-action="Index">Back</a>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Index" asp-controller="User">EBookSharing</a></li>
+                <li class="breadcrumb-item">Messages</li>
+                <li class="breadcrumb-item active" aria-current="page">@User.Identity.Name</li>
+            </ol>
+        </nav>
         <div class="row">
             @foreach (var message in Model)
             {

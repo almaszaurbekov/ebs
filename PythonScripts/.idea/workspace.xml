@@ -2,11 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85c09017-e672-4d0f-b6a0-dad082c808c8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../.vs/ebs/v16/Server/sqlite3/storage.ide" beforeDir="false" afterPath="$PROJECT_DIR$/../.vs/ebs/v16/Server/sqlite3/storage.ide" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.vs/ebs/v16/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/../.vs/ebs/v16/.suo" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.vs/ebs/v16/Server/sqlite3/storage.ide-wal" beforeDir="false" afterPath="$PROJECT_DIR$/../.vs/ebs/v16/Server/sqlite3/storage.ide-wal" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bc.py" beforeDir="false" afterPath="$PROJECT_DIR$/bc.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserInterface/Controllers/EbsApiController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UserInterface/Controllers/EbsApiController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserInterface/Views/Book/Create.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/../UserInterface/Views/Book/Create.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BusinessLogic/bin/Debug/netcoreapp3.1/DataAccess.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../BusinessLogic/bin/Debug/netcoreapp3.1/DataAccess.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BusinessLogic/bin/Debug/netcoreapp3.1/DataAccess.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../BusinessLogic/bin/Debug/netcoreapp3.1/DataAccess.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../BusinessLogic/obj/Debug/netcoreapp3.1/BusinessLogic.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../BusinessLogic/obj/Debug/netcoreapp3.1/BusinessLogic.csprojAssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DataAccess/Entities/Book.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../DataAccess/Entities/Book.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DataAccess/Migrations/EbsContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../DataAccess/Migrations/EbsContextModelSnapshot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DataAccess/bin/Debug/netcoreapp3.1/DataAccess.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../DataAccess/bin/Debug/netcoreapp3.1/DataAccess.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DataAccess/bin/Debug/netcoreapp3.1/DataAccess.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../DataAccess/bin/Debug/netcoreapp3.1/DataAccess.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DataAccess/obj/Debug/netcoreapp3.1/DataAccess.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../DataAccess/obj/Debug/netcoreapp3.1/DataAccess.csprojAssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DataAccess/obj/Debug/netcoreapp3.1/DataAccess.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../DataAccess/obj/Debug/netcoreapp3.1/DataAccess.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DataAccess/obj/Debug/netcoreapp3.1/DataAccess.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../DataAccess/obj/Debug/netcoreapp3.1/DataAccess.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UnitTest/bin/Debug/netcoreapp3.1/BusinessLogic.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UnitTest/bin/Debug/netcoreapp3.1/BusinessLogic.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UnitTest/bin/Debug/netcoreapp3.1/BusinessLogic.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../UnitTest/bin/Debug/netcoreapp3.1/BusinessLogic.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UnitTest/bin/Debug/netcoreapp3.1/DataAccess.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UnitTest/bin/Debug/netcoreapp3.1/DataAccess.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UnitTest/bin/Debug/netcoreapp3.1/DataAccess.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../UnitTest/bin/Debug/netcoreapp3.1/DataAccess.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UnitTest/bin/Debug/netcoreapp3.1/UserInterface.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UnitTest/bin/Debug/netcoreapp3.1/UserInterface.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UnitTest/bin/Debug/netcoreapp3.1/UserInterface.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../UnitTest/bin/Debug/netcoreapp3.1/UserInterface.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UnitTest/obj/Debug/netcoreapp3.1/UnitTest.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../UnitTest/obj/Debug/netcoreapp3.1/UnitTest.csprojAssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserInterface/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UserInterface/Controllers/UserController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserInterface/UserInterface.csproj.user" beforeDir="false" afterPath="$PROJECT_DIR$/../UserInterface/UserInterface.csproj.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserInterface/bin/Debug/netcoreapp3.1/DataAccess.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UserInterface/bin/Debug/netcoreapp3.1/DataAccess.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserInterface/bin/Debug/netcoreapp3.1/DataAccess.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../UserInterface/bin/Debug/netcoreapp3.1/DataAccess.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserInterface/bin/Debug/netcoreapp3.1/UserInterface.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UserInterface/bin/Debug/netcoreapp3.1/UserInterface.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserInterface/bin/Debug/netcoreapp3.1/UserInterface.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../UserInterface/bin/Debug/netcoreapp3.1/UserInterface.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserInterface/obj/Debug/netcoreapp3.1/UserInterface.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../UserInterface/obj/Debug/netcoreapp3.1/UserInterface.csprojAssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserInterface/obj/Debug/netcoreapp3.1/UserInterface.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UserInterface/obj/Debug/netcoreapp3.1/UserInterface.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserInterface/obj/Debug/netcoreapp3.1/UserInterface.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../UserInterface/obj/Debug/netcoreapp3.1/UserInterface.pdb" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -40,8 +64,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bc.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="44" selection-start-line="44" selection-end-line="45" />
+            <state relative-caret-position="200">
+              <caret line="46" column="32" lean-forward="true" selection-start-line="46" selection-start-column="32" selection-end-line="46" selection-end-column="32" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -53,7 +77,7 @@
         <entry file="file://$PROJECT_DIR$/amz.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="336">
-              <caret line="63" lean-forward="true" selection-start-line="63" selection-end-line="63" />
+              <caret line="63" selection-start-line="63" selection-end-line="63" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -271,13 +295,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49497488" visible="true" weight="0.17857143" />
-      <window_info id="Structure" order="1" sideWeight="0.50502515" side_tool="true" visible="true" weight="0.17857143" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49590835" visible="true" weight="0.17857143" />
+      <window_info id="Structure" order="1" sideWeight="0.5040917" side_tool="true" visible="true" weight="0.17857143" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.34860885" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.34860885" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39934534" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -344,7 +369,7 @@
     <entry file="file://$PROJECT_DIR$/amz.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
-          <caret line="63" lean-forward="true" selection-start-line="63" selection-end-line="63" />
+          <caret line="63" selection-start-line="63" selection-end-line="63" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
@@ -363,8 +388,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bc.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="44" selection-start-line="44" selection-end-line="45" />
+        <state relative-caret-position="200">
+          <caret line="46" column="32" lean-forward="true" selection-start-line="46" selection-start-column="32" selection-end-line="46" selection-end-column="32" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>

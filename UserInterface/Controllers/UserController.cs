@@ -175,7 +175,7 @@ namespace UserInterface.Controllers
         {
             var user = await userBusinessService.GetUserById(id);
             await userBusinessService.DeleteUser(user);
-            return RedirectToAction(nameof(Index));
+            return await Logout();
         }
 
         // Аутентификация пользователя
@@ -220,10 +220,11 @@ namespace UserInterface.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = await userBusinessService.GetUserByEmail(model.Email);
+                var email = model.Email.ToLower();
+                User user = await userBusinessService.GetUserByEmail(email);
                 if (user == null)
                 {
-                    user = new User { Email = model.Email, Password = PasswordHelper.Hash(model.Password) };
+                    user = new User { Email = email, Password = PasswordHelper.Hash(model.Password) };
                     Role role = await userBusinessService.GetRoleByName("user");
                     if (role != null)
                         user.Role = role;

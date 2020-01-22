@@ -1,16 +1,27 @@
 ﻿@model UserInterface.ViewModels.Entities.BookViewModel
 @{
     ViewData["Title"] = "Details";
-    var image = Model.ImageSource != null ? Model.ImageSource : "/img/no-book.png";
+    var image = Model.ImageSource != null ? Model.ImageSource : "no-book.png";
 }
 <section style="padding-top:50px;">
-    <div class="container pt-5">
-        <a asp-controller="User" asp-action="Index">Come back to Dashboard</a>
-        <a asp-controller="Book" asp-action="ByUser" asp-route-id="@ViewBag.Id">Come back to ELibrary</a>
+    <div class="container pt-5 pb-5">
+        <a class="btn btn-primary mb-3" asp-controller="Book" asp-action="ByUser" asp-route-id="@Model.UserId">Back</a>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Index" asp-controller="User">EBookSharing</a></li>
+                <li class="breadcrumb-item"><a asp-action="ByUser" asp-route-id="@Model.UserId">ELibrary</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Details</li>
+                <li class="breadcrumb-item active" aria-current="page">@Model.Id</li>
+            </ol>
+        </nav>
         <hr />
         <div class="row">
             <div class="col-md-4">
-                <img src="@image" width="100%" />
+                <img src="/img/@image" width="100%" />
+                @if (ViewBag.IsCurrentUser)
+                {
+                    <a asp-controller="Book" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-block mt-3">Edit</a>
+                }
             </div>
             <div class="col-md-8">
                 <p><b>Title:</b> @Model.Title</p>
@@ -18,6 +29,44 @@
                 <p><b>Description:</b></p>
                 <p>@Model.Description</p>
                 <p><b>Rate:</b> @Model.Rate</p>
+                <p>
+                    <b>Is Borrowed:</b>
+                    @if (Model.IsBorrowed)
+                    {
+                        <span class="badge badge-pill badge-danger">It's busy now</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-pill badge-success">It's free</span>
+                    }
+                </p>
+                <p>
+                    <b>Is book in good condition:</b>
+                    @if (Model.InGoodCondition)
+                    {
+                        <span class="badge badge-pill badge-success">Yes</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-pill badge-danger">No</span>
+                    }
+                </p>
+                <p>
+                    <b>Is book painted:</b>
+                    @if (Model.IsPainted)
+                    {
+                        <span class="badge badge-pill badge-danger">Yes</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-pill badge-success">No</span>
+                    }
+                </p>
+                @if (!ViewBag.IsCurrentUser)
+                {
+                    <a href="#" class="btn btn-primary btn-block">Message User</a>
+                    <a href="#" class="btn btn-success btn-block">Borrow</a>
+                }
             </div>
         </div>
     </div>

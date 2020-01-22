@@ -1,7 +1,5 @@
 ﻿using DataAccess.Entities.Base;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace DataAccess.Entities
 {
@@ -16,6 +14,8 @@ namespace DataAccess.Entities
         public User User { get; set; }
         public List<Comment> Comments { get; set; }
         public bool IsBorrowed { get; set; } = false;
+        public bool InGoodCondition { get; set; } = true;
+        public bool IsPainted { get; set; } = false;
 
         public Book()
         {

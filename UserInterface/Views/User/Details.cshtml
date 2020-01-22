@@ -6,9 +6,15 @@
 
 <section style="padding-top:50px;">
     <div class="container pt-5">
-        <a class="btn btn-primary" asp-controller="User" asp-action="Index">Come back to Dashbord</a>
-        <h1>Profile</h1>
-        <hr />
+        <a class="btn btn-primary mb-3" asp-controller="User" asp-action="Index">Back</a>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Index" asp-controller="User">EBookSharing</a></li>
+                <li class="breadcrumb-item">Profile</li>
+                <li class="breadcrumb-item">Details</li>
+                <li class="breadcrumb-item active" aria-current="page">@Model.Id</li>
+            </ol>
+        </nav>
         <div class="row">
             <div class="col-md-6 mb-3 text-center">
                 <img src="~/img/@imagePath" width="50%" style="margin:0 auto !important" />
@@ -38,6 +44,12 @@
                     </dt>
                     <dd class="col-sm-10">
                         @Html.DisplayFor(model => model.Address)
+                    </dd>
+                    <dt class="col-sm-2">
+                        ELibrary
+                    </dt>
+                    <dd class="col-sm-10">
+                        <a asp-controller="Book" asp-action="ByUser" asp-route-id="@Model.Id">Visit</a>
                     </dd>
                 </dl>
                 @if (User.Identity.Name == Model.Email)

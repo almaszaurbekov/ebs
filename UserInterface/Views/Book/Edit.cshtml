@@ -1,56 +1,103 @@
-﻿@model DataAccess.Entities.Book
+﻿@model UserInterface.ViewModels.Entities.BookViewModel
 
 @{
     ViewData["Title"] = "Edit";
+    var imagePath = (Model.ImageSource ?? "no-book.png");
 }
 
-<h1>Edit</h1>
-
-<h4>Book</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+<section style="padding-top:50px;">
+    <div class="container pt-5 pb-5">
+        <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-primary mb-3">Back</a>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Index" asp-controller="User">EBookSharing</a></li>
+                <li class="breadcrumb-item"><a asp-action="ByUser" asp-route-id="@Model.UserId">ELibrary</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Edit</li>
+                <li class="breadcrumb-item active" aria-current="page">@Model.Id</li>
+            </ol>
+        </nav>
+        <h1>Edit</h1>
+        <hr />
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <form enctype="multipart/form-data" asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Title" class="control-label"></label>
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Author" class="control-label"></label>
+                        <input asp-for="Author" class="form-control" />
+                        <span asp-validation-for="Author" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <textarea class="form-control" asp-for="Description" rows="5"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Rate" class="control-label"></label>
+                        <input asp-for="Rate" class="form-control" />
+                        <span asp-validation-for="Rate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="IsPainted" class="control-label"></label>
+                        @Html.EditorFor(x => x.IsPainted)
+                        <span asp-validation-for="IsPainted" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="InGoodCondition" class="control-label"></label>
+                        @Html.EditorFor(x => x.InGoodCondition)
+                        <span asp-validation-for="InGoodCondition" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Image" class="control-label"></label>
+                        <div class="custom-file">
+                            <input asp-for="Image" class="form-control custom-file-input" />
+                            <label class="custom-file-label">Choose file...</label>
+                            <span asp-validation-for="Image" class="text-danger"></span>
+                        </div>
+                    </div>
+                    @if (Model.ImageSource != null)
+                    {
+                        <div class="form-group">
+                            <label class="text-danger">
+                                <input asp-for="RemoveImage" /> Remove image
+                            </label>
+                            <span asp-validation-for="RemoveImage" class="text-danger"></span>
+                        </div>
+                    }
+                    <div class="form-group">
+                        <input asp-for="UserId" class="form-control" type="hidden" />
+                        <input type="hidden" asp-for="ImageSource" value="@Model.ImageSource" />
+                    </div>
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-success btn-block" />
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
+            <div class="col-md-6 mb-3 text-center">
+                <img src="~/img/@imagePath" width="50%" style="margin:0 auto !important" />
             </div>
-            <div class="form-group">
-                <label asp-for="Author" class="control-label"></label>
-                <input asp-for="Author" class="form-control" />
-                <span asp-validation-for="Author" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Rate" class="control-label"></label>
-                <input asp-for="Rate" class="form-control" />
-                <span asp-validation-for="Rate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ImageSource" class="control-label"></label>
-                <input asp-for="ImageSource" class="form-control" />
-                <span asp-validation-for="ImageSource" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
-                <span asp-validation-for="UserId" class="text-danger"></span>
-            </div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
+</section>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
+@section Scripts {
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script>
+    $(document).ready(function () {
+        $(".custom-file-input").on("change", function () {
+            var filename = $(this).val().split("\\").pop();
+            $(this).next(".custom-file-label").html(filename);
+        });
+        $("#RemoveImage").change(function () {
+            if (this.checked) { $("#Image").attr("disabled", "true"); }
+            else { $("#Image").removeAttr("disabled"); }
+        });
+    });
+</script>
+}

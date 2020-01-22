@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Hosting;
 using AutoMapper;
 using UserInterface.ViewModels.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace UserInterface.Controllers
 {
@@ -47,11 +49,11 @@ namespace UserInterface.Controllers
                 return NotFound();
             }
 
-            ViewBag.Id = id;
-            var books = await bookBusinessService.GetBooksByUserId(id);
-            var booksVM = mapper.Map<List<Book>, List<BookViewModel>>(books);
-
-            return View(booksVM);
+            var book = await bookBusinessService.GetBookById(id);
+            var bookVM = mapper.Map<Book, BookViewModel>(book);
+            var user = await userBusinessService.GetUserById(book.UserId);
+            ViewBag.IsCurrentUser = user.Email == User.Identity.Name;
+            return View(bookVM);
         }
 
         // ELibrary
@@ -61,10 +63,12 @@ namespace UserInterface.Controllers
             {
                 return NotFound();
             }
-
+            
             var books = await bookBusinessService.GetBooksByUserId(id);
             var booksVM = mapper.Map<List<Book>, List<BookViewModel>>(books.OrderBy(s => s.CreatedDate).ToList());
-
+            var user = await userBusinessService.GetUserById(id);
+            ViewBag.Email = user.Email;
+            ViewBag.IsCurrentUser = user.Id == id;
             return View(booksVM);
         }
 
@@ -79,6 +83,84 @@ namespace UserInterface.Controllers
 
             ViewBag.UserId = user.Id;
             return View(new BookViewModel());
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            var book = await bookBusinessService.GetBookById(id, false);
+            var bookVM = mapper.Map<Book, BookViewModel>(book);
+            var user = await userBusinessService.GetUserById(book.UserId);
+            if(user.Email != User.Identity.Name)
+            {
+                return RedirectToAction("Index", "User");
+            }
+
+            return View(bookVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, BookViewModel model)
+        {
+            if (id != model.Id)
+            {
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var entity = await bookBusinessService.GetBookById(model.Id, false);
+                    entity = mapper.Map(model, entity);
+
+                    if (model.Image != null)
+                        entity.ImageSource = CreateFile(model.Image.FileName, model.Image);
+
+                    if (model.RemoveImage)
+                        entity.ImageSource = null;
+
+                    await bookBusinessService.UpdateBook(entity);
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!await BookExists(model.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Details), new { id = model.Id });
+            }
+            return View(model);
+        }
+
+        private async Task<bool> BookExists(int id)
+        {
+            return await bookBusinessService.GetBookById(id) != null;
+        }
+
+        /// <summary>
+        /// Функция по созданию файла в wwwroot/images
+        /// </summary>
+        /// <param name="imgfileName">Имя файла, отправленного пользователем</param>
+        /// <param name="image">HtppRequest фотографии</param>
+        private string CreateFile(string imgfileName, IFormFile image)
+        {
+            string fileName = null;
+            string folder = Path.Combine(hostEnvironment.WebRootPath, "img");
+            fileName = Guid.NewGuid().ToString() + "_" + imgfileName;
+            string filepath = Path.Combine(folder, fileName);
+            image.CopyTo(new FileStream(filepath, FileMode.Create));
+            return fileName;
         }
 
         //// POST: Books/Create

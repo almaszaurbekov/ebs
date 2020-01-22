@@ -7,10 +7,15 @@
 
     <section style="padding-top:50px">
         <div class="container pt-5 pb-5">
-            <a class="btn btn-primary mr-2" asp-action="Index">Back to Dashboard</a>
-            <a class="btn btn-primary" asp-action="Details" asp-route-id="@Model.Id">Back to Profile</a>
-            <h1>Edit</h1>
-            <hr />
+            <a class="btn btn-primary mb-3" asp-action="Details" asp-route-id="@Model.Id">Back</a>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a asp-action="Index" asp-controller="User">EBookSharing</a></li>
+                    <li class="breadcrumb-item">Profile</li>
+                    <li class="breadcrumb-item">Edit</li>
+                    <li class="breadcrumb-item active" aria-current="page">@Model.Id</li>
+                </ol>
+            </nav>
             <div class="row">
                 <div class="col-md-4 mb-3">
                     <form enctype="multipart/form-data" method="post" asp-controller="User" asp-action="Edit">

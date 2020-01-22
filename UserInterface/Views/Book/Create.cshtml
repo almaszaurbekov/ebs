@@ -23,8 +23,15 @@
 </style>
 <section style="padding-top:50px;">
     <div class="container pt-5">
-        <a class="btn btn-primary mr-2" asp-controller="User" asp-action="Index">Come back to Dashboard</a>
-        <a class="btn btn-primary" asp-controller="Book" asp-action="ByUser" asp-route-id="@ViewBag.UserId">Come back to ELibrary</a>
+        <a class="btn btn-primary mb-3"  asp-controller="Book" asp-action="ByUser" asp-route-id="@ViewBag.UserId">Back</a>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Index" asp-controller="User">EBookSharing</a></li>
+                <li class="breadcrumb-item"><a asp-controller="Book" asp-action="ByUser" asp-route-id="@ViewBag.UserId">ELibrary</a></li>
+                <li class="breadcrumb-item">@User.Identity.Name</li>
+                <li class="breadcrumb-item active" aria-current="page">Add</li>
+            </ol>
+        </nav>
         <div class="row pt-3">
             <div class="col-md-7">
                 <input type="hidden" asp-for="UserId" class="form-control" value="@ViewBag.UserId" />
