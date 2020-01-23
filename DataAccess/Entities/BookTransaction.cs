@@ -1,12 +1,12 @@
-﻿using System;
+﻿using DataAccess.Entities.Base;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace DataAccess.Entities
 {
-    public class Transaction
+    public class BookTransaction : AuditableEntity<Guid>
     {
-        public Guid Id { get; set; }
         public DateTime BorrowStartDate { get; set; }
         public DateTime BorrowEndDate { get; set; }
         public int BookId { get; set; }

@@ -20,7 +20,7 @@ namespace DataAccess
         public DbSet<Comment> Comments { get; set; }
         public DbSet<BcBook> BcBooks { get; set; }
         public DbSet<DialogControl> DialogControls { get; set; }
-        public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<BookTransaction> BookTransactions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

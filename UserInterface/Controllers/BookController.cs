@@ -37,6 +37,8 @@ namespace UserInterface.Controllers
         // Поисковик
         public async Task<IActionResult> Index(string search)
         {
+            var books = await bookBusinessService.GetBooksBySearchValue(search);
+
             ViewBag.Search = search;
             return View();
         }

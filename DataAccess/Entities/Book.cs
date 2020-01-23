@@ -13,6 +13,7 @@ namespace DataAccess.Entities
         public int UserId { get; set; }
         public User User { get; set; }
         public List<Comment> Comments { get; set; }
+        public List<BookTransaction> BookTransactions { get; set; }
         public bool IsBorrowed { get; set; } = false;
         public bool InGoodCondition { get; set; } = true;
         public bool IsPainted { get; set; } = false;
@@ -20,6 +21,7 @@ namespace DataAccess.Entities
         public Book()
         {
             Comments = new List<Comment>();
+            BookTransactions = new List<BookTransaction>();
         }
     }
 }

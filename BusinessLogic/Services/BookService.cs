@@ -14,6 +14,7 @@ namespace BusinessLogic.Services
     public interface IBookService : IService<Book>
     {
         Task<List<Book>> GetBooksByUserId(int? id);
+        Task<List<Book>> GetBooksByDate();
     }
 
     public class BookService : EntityService<Book>, IBookService
@@ -31,6 +32,13 @@ namespace BusinessLogic.Services
                 .Include(u => u.User)
                 .Where(predicate)
                 .FirstOrDefaultAsync();
+        }
+
+        public async Task<List<Book>> GetBooksByDate()
+        {
+            return await DbSet
+                .OrderBy(s => s.CreatedDate)
+                .ToListAsync();
         }
     }
 }

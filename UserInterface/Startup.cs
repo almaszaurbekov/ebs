@@ -54,7 +54,7 @@ namespace UserInterface
             services.AddTransient<IDialogControlService, DialogControlService>();
             services.AddTransient<ICommentService, CommentService>();
             services.AddTransient<IBcBookService, BcBookService>();
-            services.AddTransient<ITransactionService, TransactionService>();
+            services.AddTransient<IBookTransactionService, BookTransactionService>();
 
             // Authentication Configurations
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

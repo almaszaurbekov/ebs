@@ -184,3 +184,4 @@ C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\View
 C:\Users\Almas\source\repos\ebs\UserInterface\bin\Debug\netcoreapp3.1\Microsoft.Extensions.PlatformAbstractions.dll
 C:\Users\Almas\source\repos\ebs\UserInterface\bin\Debug\netcoreapp3.1\Nancy.dll
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\UserInterface.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\BookTransaction\Index.cshtml.g.cs

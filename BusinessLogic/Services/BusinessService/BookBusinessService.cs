@@ -3,6 +3,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Resources;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,9 +14,13 @@ namespace BusinessLogic.Services.BusinessService
         Task<Book> GetBookById(int? id, bool needComments = true);
         Task<List<Book>> GetBooksByUserId(int? id);
         Task<List<Book>> GetBooksByUserEmail(string email);
-        Task<List<Book>> GetBooksByValue(string value);
         Task<int> AddBook(Book entity);
         Task<int> UpdateBook(Book entity);
+        Task<List<BookTransaction>> GetBookTransactionsByOwnerId(int? id);
+        Task<List<BookTransaction>> GetBookTransactionsByBorrowerId(int? id);
+        Task<List<BookTransaction>> GetBookTransactionsByUserId(int? id);
+        Task<BookTransaction> GetBookTransactionById(Guid? id);
+        Task<List<Book>> GetBooksBySearchValue(string value);
     }
 
     public class BookBusinessService : IBookBusinessService
@@ -23,11 +28,11 @@ namespace BusinessLogic.Services.BusinessService
         private readonly IMemoryCache cache;
         private readonly IBookService bookService;
         private readonly IUserService userService;
-        private readonly ITransactionService transactionService;
+        private readonly IBookTransactionService transactionService;
         private readonly ICommentService commentService;
 
         public BookBusinessService(IMemoryCache cache, IBookService bookService,
-            IUserService userService, ITransactionService transactionService,
+            IUserService userService, IBookTransactionService transactionService,
             ICommentService commentService)
         {
             this.cache = cache;
@@ -42,16 +47,6 @@ namespace BusinessLogic.Services.BusinessService
         {
             var user = await userService.Find(s => s.Email == email);
             return await bookService.GetBooksByUserId(user.Id);
-        }
-
-        public async Task<List<Book>> GetBooksByValue(string value)
-        {
-            var books = await bookService.Filter(s => s.Title.Contains(value));
-            if(books.Count < 5)
-            {
-                books.AddRange(await bookService.Filter(s => s.Author == value));
-            }
-            return books;
         }
 
         public async Task<int> AddBook(Book book)
@@ -81,6 +76,43 @@ namespace BusinessLogic.Services.BusinessService
         public async Task<int> UpdateBook(Book entity)
         {
             return await bookService.Update(entity);
+        }
+
+        public async Task<List<BookTransaction>> GetBookTransactionsByUserId(int? id)
+        {
+            return await transactionService.Filter(s => s.OwnerId == id || s.BorrowerId == id);
+        }
+
+        public async Task<List<BookTransaction>> GetBookTransactionsByBorrowerId(int? id)
+        {
+            return await transactionService.Filter(s => s.BorrowerId == id);
+        }
+
+        public async Task<List<BookTransaction>> GetBookTransactionsByOwnerId(int? id)
+        {
+            return await transactionService.Filter(s => s.OwnerId == id);
+        }
+
+        public async Task<BookTransaction> GetBookTransactionById(Guid? id)
+        {
+            return await transactionService.Find(s => s.Id == id);
+        }
+
+        public async Task<List<Book>> GetBooksBySearchValue(string value)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                var books = await bookService.GetBooksByDate();
+                return books.Take(10).ToList();
+            }
+            else
+            {
+                var books = await bookService.Filter(s => s.Title.Contains(value));
+                if (books.Count < 5)
+                    books.AddRange(await bookService.Filter(s => s.Author.Contains(value)));
+
+                return books;
+            }
         }
     }
 }
