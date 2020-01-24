@@ -1,0 +1,38 @@
+﻿@model List<UserInterface.ViewModels.BookTransactionViewModel>
+@{
+    ViewData["Title"] = "Book Transaction";
+}
+
+<section style="padding-top:60px;">
+    <div class="container pt-5">
+        <a class="btn btn-primary mb-3" asp-controller="User" asp-action="Index">Back</a>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Index" asp-controller="User">EBookSharing</a></li>
+                <li class="breadcrumb-item">Transactions</li>
+                <li class="breadcrumb-item active" aria-current="page">@ViewBag.Email</li>
+            </ol>
+        </nav>
+        <div class="row">
+            @foreach (var transaction in Model)
+            {
+                <div class="col-md-3">
+                    <p>ID: @transaction.Id</p>
+                    <p>Borrower: @transaction.BorrowerId</p>
+                    <p>Owner: @transaction.OwnerId</p>
+                    <p>Start: @transaction.BorrowStartDate</p>
+                    <p>End: @transaction.BorrowEndDate</p>
+                    <p>BookID: @transaction.BookId</p>
+                    <p>Is success: @transaction.IsSuccess</p>
+                    <p>Created Date: @transaction.CreatedDate</p>
+                </div>
+            }
+            @if (Model.Count < 1)
+            {
+                <div class="col-md-12 text-center pt-5">
+                    <h1>Empty transactions</h1>
+                </div>
+            }
+        </div>
+    </div>
+</section>

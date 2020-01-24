@@ -39,7 +39,7 @@
                     <p class="border-bottom"><a asp-controller="Book" asp-action="ByUser" asp-route-id="@ViewBag.Id"><i class="fa fa-book mr-2"></i> ELibrary</a></p>
                     <p class="border-bottom"><a asp-controller="Book" asp-action="Index"><i class="fa fa-book mr-2"></i> Books</a></p>
                     <p class="border-bottom"><a asp-controller="Transaction" asp-action="Index" asp-route-id="@ViewBag.Id"><i class="fa fa-calendar mr-2"></i> Transactions</a></p>
-                    <p class="border-bottom"><a asp-controller="Transaction" asp-action="Requests" asp-route-id="@ViewBag.Id"><i class="fa fa-bookmark mr-3"></i> Requests</a></p>
+                    <p class="border-bottom"><a asp-controller="Transaction" asp-action="Requests" asp-route-id="@ViewBag.Id"><i class="fa fa-cubes mr-1"></i> Requests <span class="badge badge-pill badge-light ml-2 mb-2">12</span></a></p>
                     <p><a asp-controller="User" asp-action="Logout"><i class="fa fa-sign-out mr-2"></i> Logout</a></p>
                 </div>
                 @if (ViewBag.Role == "admin")

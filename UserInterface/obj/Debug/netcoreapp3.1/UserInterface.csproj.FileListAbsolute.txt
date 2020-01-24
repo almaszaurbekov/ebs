@@ -186,3 +186,4 @@ C:\Users\Almas\source\repos\ebs\UserInterface\bin\Debug\netcoreapp3.1\Nancy.dll
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\UserInterface.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\Transaction\Borrow.cshtml.g.cs
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\Transaction\Index.cshtml.g.cs
+C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\Transaction\Requests.cshtml.g.cs
