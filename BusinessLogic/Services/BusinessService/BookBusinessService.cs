@@ -21,6 +21,9 @@ namespace BusinessLogic.Services.BusinessService
         Task<List<BookTransaction>> GetBookTransactionsByUserId(int? id);
         Task<BookTransaction> GetBookTransactionById(Guid? id);
         Task<List<Book>> GetBooksBySearchValue(string value);
+        Task<int> CreateTransaction(BookTransaction entity);
+        Task<bool> IsThisBookFree(int bookId, DateTime start, DateTime end);
+        Task<int> UpdateBookTransaction(BookTransaction entity);
     }
 
     public class BookBusinessService : IBookBusinessService
@@ -100,19 +103,49 @@ namespace BusinessLogic.Services.BusinessService
 
         public async Task<List<Book>> GetBooksBySearchValue(string value)
         {
-            if (string.IsNullOrEmpty(value))
+            try
             {
-                var books = await bookService.GetBooksByDate();
-                return books.Take(10).ToList();
-            }
-            else
-            {
-                var books = await bookService.Filter(s => s.Title.Contains(value));
-                if (books.Count < 5)
-                    books.AddRange(await bookService.Filter(s => s.Author.Contains(value)));
+                if (string.IsNullOrEmpty(value))
+                {
+                    var books = await bookService.GetBooksByDate();
+                    return books.OrderByDescending(s => s.CreatedDate).ToList();
+                }
+                else
+                {
+                    var books = await bookService.Filter(s => s.Title.Contains(value));
+                    if (books.Count < 5)
+                        books.AddRange(await bookService.Filter(s => s.Author.Contains(value)));
 
-                return books;
+                    return books.OrderByDescending(s => s.CreatedDate).ToList();
+                }
             }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public async Task<int> CreateTransaction(BookTransaction entity)
+        {
+            try
+            {
+                await transactionService.Create(entity);
+                return 1;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        public async Task<bool> IsThisBookFree(int bookId, DateTime start, DateTime end)
+        {
+            return await transactionService.IsThisBookFree(bookId, start, end);
+        }
+
+        public async Task<int> UpdateBookTransaction(BookTransaction entity)
+        {
+            return await transactionService.Update(entity);
         }
     }
 }

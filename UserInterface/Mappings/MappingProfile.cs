@@ -20,11 +20,15 @@ namespace UserInterface.Mappings
             CreateMap<Book, BookViewModel>(MemberList.Source);
             CreateMap<BookViewModel, Book>(MemberList.None);
 
-            CreateMap<DialogControl, DialogViewModel>();
+            CreateMap<Book, BookListViewModel>(MemberList.Source);
+            CreateMap<BookListViewModel, Book>(MemberList.None);
 
-            CreateMap<BcBook, Book>();
+            CreateMap<DialogControl, DialogViewModel>(MemberList.Source);
 
-            CreateMap<BookTransaction, BookTransactionViewModel>();
+            CreateMap<BcBook, Book>(MemberList.Source);
+
+            CreateMap<BookTransaction, BookTransactionViewModel>(MemberList.Source);
+            CreateMap<BookTransactionViewModel, BookTransaction>(MemberList.None);
         }
     }
 }

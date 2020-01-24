@@ -12,6 +12,8 @@ namespace DataAccess.Entities
         public int BookId { get; set; }
         public int OwnerId { get; set; }
         public int BorrowerId { get; set; }
-        public bool IsSuccess { get; set; }
+        public bool IsSuccess { get; set; } = false;
+        public bool OwnerHasSeen { get; set; } = false;
+        public bool OwnerAgreed { get; set; } = false;
     }
 }

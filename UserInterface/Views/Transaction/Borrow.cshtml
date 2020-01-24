@@ -1,0 +1,48 @@
+﻿@model UserInterface.ViewModels.BookTransactionViewModel
+@{
+    ViewData["Title"] = "Book Borrow";
+}
+
+<section style="padding-top:60px;">
+    <div class="container pt-5">
+        <a class="btn btn-primary mb-3" asp-controller="User" asp-action="Index">Back</a>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Index" asp-controller="User">EBookSharing</a></li>
+                <li class="breadcrumb-item">Transactions</li>
+                <li class="breadcrumb-item">Borrow</li>
+                <li class="breadcrumb-item active" aria-current="page">@Model.BookId</li>
+            </ol>
+        </nav>
+        <div class="row">
+            <div class="col-md-12">
+                <form asp-action="Borrow" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="BorrowStartDate" class="control-label"></label>
+                                <input class="form-control" type="date" asp-for="BorrowStartDate" min="@Model.BorrowStartDate" />
+                                <span asp-validation-for="BorrowStartDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="BorrowEndDate" class="control-label"></label>
+                                <input class="form-control" type="date" asp-for="BorrowEndDate" min="@Model.BorrowStartDate" />
+                                <span asp-validation-for="BorrowEndDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" name="Submit" value="Submit" class="btn btn-outline-success btn-block" />
+                        <input style="display:none" type="text" id="Id" name="Id" value="@Model.Id" />
+                        <input type="hidden" asp-for="BorrowerId" />
+                        <input type="hidden" asp-for="OwnerId" />
+                        <input type="hidden" asp-for="BookId" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

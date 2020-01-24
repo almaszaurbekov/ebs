@@ -38,9 +38,9 @@ namespace UserInterface.Controllers
         public async Task<IActionResult> Index(string search)
         {
             var books = await bookBusinessService.GetBooksBySearchValue(search);
-
+            var booksVM = mapper.Map<List<Book>, List<BookViewModel>>(books);
             ViewBag.Search = search;
-            return View();
+            return View(booksVM);
         }
 
         // GET: Books/Details/5

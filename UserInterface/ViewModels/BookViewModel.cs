@@ -1,5 +1,6 @@
 ﻿using DataAccess.Entities;
 using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using UserInterface.Mappings;
@@ -29,5 +30,7 @@ namespace UserInterface.ViewModels.Entities
         public bool IsPainted { get; set; } = false;
         public List<Comment> Comments { get; set; }
         public bool RemoveImage { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public User User { get; set; }
     }
 }

@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using BusinessLogic.Services;
@@ -15,8 +14,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Nancy.Json;
 using Newtonsoft.Json;
+using UserInterface.ViewModels;
 using UserInterface.ViewModels.Entities;
 
 namespace UserInterface.Controllers
@@ -133,6 +132,20 @@ namespace UserInterface.Controllers
             };
             book.UserId = user.Id;
             return await bookBusinessService.AddBook(book);
+        }
+
+        [HttpGet("books/index")]
+        public async Task<IActionResult> GetBooksBySearch(string search)
+        {
+            var books = await bookBusinessService.GetBooksBySearchValue(search);
+            var booksVM = new List<BookListViewModel>();
+            foreach (var book in books)
+            {
+                var entity = mapper.Map<Book, BookListViewModel>(book);
+                entity.UserEmail = book.User.Email;
+                booksVM.Add(entity);
+            }
+            return Ok(booksVM);
         }
 
         private void ReplaceValue(object newValue, object oldValue)

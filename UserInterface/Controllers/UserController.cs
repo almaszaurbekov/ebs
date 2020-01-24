@@ -193,7 +193,7 @@ namespace UserInterface.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = await userBusinessService.GetUserByEmailAndPassword(model.Email, model.Password);
+                User user = await userBusinessService.GetUserByEmailAndPassword(model.Email.ToLower(), model.Password);
                 if (user != null)
                 {
                     await Authenticate(user);
@@ -252,7 +252,7 @@ namespace UserInterface.Controllers
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
+                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email.ToLower()),
                 new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role?.Name)
             };
             

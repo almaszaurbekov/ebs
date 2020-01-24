@@ -26,6 +26,14 @@ namespace BusinessLogic.Services
             return await DbSet.Where(s => s.UserId == id).ToListAsync();
         }
 
+        public override async Task<List<Book>> Filter(Expression<Func<Book, bool>> predicate)
+        {
+            return await DbSet
+                .Include(u => u.User)
+                .Where(predicate)
+                .ToListAsync();
+        }
+
         public override async Task<Book> Find(Expression<Func<Book, bool>> predicate)
         {
             return await DbSet
@@ -37,7 +45,8 @@ namespace BusinessLogic.Services
         public async Task<List<Book>> GetBooksByDate()
         {
             return await DbSet
-                .OrderBy(s => s.CreatedDate)
+                .Include(u => u.User)
+                .OrderByDescending(s => s.CreatedDate)
                 .ToListAsync();
         }
     }
