@@ -1,0 +1,109 @@
+﻿@model List<UserInterface.ViewModels.Entities.UserViewModel>
+@{
+    ViewData["Title"] = "User List";
+}
+
+<section style="padding-top:50px">
+    <div class="container pt-5">
+        <div class="row" id="users">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="ebs-search-value" placeholder="Search user" value="@ViewBag.Search">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-success" id="ebs-search-submit" type="button">Find it</button>
+                    </div>
+                </div>
+                @if(Model.Count > 0)
+                {
+                <div class="row" id="ebs-target-list">
+                    @foreach (var user in Model)
+                    {
+                        var image = user.ImageSource != null ? "/img/" + user.ImageSource : "/img/no-user.png";
+                        <div class="col-md-12">
+                            <div class="row mb-3 bg-light pl-3 pr-3 pt-3 pb-3">
+                                <div class="col-md-4">
+                                    <img src="@image" width="100%" />
+                                </div>
+                                <div class="col-md-8">
+                                    <p><b>@user.Email</b></p>
+                                    <a asp-controller="User" asp-action="Details" asp-route-id="@user.Id" class="btn btn-outline-primary">Visit</a>
+                                    <a asp-controller="Message" asp-action="Send" asp-route-id="@user.Id" class="btn btn-outline-success">Message</a>
+                                    <a asp-controller="Book" asp-action="ByUser" asp-route-id="@user.Id" class="btn btn-primary">ELibrary</a>
+                                </div>
+                            </div>
+                        </div>
+                     }
+                </div>
+                }
+                else
+                {
+                    <p>No users</p>
+                }
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#ebs-search-submit").click(function () {
+                var search = $("#ebs-search-value").val();
+                if (search.trim() != "") {
+                    $.ajax({
+                        method: "GET",
+                        url: "/api/ebs/users/list",
+                        contentType: "application/json; charset=utf-8",
+                        type:"JSON",
+                        data: {
+                            search: search,
+                        },
+                        headers: {
+                            RequestVerificationToken:
+                                $('input:hidden[name="__RequestVerificationToken"]').val()
+                        },
+                        beforeSend: function () {
+                            toastr.info("We are updating your user list", "Please wait");
+                        },
+                        success: function (result) {
+                            console.log(result);
+                            if (result.length > 0) {
+                                toastr.success("Your user list was successfully updated", "Successful!");
+                                $("#ebs-target-list").empty();
+                                for (let user of result) {
+                                    var { imageSource, email, id } = user;
+                                    var image = "/img/no-user.png";
+                                    if (imageSource != null) {
+                                        image = "/img/" + imageSource;
+                                    }
+                                    var col = `   <div class="col-md-12">
+                                                <div class="row pt-3 pl-3 pr-3 pb-3 bg-light mb-3">
+                                                    <div class="col-md-4"><img src="${image}" width="100%" /></div>
+                                                    <div class="col-md-8">
+                                                        <p><b>${email}</b></p>
+                                                        <a href="/User/Details/${id}" class="btn btn-outline-primary">Visit</a>
+                                                        <a href="/Message/Send/${id}" class="btn btn-outline-success">Message</a>
+                                                        <a href="/Book/ByUser/${id}" class="btn btn-primary">ELibrary</a>
+                                                    </div>
+                                                </div>
+                                            </div>`;
+                                    $("#ebs-target-list").append(col);
+                                }
+                            } else {
+                                toastr.error("There is no user that you have searching", "No result");
+                            }
+                        },
+                        error: function (result) {
+                            toastr.error(result, "Oops...");
+                        }
+                    });
+                }
+                else {
+                    toastr.error("Search field is empty", "What!?");
+                }
+            });
+        });
+    </script>
+}

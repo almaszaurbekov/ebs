@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.Linq;
 
 namespace UserInterface.Controllers
 {
@@ -176,6 +177,16 @@ namespace UserInterface.Controllers
             var user = await userBusinessService.GetUserById(id);
             await userBusinessService.DeleteUser(user);
             return await Logout();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> List()
+        {
+            var users = await userBusinessService.GetUsers();
+            var usersVM = mapper.Map<List<User>, List<UserViewModel>>(users);
+            var me = usersVM.Where(s => s.Email == User.Identity.Name).FirstOrDefault();
+            usersVM.Remove(me);
+            return View(usersVM);
         }
 
         // Аутентификация пользователя

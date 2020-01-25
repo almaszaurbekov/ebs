@@ -234,3 +234,4 @@ C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\Microsoft.Rest.
 C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\Microsoft.WindowsAzure.Storage.dll
 C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\Microsoft.Extensions.PlatformAbstractions.dll
 C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\Nancy.dll
+C:\Users\Almas\source\repos\ebs\UnitTest\bin\Debug\netcoreapp3.1\libman.json

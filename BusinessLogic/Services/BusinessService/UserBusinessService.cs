@@ -12,6 +12,7 @@ namespace BusinessLogic.Services.BusinessService
     {
         Task<User> GetUserById(int? id);
         Task<User> GetUserByEmail(string email);
+        Task<List<User>> GetUsersBySearch(string email);
         Task<User> GetUserByEmailAndPassword(string email, string password);
         Task<List<User>> GetUsers();
         Task<User> CreateUser(User entity);
@@ -115,6 +116,11 @@ namespace BusinessLogic.Services.BusinessService
         public async Task<Role> GetRoleByName(string name)
         {
             return await roleService.Find(s => s.Name == name);
+        }
+
+        public async Task<List<User>> GetUsersBySearch(string email)
+        {
+            return await userService.Filter(s => s.Email.Contains(email.ToLower()));
         }
 
         //public async Task<List<Message>> GetUsersAllMessages(User sender, User receiver)

@@ -35,16 +35,17 @@
             <div class="col-md-3">
                 <div class="ebs-left-menu mb-4">
                     <p class="border-bottom"><a asp-controller="User" asp-action="Details" asp-route-id="@ViewBag.Id"><i class="fa fa-user-circle mr-2"></i> My Account</a></p>
-                    <p class="border-bottom"><a asp-controller="Message" asp-action="Index"><i class="fa fa-comments-o mr-2"></i> Messages</a></p>
+                    <p class="border-bottom"><a asp-controller="User" asp-action="List"><i class="fa fa-users mr-2"></i> Users</a></p>
+                    <p class="border-bottom"><a asp-controller="Message" asp-action="Index"><i class="fa fa-comments-o mr-2"></i> Messages <span id="signalr-messages" class="badge badge-pill badge-light ml-2 mb-2"></span></a></p>
                     <p class="border-bottom"><a asp-controller="Book" asp-action="ByUser" asp-route-id="@ViewBag.Id"><i class="fa fa-book mr-2"></i> ELibrary</a></p>
-                    <p class="border-bottom"><a asp-controller="Book" asp-action="Index"><i class="fa fa-book mr-2"></i> Books</a></p>
+                    <p class="border-bottom"><a asp-controller="Book" asp-action="Index"><i class="fa fa-institution mr-2"></i> Books</a></p>
                     <p class="border-bottom"><a asp-controller="Transaction" asp-action="Index" asp-route-id="@ViewBag.Id"><i class="fa fa-calendar mr-2"></i> Transactions</a></p>
-                    <p class="border-bottom"><a asp-controller="Transaction" asp-action="Requests" asp-route-id="@ViewBag.Id"><i class="fa fa-cubes mr-1"></i> Requests <span class="badge badge-pill badge-light ml-2 mb-2">12</span></a></p>
+                    <p class="border-bottom"><a asp-controller="Transaction" asp-action="Requests" asp-route-id="@ViewBag.Id"><i class="fa fa-cubes mr-1"></i> Requests <span id="signalr-requests" class="badge badge-pill badge-light ml-2 mb-2"></span></a></p>
                     <p><a asp-controller="User" asp-action="Logout"><i class="fa fa-sign-out mr-2"></i> Logout</a></p>
                 </div>
                 @if (ViewBag.Role == "admin")
                 {
-                    <div class="ebs-left-menu">
+                    <div class="ebs-left-menu mb-4">
                         <h4 class="text-light mb-3">Admin panel</h4>
                         <p class="border-bottom"><a href="#"><i class="fa fa-users mr-2"></i> Users</a></p>
                         <p class="border-bottom"><a href="#"><i class="fa fa-book mr-2"></i> Books</a></p>
@@ -94,3 +95,29 @@
         </div>
     </div>
 </section>
+@section Scripts {
+    <script>
+        const hubConnection = new signalR.HubConnectionBuilder().withUrl("/chat").build();
+
+        //<div id="inputForm">
+        //    <input type="text" id="message" />
+        //    <input type="button" id="sendBtn" value="Отправить" />
+        //</div>
+        //<div id="chatroom"></div>
+ 
+        hubConnection.on("Send", function (data) {
+            let elem = document.createElement("p");
+            elem.appendChild(document.createTextNode(data));
+            let firstElem = document.getElementById("chatroom").firstChild;
+            document.getElementById("chatroom").insertBefore(elem, firstElem);
+ 
+        });
+ 
+        document.getElementById("sendBtn").addEventListener("click", function (e) {
+            let message = document.getElementById("message").value;
+            hubConnection.invoke("Send", message);
+        });
+ 
+        hubConnection.start();
+    </script>
+}

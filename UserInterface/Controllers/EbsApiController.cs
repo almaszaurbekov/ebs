@@ -148,6 +148,17 @@ namespace UserInterface.Controllers
             return Ok(booksVM);
         }
 
+        [HttpGet("users/list")]
+        public async Task<IActionResult> GetUsersBySearch(string search)
+        {
+            var users = await userBusinessService.GetUsersBySearch(search);
+            var usersVM = mapper.Map<List<User>, List<UserViewModel>>(users);
+            var me = usersVM.Where(s => s.Email == User.Identity.Name).FirstOrDefault();
+            if(me != null)
+                usersVM.Remove(me);
+            return Ok(usersVM);
+        }
+
         private void ReplaceValue(object newValue, object oldValue)
         {
             if (newValue != null)

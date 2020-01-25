@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using BusinessLogic.Services.BusinessService;
 using Microsoft.AspNetCore.Http;
+using UserInterface.Hubs;
 
 namespace UserInterface
 {
@@ -63,6 +64,9 @@ namespace UserInterface
                 options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/User/Login");
                 options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/User/Login");
             });
+
+            // SignalR Configurations
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -91,6 +95,9 @@ namespace UserInterface
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapHub<ChatHub>("/chat");
+                endpoints.MapHub<RequestHub>("/request");
             });
         }
     }
