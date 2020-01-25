@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using UserInterface.ViewModels.Entities;
 
 namespace UserInterface.ViewModels
 {
@@ -22,5 +23,6 @@ namespace UserInterface.ViewModels
         public int BorrowerId { get; set; }
         public bool IsSuccess { get; set; }
         public DateTime CreatedDate { get; set; }
+        public BookViewModel Book { get; set; }
     }
 }

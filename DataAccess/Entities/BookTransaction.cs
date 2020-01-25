@@ -7,6 +7,7 @@ namespace DataAccess.Entities
     {
         public DateTime BorrowStartDate { get; set; }
         public DateTime BorrowEndDate { get; set; }
+        public Book Book { get; set; }
         public int BookId { get; set; }
         public int OwnerId { get; set; }
         public int BorrowerId { get; set; }

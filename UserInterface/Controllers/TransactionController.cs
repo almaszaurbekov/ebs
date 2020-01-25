@@ -53,8 +53,11 @@ namespace UserInterface.Controllers
         {
             var book = await bookBusinessService.GetBookById(id, false);
             var currentUser = await userBusinessService.GetUserByEmail(User.Identity.Name);
+            var transactions = await bookBusinessService.GetBookTransactionsByBookId(id);
+            var transactionsVM = mapper.Map<List<BookTransaction>, List<BookTransactionViewModel>>(transactions);
+            ViewBag.Transactions = transactionsVM;
 
-            if(book.UserId == currentUser.Id)
+            if (book.UserId == currentUser.Id)
             {
                 return NotFound();
             }
@@ -91,7 +94,6 @@ namespace UserInterface.Controllers
                     const int maxDays = 7;
                     const int minDays = 1;
                     var now = DateTime.Now.Date;
-
                     if((start.Date >= now && now <= end.Date) && 
                         (minDays <= difference && difference <= maxDays))
                     {
@@ -119,6 +121,10 @@ namespace UserInterface.Controllers
                     throw;
                 }
             }
+
+            var transactions = await bookBusinessService.GetBookTransactionsByBookId(model.BookId);
+            var transactionsVM = mapper.Map<List<BookTransaction>, List<BookTransactionViewModel>>(transactions);
+            ViewBag.Transactions = transactionsVM;
             return View(model);
         }
 

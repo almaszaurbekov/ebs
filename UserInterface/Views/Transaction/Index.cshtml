@@ -17,14 +17,27 @@
             @foreach (var transaction in Model)
             {
                 <div class="col-md-3">
-                    <p>ID: @transaction.Id</p>
+                    <div class="row">
+                        <div class="col-md-12">
+                            @transaction.Book.Title
+                        </div>
+                        <div class="col-md-6">
+                            <p>Start</p> 
+                            <input type="date" disabled value="@transaction.BorrowStartDate" />
+                        </div>
+                        <div class="col-md-6">
+                            <p>End</p>
+                            <input type="date" disabled value="@transaction.BorrowEndDate" />
+                        </div>
+                    </div>
+                    @*<p>ID: @transaction.Id</p>
                     <p>Borrower: @transaction.BorrowerId</p>
                     <p>Owner: @transaction.OwnerId</p>
                     <p>Start: @transaction.BorrowStartDate</p>
                     <p>End: @transaction.BorrowEndDate</p>
                     <p>BookID: @transaction.BookId</p>
                     <p>Is success: @transaction.IsSuccess</p>
-                    <p>Created Date: @transaction.CreatedDate</p>
+                    <p>Created Date: @transaction.CreatedDate</p>*@
                 </div>
             }
             @if (Model.Count < 1)
