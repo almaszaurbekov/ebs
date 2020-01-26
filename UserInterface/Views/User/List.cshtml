@@ -21,32 +21,7 @@
                         <button class="btn btn-outline-success" id="ebs-search-submit" type="button">Find it</button>
                     </div>
                 </div>
-                @if (Model.Count > 0)
-                {
-                    <div class="row" id="ebs-target-list">
-                        @foreach (var user in Model)
-                        {
-                            var image = user.ImageSource != null ? "/img/" + user.ImageSource : "/img/no-user.png";
-                            <div class="col-md-12">
-                                <div class="row mb-3 bg-light pl-3 pr-3 pt-3 pb-3">
-                                    <div class="col-md-4">
-                                        <img src="@image" width="100%" />
-                                    </div>
-                                    <div class="col-md-8">
-                                        <p><b>@user.Email</b></p>
-                                        <a asp-controller="User" asp-action="Details" asp-route-id="@user.Id" class="btn btn-outline-primary">Visit</a>
-                                        <a asp-controller="Message" asp-action="Send" asp-route-id="@user.Id" class="btn btn-outline-success">Message</a>
-                                        <a asp-controller="Book" asp-action="ByUser" asp-route-id="@user.Id" class="btn btn-primary">ELibrary</a>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                }
-                else
-                {
-                    <p>No users</p>
-                }
+                @await Html.PartialAsync("../Shared/PartialViews/_UserComponent.cshtml", Model)
             </div>
             <div class="col-md-2"></div>
         </div>

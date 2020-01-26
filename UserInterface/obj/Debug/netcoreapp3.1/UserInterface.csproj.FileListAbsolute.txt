@@ -189,3 +189,7 @@ C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\View
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\Transaction\Requests.cshtml.g.cs
 C:\Users\Almas\source\repos\ebs\UserInterface\bin\Debug\netcoreapp3.1\libman.json
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\User\List.cshtml.g.cs
+C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\Shared\PartialViews\_BookComponent.cshtml.g.cs
+C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\Shared\PartialViews\_MenuComponent.cshtml.g.cs
+C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\Shared\PartialViews\_TransactionComponent.cshtml.g.cs
+C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\Shared\PartialViews\_UserComponent.cshtml.g.cs

@@ -4,45 +4,18 @@
     ViewData["Title"] = "Index";
 }
 <style>
-    .ebs-menu{display:none}
-    .card{margin:0 auto;}
-    .ebs-left-menu {
-        background: #3C3A52;
-        box-shadow: 0 0 10px rgba(0,0,0,0.5);
-        border-radius: 5px;
-        padding: 20px;
-    }
-    .ebs-left-menu a{
-        color:white;
-        font-size:20px;
-        padding-bottom:10px;
-        text-decoration:none;
-        transition:all ease .3s;
-    }
-    .ebs-left-menu a:hover{
-        color:#6C63FF;
-        text-decoration:none;
-        padding-left:10px;
-    }
-    .ebs-left-menu p {
-        border-color: #6C63FF !important;
-    }
+    .ebs-menu{display:none} .card{margin:0 auto;}
+    .ebs-left-menu {background:#3C3A52;box-shadow:0 0 10px rgba(0,0,0,0.5);border-radius: 5px;padding: 20px;}
+    .ebs-left-menu a{color:white;font-size:20px;padding-bottom:10px;text-decoration:none;transition:all ease .3s;}
+    .ebs-left-menu a:hover{color:#6C63FF;text-decoration:none;padding-left:10px;}
+    .ebs-left-menu p {border-color:#6C63FF !important;}
 </style>
 <section style="padding-top:60px;">
     <div class="container-fluid">
         <hr />
         <div class="row pt-3">
             <div class="col-md-3">
-                <div class="ebs-left-menu mb-4">
-                    <p class="border-bottom"><a asp-controller="User" asp-action="Details" asp-route-id="@ViewBag.Id"><i class="fa fa-user-circle mr-2"></i> My Account</a></p>
-                    <p class="border-bottom"><a asp-controller="User" asp-action="List"><i class="fa fa-users mr-2"></i> Users</a></p>
-                    <p class="border-bottom"><a asp-controller="Message" asp-action="Index"><i class="fa fa-comments-o mr-2"></i> Messages <span id="signalr-messages" class="badge badge-pill badge-light ml-2 mb-2"></span></a></p>
-                    <p class="border-bottom"><a asp-controller="Book" asp-action="ByUser" asp-route-id="@ViewBag.Id"><i class="fa fa-book mr-2"></i> ELibrary</a></p>
-                    <p class="border-bottom"><a asp-controller="Book" asp-action="Index"><i class="fa fa-institution mr-2"></i> Books</a></p>
-                    <p class="border-bottom"><a asp-controller="Transaction" asp-action="Index" asp-route-id="@ViewBag.Id"><i class="fa fa-calendar mr-2"></i> Transactions</a></p>
-                    <p class="border-bottom"><a asp-controller="Transaction" asp-action="Requests" asp-route-id="@ViewBag.Id"><i class="fa fa-cubes mr-1"></i> Requests <span id="signalr-requests" class="badge badge-pill badge-light ml-2 mb-2"></span></a></p>
-                    <p><a asp-controller="User" asp-action="Logout"><i class="fa fa-sign-out mr-2"></i> Logout</a></p>
-                </div>
+                @await Html.PartialAsync("../Shared/PartialViews/_MenuComponent.cshtml", ViewData["Id"])
                 @if (ViewBag.Role == "admin")
                 {
                     <div class="ebs-left-menu mb-4">

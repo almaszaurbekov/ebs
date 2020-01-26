@@ -68,9 +68,8 @@ namespace UserInterface.Controllers
             
             var books = await bookBusinessService.GetBooksByUserId(id);
             var booksVM = mapper.Map<List<Book>, List<BookViewModel>>(books.OrderBy(s => s.CreatedDate).ToList());
-            var user = await userBusinessService.GetUserById(id);
+            var user = await userBusinessService.GetUserByEmail(User.Identity.Name);
             ViewBag.Email = user.Email;
-            ViewBag.IsCurrentUser = user.Id == id;
             return View(booksVM);
         }
 

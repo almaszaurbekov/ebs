@@ -40,7 +40,7 @@ namespace UserInterface.Controllers
         {
             var user = await userBusinessService.GetUserByEmail(User.Identity.Name);
             ViewBag.Role = user.Role.Name;
-            ViewBag.Id = user.Id;
+            ViewData["Id"] = user.Id;
             return View();
         }
 

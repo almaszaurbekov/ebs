@@ -1,16 +1,8 @@
 ﻿@model List<UserInterface.ViewModels.Entities.BookViewModel>
-
 @{
     ViewData["Title"] = "Books";
 }
-<style>
-    .badge{
-        top:10px;
-        left:10px;
-        padding:10px;
-        position:absolute;
-    }
-</style>
+<style>.badge{top:10px;left:10px;padding:10px;position:absolute;}</style>
 <section style="padding-top:50px;">
     <div class="container pt-5">
         <a class="btn btn-primary mb-3" asp-controller="User" asp-action="Index">Back</a>
@@ -22,53 +14,7 @@
             </ol>
         </nav>
         <div class="row">
-            @if (Model.Count < 1)
-            {
-                <div class="col-md-12 text-center pt-5 mt-5">
-                    <h3 class="display-3">There is no one book :(</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                    <a class="btn btn-success text-light" asp-controller="Book" asp-action="Create"><i class="fa fa-plus-square mr-2"></i> Add book</a>
-                </div>
-            }
-            else
-            {
-                <div class="col-md-12 mb-3">
-                    <a asp-controller="Book" asp-action="Create" class="btn btn-success">Add book <i class="fa fa-plus"></i></a>
-                </div>
-                @foreach (var book in Model)
-                {
-                    var image = book.ImageSource != null ? book.ImageSource : "no-book.png";
-                    <div class="col-md-4 mb-3">
-                        <div class="card" style="width: 18rem;">
-                            @if (book.IsBorrowed)
-                            {
-                                <span class="badge badge-pill badge-danger">Borrowed</span>
-                            }
-                            else
-                            {
-                                <span class="badge badge-pill badge-success">Free</span>
-                            }
-                            <img src="/img/@image" class="card-img-top" width="100%">
-                            <div class="card-body">
-                                <h5 class="card-title">@book.Title</h5>
-                                <p>@book.Author</p>
-                            </div>
-                            <div class="card-footer">
-                                <a asp-controller="Book" asp-action="Details" asp-route-id="@book.Id" class="btn btn-primary pull-right">Details</a>
-                                @if (!ViewBag.IsCurrentUser)
-                                {
-                                    <a asp-controller="Book" asp-action="Borrow" asp-route-id="@book.Id" class="btn btn-success pull-right mr-2">Borrow</a>
-                                }
-                                else
-                                {
-                                    <a asp-controller="Book" asp-action="Edit" asp-route-id="@book.Id" class="btn btn-outline-primary pull-right mr-2">Edit</a>
-                                    <a asp-controller="Book" asp-action="Delete" asp-route-id="@book.Id" class="btn btn-outline-danger pull-right mr-2">Delete</a>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                }
-            }
+            @await Html.PartialAsync("../Shared/PartialViews/_BookComponent.cshtml", Model)
         </div>
     </div>
 </section>

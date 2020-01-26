@@ -1,7 +1,28 @@
-﻿
-@{
-    ViewData["Title"] = "TransactionDetail";
+﻿@model List<UserInterface.ViewModels.BookTransactionViewModel>
+@if (Model.Count < 1)
+{
+    <div class="col-md-12 text-center pt-5">
+        <h1>Empty transactions</h1>
+    </div>
 }
-
-<h1>TransactionDetail</h1>
-
+else
+{
+    @foreach (var transaction in Model)
+    {
+        <div class="col-md-3">
+            <div class="row">
+                <div class="col-md-12">
+                    @transaction.Book.Title
+                </div>
+                <div class="col-md-6">
+                    <p>Start</p>
+                    <input type="date" disabled value="@transaction.BorrowStartDate" />
+                </div>
+                <div class="col-md-6">
+                    <p>End</p>
+                    <input type="date" disabled value="@transaction.BorrowEndDate" />
+                </div>
+            </div>
+        </div>
+    }
+}
