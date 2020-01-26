@@ -70,13 +70,11 @@
 </section>
 @section Scripts {
     <script>
-        const hubConnection = new signalR.HubConnectionBuilder().withUrl("/chat").build();
-
-        //<div id="inputForm">
-        //    <input type="text" id="message" />
-        //    <input type="button" id="sendBtn" value="Отправить" />
-        //</div>
-        //<div id="chatroom"></div>
+        var trCount = @ViewData["TrCount"];
+        if (trCount > 0) {
+            $("#signalr-requests").html(trCount);
+        }
+        const hubConnection = new signalR.HubConnectionBuilder().withUrl("/requests").build();
  
         hubConnection.on("Send", function (data) {
             let elem = document.createElement("p");

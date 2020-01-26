@@ -57,8 +57,8 @@ namespace BusinessLogic.Services
             var transactions = await DbSet.Where(s => s.BookId == bookId).ToListAsync();
             foreach(var tr in transactions)
             {
-                if((IsDateInRange(start, end, tr.BorrowStartDate) || 
-                    IsDateInRange(start, end, tr.BorrowEndDate)) && tr.OwnerAgreed)
+                if ((IsDateInRange(start, end, tr.BorrowStartDate) || 
+                    IsDateInRange(start, end, tr.BorrowEndDate)) && tr.OwnerAgreed == 1)
                 {
                     return false;
                 }

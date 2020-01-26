@@ -7,10 +7,9 @@ namespace UserInterface.Hubs
     [Authorize]
     public class ChatHub : Hub
     {
-        public async Task Send(string message)
+        public async Task SendMessage(string user, string message)
         {
-            var user = Context.User;
-            await this.Clients.All.SendAsync("Send", user.Identity.Name);
+            await Clients.All.SendAsync("ReceiveMessage", user, message);
         }
     }
 }

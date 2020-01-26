@@ -28,13 +28,13 @@ namespace DataAccess.Entities.Base
         /// </summary>
         [MaxLength(256)]
         [ScaffoldColumn(false)]
-        public string UpdatedBy { get; set; } = "ebs";
+        public string UpdatedBy { get; set; } = null;
 
         /// <summary>
         /// Дата обновления
         /// </summary>
         [ScaffoldColumn(false)]
-        public DateTime UpdatedDate { get; set; } = DateTime.UtcNow;
+        public DateTime? UpdatedDate { get; set; } = null;
 
         /// <summary>
         /// Удалена ли запись
@@ -47,12 +47,12 @@ namespace DataAccess.Entities.Base
         /// </summary>
         [MaxLength(256)]
         [ScaffoldColumn(false)]
-        public string DeletedBy { get; set; } = "ebs";
+        public string DeletedBy { get; set; } = null;
 
         /// <summary>
         /// Дата удаления
         /// </summary>
         [ScaffoldColumn(false)]
-        public DateTime DeletedDate { get; set; } = DateTime.UtcNow;
+        public DateTime? DeletedDate { get; set; } = null;
     }
 }

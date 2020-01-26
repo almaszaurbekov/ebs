@@ -97,7 +97,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<DateTime>("DeletedDate")
+                    b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
@@ -128,7 +128,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("UserId")
@@ -170,17 +170,17 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<DateTime>("DeletedDate")
+                    b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSuccess")
-                        .HasColumnType("bit");
+                    b.Property<int>("IsSuccess")
+                        .HasColumnType("int");
 
-                    b.Property<bool>("OwnerAgreed")
-                        .HasColumnType("bit");
+                    b.Property<int>("OwnerAgreed")
+                        .HasColumnType("int");
 
                     b.Property<bool>("OwnerHasSeen")
                         .HasColumnType("bit");
@@ -192,7 +192,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -223,7 +223,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<DateTime>("DeletedDate")
+                    b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
@@ -236,7 +236,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("UserId")
@@ -267,8 +267,14 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<DateTime>("DeletedDate")
+                    b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("FirstInterlocutorEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("FirstInterlocutorId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -279,11 +285,17 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("LastMessageDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("SecondInterlocutorEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SecondInterlocutorId")
+                        .HasColumnType("int");
+
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("UserId")
@@ -314,7 +326,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<DateTime>("DeletedDate")
+                    b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("DialogControlId")
@@ -333,7 +345,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserReceiverEmail")
@@ -372,7 +384,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<DateTime>("DeletedDate")
+                    b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
@@ -385,7 +397,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -395,27 +407,19 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("57f4d053-4997-48e6-bf2b-304fd60b91ee"),
+                            Id = new Guid("ddd0e4bc-bb9f-4825-ba2e-c5912aa29d13"),
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 1, 25, 10, 32, 31, 858, DateTimeKind.Utc).AddTicks(6222),
-                            DeletedBy = "ebs",
-                            DeletedDate = new DateTime(2020, 1, 25, 10, 32, 31, 858, DateTimeKind.Utc).AddTicks(6242),
+                            CreatedDate = new DateTime(2020, 1, 26, 9, 32, 28, 397, DateTimeKind.Utc).AddTicks(9749),
                             IsDeleted = false,
-                            Name = "admin",
-                            UpdatedBy = "ebs",
-                            UpdatedDate = new DateTime(2020, 1, 25, 10, 32, 31, 858, DateTimeKind.Utc).AddTicks(6241)
+                            Name = "admin"
                         },
                         new
                         {
-                            Id = new Guid("02883dee-81b0-4576-82a6-c78a2eae9599"),
+                            Id = new Guid("0f996da0-1a2f-4572-a758-3134cae8276c"),
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 1, 25, 10, 32, 31, 858, DateTimeKind.Utc).AddTicks(8398),
-                            DeletedBy = "ebs",
-                            DeletedDate = new DateTime(2020, 1, 25, 10, 32, 31, 858, DateTimeKind.Utc).AddTicks(8409),
+                            CreatedDate = new DateTime(2020, 1, 26, 9, 32, 28, 398, DateTimeKind.Utc).AddTicks(1693),
                             IsDeleted = false,
-                            Name = "user",
-                            UpdatedBy = "ebs",
-                            UpdatedDate = new DateTime(2020, 1, 25, 10, 32, 31, 858, DateTimeKind.Utc).AddTicks(8408)
+                            Name = "user"
                         });
                 });
 
@@ -440,7 +444,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<DateTime>("DeletedDate")
+                    b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -468,7 +472,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -482,29 +486,21 @@ namespace DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 1, 25, 10, 32, 31, 859, DateTimeKind.Utc).AddTicks(571),
-                            DeletedBy = "ebs",
-                            DeletedDate = new DateTime(2020, 1, 25, 10, 32, 31, 859, DateTimeKind.Utc).AddTicks(579),
+                            CreatedDate = new DateTime(2020, 1, 26, 9, 32, 28, 398, DateTimeKind.Utc).AddTicks(3715),
                             Email = "foxxychmoxy@gmail.com",
                             IsDeleted = false,
                             Password = "d9edce5cc424444d5c03fb834de779e9924eb69d05ea3f7be7dd5041bb87864e18b1b75c4d7a9b4abd9d9c784dc482701bdb711256c1f93610a107a161ceb2c2",
-                            RoleId = new Guid("57f4d053-4997-48e6-bf2b-304fd60b91ee"),
-                            UpdatedBy = "ebs",
-                            UpdatedDate = new DateTime(2020, 1, 25, 10, 32, 31, 859, DateTimeKind.Utc).AddTicks(578)
+                            RoleId = new Guid("ddd0e4bc-bb9f-4825-ba2e-c5912aa29d13")
                         },
                         new
                         {
                             Id = 2,
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 1, 25, 10, 32, 31, 886, DateTimeKind.Utc).AddTicks(464),
-                            DeletedBy = "ebs",
-                            DeletedDate = new DateTime(2020, 1, 25, 10, 32, 31, 886, DateTimeKind.Utc).AddTicks(580),
+                            CreatedDate = new DateTime(2020, 1, 26, 9, 32, 28, 415, DateTimeKind.Utc).AddTicks(5837),
                             Email = "almasgaara@mail.ru",
                             IsDeleted = false,
                             Password = "d9edce5cc424444d5c03fb834de779e9924eb69d05ea3f7be7dd5041bb87864e18b1b75c4d7a9b4abd9d9c784dc482701bdb711256c1f93610a107a161ceb2c2",
-                            RoleId = new Guid("02883dee-81b0-4576-82a6-c78a2eae9599"),
-                            UpdatedBy = "ebs",
-                            UpdatedDate = new DateTime(2020, 1, 25, 10, 32, 31, 886, DateTimeKind.Utc).AddTicks(576)
+                            RoleId = new Guid("0f996da0-1a2f-4572-a758-3134cae8276c")
                         });
                 });
 

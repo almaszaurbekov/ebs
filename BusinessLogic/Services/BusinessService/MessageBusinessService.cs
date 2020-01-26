@@ -9,6 +9,7 @@ namespace BusinessLogic.Services.BusinessService
     public interface IMessageBusinessService
     {
         Task<List<DialogControl>> GetDialogs(string email);
+        Task<DialogControl> CreateDialogControl(int userId);
     }
 
     public class MessageBusinessService : IMessageBusinessService
@@ -23,6 +24,11 @@ namespace BusinessLogic.Services.BusinessService
             this.dialogControlService = dialogControlService;
         }
 
+        public async Task<DialogControl> CreateDialogControl(int userId)
+        {
+            return new DialogControl();
+        }
+
         public async Task<List<DialogControl>> GetDialogs(string email)
         {
             var dialogIds = await messageService.GetDialogIds(email);
@@ -32,5 +38,7 @@ namespace BusinessLogic.Services.BusinessService
 
             return dialogs;
         }
+
+        
     }
 }

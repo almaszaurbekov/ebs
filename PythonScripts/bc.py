@@ -1,7 +1,6 @@
 from base_functions import *
 from bs4 import BeautifulSoup
 import requests
-import json
 
 def bookcity_parse(word):
     url = "https://www.bookcity.kz/search/?SORTBY=RELEVANSE&q={}".format(word)

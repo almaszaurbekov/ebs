@@ -12,15 +12,15 @@
                 <li class="breadcrumb-item active" aria-current="page">Users</li>
             </ol>
         </nav>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" id="ebs-search-value" placeholder="Search user" value="@ViewBag.Search">
+            <div class="input-group-append">
+                <button class="btn btn-outline-success" id="ebs-search-submit" type="button">Find it</button>
+            </div>
+        </div>
         <div class="row" id="users">
             <div class="col-md-2"></div>
             <div class="col-md-8">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="ebs-search-value" placeholder="Search user" value="@ViewBag.Search">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-success" id="ebs-search-submit" type="button">Find it</button>
-                    </div>
-                </div>
                 @await Html.PartialAsync("../Shared/PartialViews/_UserComponent.cshtml", Model)
             </div>
             <div class="col-md-2"></div>

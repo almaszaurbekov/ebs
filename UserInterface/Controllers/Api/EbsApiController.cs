@@ -109,7 +109,7 @@ namespace UserInterface.Controllers
         [HttpGet("books/bc/add")]
         public async Task<int> AddBcBook(string href)
         {
-            var path = "http://127.0.0.1:5000/ebs/bookcity/details/" + href;
+            var path = "https://murmuring-savannah-25756.herokuapp.com/ebs/bookcity/details/" + href;
             var user = await userBusinessService.GetUserByEmail(User.Identity.Name);
             var client = new HttpClient();
             var response = await client.GetAsync(path);
@@ -157,6 +157,39 @@ namespace UserInterface.Controllers
             if(me != null)
                 usersVM.Remove(me);
             return Ok(usersVM);
+        }
+
+        [HttpGet("transactions/accept")]
+        public async Task<bool> TransactionAccept(string id)
+        {
+            try
+            {
+                var transaction = await bookBusinessService.GetBookTransactionById(new Guid(id));
+                transaction.OwnerAgreed = 1;
+                await bookBusinessService.UpdateBookTransaction(transaction);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        [HttpGet("transactions/cancel")]
+        public async Task<bool> TransactionCancel(string id)
+        {
+            try
+            {
+                var transaction = await bookBusinessService.GetBookTransactionById(new Guid(id));
+                transaction.OwnerAgreed = 0;
+                transaction.IsSuccess = 0;
+                await bookBusinessService.UpdateBookTransaction(transaction);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         private void ReplaceValue(object newValue, object oldValue)

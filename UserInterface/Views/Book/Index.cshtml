@@ -12,8 +12,7 @@
             </ol>
         </nav>
         <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="ebs-search-value" placeholder="Search book" value="@ViewBag.Search">
                     <div class="input-group-append">
@@ -21,46 +20,9 @@
                     </div>
                 </div>
                 <div class="row" id="ebs-target-list">
-                    @if (Model.Count > 0)
-                    {
-                        foreach (var book in Model)
-                        {
-                            var image = book.ImageSource != null ? "/img/" + book.ImageSource : "/img/no-book.png";
-                            if (!string.IsNullOrEmpty(book.ImageSource) && book.ImageSource.Contains("http")) { image = book.ImageSource; }
-                            <div class="col-md-12">
-                                <div class="row pt-3 pl-3 pr-3 pb-3 bg-light mb-3">
-                                    <div class="col-md-4">
-                                        <img src="@image" width="100%" />
-                                    </div>
-                                    <div class="col-md-8">
-                                        <p><b>@book.Title</b></p>
-                                        <p>@book.Author</p>
-                                        @if (book.User.Email != User.Identity.Name)
-                                        {
-                                            <a asp-controller="Transaction" asp-action="Borrow" asp-route-id="@book.Id" class="btn btn-success pull-right">Borrow</a>
-                                        }
-                                        else
-                                        {
-                                            <a asp-controller="Book" asp-action="Delete" asp-route-id="@book.Id" class="btn btn-outline-danger pull-right">Delete</a>
-                                            <a asp-controller="Book" asp-action="Edit" asp-route-id="@book.Id" class="btn btn-outline-success pull-right mr-2">Edit</a>
-                                        }
-                                        <a asp-controller="Book" asp-action="Details" asp-route-id="@book.Id" class="btn btn-outline-primary pull-right mr-2">Visit</a>
-                                        <p>@book.CreatedDate</p>
-                                        <p>@book.User.Email</p>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    }
-                    else
-                    {
-                        <div class="col-md-12">
-                            <p>Empty</p>
-                        </div>
-                    }
+                    @await Html.PartialAsync("../Shared/PartialViews/_BookComponent.cshtml", Model)
                 </div>
             </div>
-            <div class="col-md-2"></div>
         </div>
     </div>
 </section>

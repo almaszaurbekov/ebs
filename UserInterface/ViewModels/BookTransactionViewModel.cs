@@ -24,5 +24,6 @@ namespace UserInterface.ViewModels
         public bool IsSuccess { get; set; }
         public DateTime CreatedDate { get; set; }
         public BookViewModel Book { get; set; }
+        public bool OwnerAgreed { get; set; }
     }
 }

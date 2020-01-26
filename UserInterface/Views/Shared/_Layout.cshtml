@@ -24,8 +24,12 @@
                     ebs<span class="ebs-dot">.</span>
                 </a>
                 <form class="ebs-search ml-5" method="GET" asp-controller="Book" asp-action="Index">
-                    <input type="text" placeholder="Search book" name="search" />
-                    <input type="submit" value="Find It" />
+                    <div class="input-group mb-3">
+                        <input type="text" placeholder="Search book" name="search">
+                        <div class="input-group-append">
+                            <input type="submit" class="btn btn-success" value="Find It">
+                        </div>
+                    </div>
                 </form>
             }
             else

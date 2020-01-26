@@ -3,34 +3,16 @@
   <component name="ChangeListManager">
     <list default="true" id="85c09017-e672-4d0f-b6a0-dad082c808c8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../.vs/ebs/v16/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/../.vs/ebs/v16/.suo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.vs/ebs/v16/Server/sqlite3/storage.ide-wal" beforeDir="false" afterPath="$PROJECT_DIR$/../.vs/ebs/v16/Server/sqlite3/storage.ide-wal" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BusinessLogic/bin/Debug/netcoreapp3.1/DataAccess.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../BusinessLogic/bin/Debug/netcoreapp3.1/DataAccess.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BusinessLogic/bin/Debug/netcoreapp3.1/DataAccess.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../BusinessLogic/bin/Debug/netcoreapp3.1/DataAccess.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../BusinessLogic/obj/Debug/netcoreapp3.1/BusinessLogic.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../BusinessLogic/obj/Debug/netcoreapp3.1/BusinessLogic.csprojAssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DataAccess/Entities/Book.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../DataAccess/Entities/Book.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DataAccess/Migrations/EbsContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../DataAccess/Migrations/EbsContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DataAccess/bin/Debug/netcoreapp3.1/DataAccess.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../DataAccess/bin/Debug/netcoreapp3.1/DataAccess.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DataAccess/bin/Debug/netcoreapp3.1/DataAccess.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../DataAccess/bin/Debug/netcoreapp3.1/DataAccess.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DataAccess/obj/Debug/netcoreapp3.1/DataAccess.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../DataAccess/obj/Debug/netcoreapp3.1/DataAccess.csprojAssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DataAccess/obj/Debug/netcoreapp3.1/DataAccess.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../DataAccess/obj/Debug/netcoreapp3.1/DataAccess.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DataAccess/obj/Debug/netcoreapp3.1/DataAccess.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../DataAccess/obj/Debug/netcoreapp3.1/DataAccess.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UnitTest/bin/Debug/netcoreapp3.1/BusinessLogic.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UnitTest/bin/Debug/netcoreapp3.1/BusinessLogic.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UnitTest/bin/Debug/netcoreapp3.1/BusinessLogic.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../UnitTest/bin/Debug/netcoreapp3.1/BusinessLogic.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UnitTest/bin/Debug/netcoreapp3.1/DataAccess.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UnitTest/bin/Debug/netcoreapp3.1/DataAccess.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UnitTest/bin/Debug/netcoreapp3.1/DataAccess.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../UnitTest/bin/Debug/netcoreapp3.1/DataAccess.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UnitTest/bin/Debug/netcoreapp3.1/UserInterface.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UnitTest/bin/Debug/netcoreapp3.1/UserInterface.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UnitTest/bin/Debug/netcoreapp3.1/UserInterface.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../UnitTest/bin/Debug/netcoreapp3.1/UserInterface.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UnitTest/bin/Debug/netcoreapp3.1/UserInterface.Views.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UnitTest/bin/Debug/netcoreapp3.1/UserInterface.Views.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UnitTest/bin/Debug/netcoreapp3.1/UserInterface.Views.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../UnitTest/bin/Debug/netcoreapp3.1/UserInterface.Views.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UnitTest/obj/Debug/netcoreapp3.1/UnitTest.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../UnitTest/obj/Debug/netcoreapp3.1/UnitTest.csprojAssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserInterface/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UserInterface/Controllers/UserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserInterface/UserInterface.csproj.user" beforeDir="false" afterPath="$PROJECT_DIR$/../UserInterface/UserInterface.csproj.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserInterface/bin/Debug/netcoreapp3.1/DataAccess.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UserInterface/bin/Debug/netcoreapp3.1/DataAccess.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserInterface/bin/Debug/netcoreapp3.1/DataAccess.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../UserInterface/bin/Debug/netcoreapp3.1/DataAccess.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserInterface/bin/Debug/netcoreapp3.1/UserInterface.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UserInterface/bin/Debug/netcoreapp3.1/UserInterface.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserInterface/bin/Debug/netcoreapp3.1/UserInterface.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../UserInterface/bin/Debug/netcoreapp3.1/UserInterface.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserInterface/Views/Shared/PartialViews/_TransactionComponent.cshtml" beforeDir="false" afterPath="$PROJECT_DIR$/../UserInterface/Views/Shared/PartialViews/_TransactionComponent.cshtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserInterface/bin/Debug/netcoreapp3.1/UserInterface.Views.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UserInterface/bin/Debug/netcoreapp3.1/UserInterface.Views.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserInterface/bin/Debug/netcoreapp3.1/UserInterface.Views.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../UserInterface/bin/Debug/netcoreapp3.1/UserInterface.Views.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserInterface/obj/Debug/netcoreapp3.1/Razor/Views/Shared/PartialViews/_TransactionComponent.cshtml.g.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UserInterface/obj/Debug/netcoreapp3.1/Razor/Views/Shared/PartialViews/_TransactionComponent.cshtml.g.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserInterface/obj/Debug/netcoreapp3.1/UserInterface.Views.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UserInterface/obj/Debug/netcoreapp3.1/UserInterface.Views.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UserInterface/obj/Debug/netcoreapp3.1/UserInterface.Views.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../UserInterface/obj/Debug/netcoreapp3.1/UserInterface.Views.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../UserInterface/obj/Debug/netcoreapp3.1/UserInterface.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../UserInterface/obj/Debug/netcoreapp3.1/UserInterface.csprojAssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserInterface/obj/Debug/netcoreapp3.1/UserInterface.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../UserInterface/obj/Debug/netcoreapp3.1/UserInterface.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../UserInterface/obj/Debug/netcoreapp3.1/UserInterface.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../UserInterface/obj/Debug/netcoreapp3.1/UserInterface.pdb" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -40,32 +22,32 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="20" column="47" selection-start-line="20" selection-start-column="47" selection-end-line="20" selection-end-column="47" />
+            <state relative-caret-position="270">
+              <caret line="15" column="28" lean-forward="true" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
               <folding>
-                <element signature="e#19#51#0" expanded="true" />
+                <element signature="e#0#32#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/database.py">
+        <entry file="file://$PROJECT_DIR$/Procfile">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="4" selection-start-line="4" selection-end-line="4" />
+            <state>
+              <caret column="21" lean-forward="true" selection-start-column="21" selection-end-column="21" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bc.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="46" column="32" lean-forward="true" selection-start-line="46" selection-start-column="32" selection-end-line="46" selection-end-column="32" />
+            <state relative-caret-position="100">
+              <caret line="5" column="32" lean-forward="true" selection-start-line="5" selection-start-column="32" selection-end-line="5" selection-end-column="32" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -74,12 +56,12 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/amz.py">
+        <entry file="file://$PROJECT_DIR$/base_functions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="63" selection-start-line="63" selection-end-line="63" />
+            <state relative-caret-position="230">
+              <caret line="20" column="22" lean-forward="true" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
               <folding>
-                <element signature="e#0#28#0" expanded="true" />
+                <element signature="e#0#25#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -103,7 +85,7 @@
     </findStrings>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -112,14 +94,15 @@
         <option value="$PROJECT_DIR$/test.txt" />
         <option value="$PROJECT_DIR$/database.py" />
         <option value="$PROJECT_DIR$/bc.txt" />
-        <option value="$PROJECT_DIR$/base_functions.py" />
         <option value="$PROJECT_DIR$/functions.py" />
         <option value="$PROJECT_DIR$/ts.txt" />
         <option value="$PROJECT_DIR$/isbn.py" />
         <option value="$PROJECT_DIR$/amz.txt" />
-        <option value="$PROJECT_DIR$/app.py" />
         <option value="$PROJECT_DIR$/amz.py" />
         <option value="$PROJECT_DIR$/bc.py" />
+        <option value="$PROJECT_DIR$/base_functions.py" />
+        <option value="$PROJECT_DIR$/Procfile" />
+        <option value="$PROJECT_DIR$/app.py" />
       </list>
     </option>
   </component>
@@ -297,8 +280,8 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49590835" visible="true" weight="0.17857143" />
-      <window_info id="Structure" order="1" sideWeight="0.5040917" side_tool="true" visible="true" weight="0.17857143" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4942717" visible="true" weight="0.17857143" />
+      <window_info id="Structure" order="1" sideWeight="0.5057283" side_tool="true" visible="true" weight="0.17857143" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -336,16 +319,6 @@
     <entry file="file://$PROJECT_DIR$/test.txt" />
     <entry file="file://$PROJECT_DIR$/myfile.txt" />
     <entry file="file://$PROJECT_DIR$/bc.txt" />
-    <entry file="file://$PROJECT_DIR$/base_functions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="7" column="62" lean-forward="true" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="62" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/functions.py" />
     <entry file="file://$PROJECT_DIR$/ts.txt" />
     <entry file="file://$PROJECT_DIR$/isbn.py">
@@ -361,15 +334,42 @@
     <entry file="file://$PROJECT_DIR$/amz.txt" />
     <entry file="file://$PROJECT_DIR$/database.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        <state relative-caret-position="20">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/amz.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
+        <state relative-caret-position="502">
           <caret line="63" selection-start-line="63" selection-end-line="63" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base_functions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="20" column="22" lean-forward="true" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Procfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="21" lean-forward="true" selection-start-column="21" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="5" column="32" lean-forward="true" selection-start-line="5" selection-start-column="32" selection-end-line="5" selection-end-column="32" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
@@ -378,20 +378,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="20" column="47" selection-start-line="20" selection-start-column="47" selection-end-line="20" selection-end-column="47" />
+        <state relative-caret-position="270">
+          <caret line="15" column="28" lean-forward="true" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
           <folding>
-            <element signature="e#19#51#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="46" column="32" lean-forward="true" selection-start-line="46" selection-start-column="32" selection-end-line="46" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
+            <element signature="e#0#32#0" expanded="true" />
           </folding>
         </state>
       </provider>

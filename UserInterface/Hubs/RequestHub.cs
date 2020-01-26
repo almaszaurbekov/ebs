@@ -7,9 +7,9 @@ namespace UserInterface.Hubs
     [Authorize]
     public class RequestHub : Hub
     {
-        public async Task Send(string message)
+        public async Task Send(string name, string book)
         {
-            await this.Clients.All.SendAsync("Send", message);
+            await this.Clients.All.SendAsync(name, book);
         }
     }
 }

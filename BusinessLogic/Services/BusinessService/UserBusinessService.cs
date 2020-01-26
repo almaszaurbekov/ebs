@@ -122,12 +122,5 @@ namespace BusinessLogic.Services.BusinessService
         {
             return await userService.Filter(s => s.Email.Contains(email.ToLower()));
         }
-
-        //public async Task<List<Message>> GetUsersAllMessages(User sender, User receiver)
-        //{
-        //    var messages = await messageService.GetMessagesByUsers(sender.Id, receiver.Id);
-        //    messages.AddRange(await messageService.GetMessagesByUsers(receiver.Id, sender.Id));
-        //    return messages;
-        //}
     }
 }

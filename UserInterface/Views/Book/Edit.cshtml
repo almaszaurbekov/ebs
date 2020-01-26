@@ -2,7 +2,8 @@
 
 @{
     ViewData["Title"] = "Edit";
-    var imagePath = (Model.ImageSource ?? "no-book.png");
+    var image = "/img/" + (Model.ImageSource != null ? Model.ImageSource : "no-book.png");
+    if (Model.ImageSource != null && Model.ImageSource.Contains("http")) image = Model.ImageSource;
 }
 
 <section style="padding-top:50px;">
@@ -80,7 +81,7 @@
                 </form>
             </div>
             <div class="col-md-6 mb-3 text-center">
-                <img src="~/img/@imagePath" width="50%" style="margin:0 auto !important" />
+                <img src="@image" width="50%" style="margin:0 auto !important" />
             </div>
         </div>
     </div>

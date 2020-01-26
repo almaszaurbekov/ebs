@@ -39,7 +39,13 @@ namespace UserInterface.Controllers
             var transactionsVM = mapper.Map<List<BookTransaction>, List<BookTransactionViewModel>>(transactions);
             var user = await this.userBusinessService.GetUserById(id);
 
+            if(user == null)
+            {
+                return NotFound();
+            }
+
             ViewBag.Email = user.Email;
+            ViewBag.Id = user.Id;
 
             return View(transactionsVM);
         }
@@ -141,6 +147,17 @@ namespace UserInterface.Controllers
             }
 
             var user = await userBusinessService.GetUserById(id);
+
+            if(user == null)
+            {
+                return NotFound();
+            }
+
+            if(user.Email != User.Identity.Name)
+            {
+                return NotFound();
+            }
+
             var transactions = await bookBusinessService.GetBookTransactionsByOwnerId(id);
             foreach(var transaction in transactions)
             {
@@ -148,8 +165,8 @@ namespace UserInterface.Controllers
                 await bookBusinessService.UpdateBookTransaction(transaction);
             }
 
-            var requests = mapper.Map<List<BookTransaction>, List<BookTransactionViewModel>>(transactions);
-            return View(requests);
+            var requestsVM = mapper.Map<List<BookTransaction>, List<BookTransactionViewModel>>(transactions);
+            return View(requestsVM.Where(s => !s.OwnerAgreed).ToList());
         }
     }
 }

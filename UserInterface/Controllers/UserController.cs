@@ -25,12 +25,14 @@ namespace UserInterface.Controllers
     {
         private readonly IUserBusinessService userBusinessService;
         private readonly IWebHostEnvironment hostEnvironment;
+        private readonly IBookBusinessService bookBusinessService;
         private readonly IMapper mapper;
 
         public UserController(IUserBusinessService userBusinessService, IMapper mapper,
-            IWebHostEnvironment hostEnvironment)
+            IWebHostEnvironment hostEnvironment, IBookBusinessService bookBusinessService)
         {
             this.userBusinessService = userBusinessService;
+            this.bookBusinessService = bookBusinessService;
             this.hostEnvironment = hostEnvironment;
             this.mapper = mapper;
         }
@@ -39,8 +41,10 @@ namespace UserInterface.Controllers
         public async Task<IActionResult> Index()
         {
             var user = await userBusinessService.GetUserByEmail(User.Identity.Name);
+            var transactionsCount = await bookBusinessService.GetCountOfBookRequests(user.Id);
             ViewBag.Role = user.Role.Name;
             ViewData["Id"] = user.Id;
+            ViewData["TrCount"] = transactionsCount;
             return View();
         }
 

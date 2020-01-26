@@ -68,7 +68,7 @@ namespace UserInterface.Controllers
             
             var books = await bookBusinessService.GetBooksByUserId(id);
             var booksVM = mapper.Map<List<Book>, List<BookViewModel>>(books.OrderBy(s => s.CreatedDate).ToList());
-            var user = await userBusinessService.GetUserByEmail(User.Identity.Name);
+            var user = await userBusinessService.GetUserById(id);
             ViewBag.Email = user.Email;
             return View(booksVM);
         }

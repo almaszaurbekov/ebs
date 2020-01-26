@@ -1,4 +1,23 @@
 ﻿@model List<UserInterface.ViewModels.BookTransactionViewModel>
+<style>
+    .progress-success {
+        position: absolute;
+        width: 100%;
+        height: 5px;
+        bottom: 0;
+        left: 0;
+        background-color: green;
+    }
+
+    .progress-danger {
+        position: absolute;
+        width: 100%;
+        height: 5px;
+        bottom: 0;
+        left: 0;
+        background-color: red;
+    }
+</style>
 @if (Model.Count < 1)
 {
     <div class="col-md-12 text-center pt-5">
@@ -9,18 +28,29 @@ else
 {
     @foreach (var transaction in Model)
     {
-        <div class="col-md-3">
-            <div class="row">
-                <div class="col-md-12">
-                    @transaction.Book.Title
+        var image = "/img/" + (transaction.Book.ImageSource != null ? transaction.Book.ImageSource : "no-book.png");
+        if (transaction.Book.ImageSource != null && transaction.Book.ImageSource.Contains("http")) image = transaction.Book.ImageSource;
+        <div class="col-md-6 mb-3 pr-4 pl-4 pt-4 pb-5">
+            <div class="row bg-light">
+                <div class="col-md-4 mt-3">
+                    <img src="@image" width="100%" />
                 </div>
-                <div class="col-md-6">
-                    <p>Start</p>
-                    <input type="date" disabled value="@transaction.BorrowStartDate" />
+                <div class="col-md-8 mt-3">
+                    <h4>@transaction.Book.Title</h4>
+                    <p><b>Start:</b> @transaction.BorrowStartDate.Date.ToString("dd/MM/yyyy")</p>
+                    <p><b>End:</b> @transaction.BorrowEndDate.Date.ToString("dd/MM/yyyy")</p>
+                    <a class="btn btn-outline-primary" asp-controller="User" asp-action="Details" asp-route-id="@transaction.OwnerId">Владелец</a>
+                    <a class="btn btn-outline-success" asp-controller="User" asp-action="Details" asp-route-id="@transaction.BorrowerId">Должник</a>
                 </div>
-                <div class="col-md-6">
-                    <p>End</p>
-                    <input type="date" disabled value="@transaction.BorrowEndDate" />
+                <div class="col-md-12 mt-4">
+                    @if (transaction.IsSuccess)
+                    {
+                        <div class="progress-success"></div>
+                    }
+                    else
+                    {
+                        <div class="progress-danger"></div>
+                    }
                 </div>
             </div>
         </div>

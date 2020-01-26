@@ -57,6 +57,10 @@
                     <a asp-controller="User" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
                     <a asp-controller="User" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-secondary">Delete</a>
                 }
+                else
+                {
+                    <a asp-controller="Message" asp-action="Dialog" asp-route-id="@Model.Id" class="btn btn-outline-primary">Message</a>
+                }
             </div>
         </div>
     </div>

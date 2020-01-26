@@ -24,6 +24,9 @@ namespace UserInterface.Mappings
 
             CreateMap<BookTransaction, BookTransactionViewModel>(MemberList.Source);
             CreateMap<BookTransactionViewModel, BookTransaction>(MemberList.None);
+
+            CreateMap<Message, MessageViewModel>(MemberList.Source);
+            CreateMap<MessageViewModel, Message>(MemberList.None);
         }
     }
 }

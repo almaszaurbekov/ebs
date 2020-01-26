@@ -25,6 +25,7 @@ namespace BusinessLogic.Services.BusinessService
         Task<bool> IsThisBookFree(int bookId, DateTime start, DateTime end);
         Task<int> UpdateBookTransaction(BookTransaction entity);
         Task<List<BookTransaction>> GetBookTransactionsByBookId(int id);
+        Task<int> GetCountOfBookRequests(int userId);
     }
 
     public class BookBusinessService : IBookBusinessService
@@ -94,7 +95,7 @@ namespace BusinessLogic.Services.BusinessService
 
         public async Task<List<BookTransaction>> GetBookTransactionsByOwnerId(int? id)
         {
-            return await transactionService.Filter(s => s.OwnerId == id);
+            return await transactionService.Filter(s => s.OwnerId == id && s.OwnerAgreed == -1);
         }
 
         public async Task<BookTransaction> GetBookTransactionById(Guid? id)
@@ -152,6 +153,12 @@ namespace BusinessLogic.Services.BusinessService
         public async Task<List<BookTransaction>> GetBookTransactionsByBookId(int id)
         {
             return await transactionService.Filter(s => s.BookId == id);
+        }
+
+        public async Task<int> GetCountOfBookRequests(int userId)
+        {
+            var transactions = await transactionService.Filter(s => s.OwnerId == userId && !s.OwnerHasSeen);
+            return transactions.Count;
         }
     }
 }

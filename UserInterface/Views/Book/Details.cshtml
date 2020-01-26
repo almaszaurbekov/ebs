@@ -1,7 +1,8 @@
 ﻿@model UserInterface.ViewModels.Entities.BookViewModel
 @{
     ViewData["Title"] = "Details";
-    var image = Model.ImageSource != null ? Model.ImageSource : "no-book.png";
+    var image = "/img/" + (Model.ImageSource != null ? Model.ImageSource : "no-book.png");
+    if (Model.ImageSource != null && Model.ImageSource.Contains("http")) image = Model.ImageSource;
 }
 <section style="padding-top:50px;">
     <div class="container pt-5 pb-5">
@@ -11,13 +12,13 @@
                 <li class="breadcrumb-item"><a asp-action="Index" asp-controller="User">EBookSharing</a></li>
                 <li class="breadcrumb-item"><a asp-action="ByUser" asp-route-id="@Model.UserId">ELibrary</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Details</li>
-                <li class="breadcrumb-item active" aria-current="page">@Model.Id</li>
+                <li class="breadcrumb-item active" aria-current="page">@Model.Title</li>
             </ol>
         </nav>
         <hr />
         <div class="row">
             <div class="col-md-4">
-                <img src="/img/@image" width="100%" />
+                <img src="@image" width="100%" />
                 @if (ViewBag.IsCurrentUser)
                 {
                     <a asp-controller="Book" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-block mt-3">Edit</a>

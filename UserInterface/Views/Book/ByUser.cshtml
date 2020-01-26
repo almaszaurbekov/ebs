@@ -2,7 +2,6 @@
 @{
     ViewData["Title"] = "Books";
 }
-<style>.badge{top:10px;left:10px;padding:10px;position:absolute;}</style>
 <section style="padding-top:50px;">
     <div class="container pt-5">
         <a class="btn btn-primary mb-3" asp-controller="User" asp-action="Index">Back</a>
@@ -13,6 +12,10 @@
                 <li class="breadcrumb-item active" aria-current="page">@ViewBag.Email</li>
             </ol>
         </nav>
+        @if(User.Identity.Name == ViewBag.Email)
+        {
+            <a asp-controller="Book" asp-action="Create" class="btn btn-success mb-3">Add book <i class="fa fa-plus"></i></a>
+        }
         <div class="row">
             @await Html.PartialAsync("../Shared/PartialViews/_BookComponent.cshtml", Model)
         </div>

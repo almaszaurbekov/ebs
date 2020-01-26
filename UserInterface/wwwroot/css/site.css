@@ -182,23 +182,22 @@ section {
     font-size:60px;
 }
 .ebs-search{
+    top:12px;
+    left:70px;
+    position:absolute;
     padding-top:10px;
     font-size:17px;
 }
-.ebs-search input {
+.ebs-search input[type="text"] {
     padding-left: 10px;
     padding-right: 10px;
-    border-radius:5px;
+    border-radius:5px 0 0 5px;
     border:1px solid rgba(0,0,0,.2);
 }
-.ebs-search input:focus{ outline:none; }
-.ebs-search input[type="submit"] {
-    padding-left: 10px;
-    padding-right: 10px;
-    border-radius: 5px;
-    background: #6C63FF;
-    color:white;
+.ebs-search input:focus {
+    outline:none;
 }
+
 @media only screen and (max-width: 600px) {
     .ebs-menu-body {
         padding-top: 100px;

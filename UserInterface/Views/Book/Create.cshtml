@@ -144,7 +144,7 @@
             $("#book-search-bc").click(function () {
                 var value = $("#book-bc").val();
                 if (value.trim() != "") {
-                    var url = `http://127.0.0.1:5000/ebs/bookcity/${value.trim()}`
+                    var url = `https://murmuring-savannah-25756.herokuapp.com/ebs/bookcity/${value.trim()}`
                     $.ajax({
                         method: "GET",
                         url: url,
