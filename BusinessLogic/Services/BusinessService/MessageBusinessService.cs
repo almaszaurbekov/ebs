@@ -14,7 +14,7 @@ namespace BusinessLogic.Services.BusinessService
         Task<DialogControl> GetDialogControlByUserId(int userId);
         Task<DialogControl> GetDialogControlByInterlocutorsId(int firstIntercolutorId, int secondIntercolutorId);
 
-        Task<List<Message>> GetMessagesByDialogId(int id);
+        Task<List<Message>> GetMessagesByDialogId(int? id);
     }
 
     public class MessageBusinessService : IMessageBusinessService
@@ -55,7 +55,7 @@ namespace BusinessLogic.Services.BusinessService
             return await dialogControlService.Filter(s => s.FirstInterlocutorEmail == email || s.SecondInterlocutorEmail == email);
         }
 
-        public async Task<List<Message>> GetMessagesByDialogId(int id)
+        public async Task<List<Message>> GetMessagesByDialogId(int? id)
         {
             return await messageService.Filter(s => s.DialogControlId == id);
         }

@@ -4,12 +4,14 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BusinessLogic.Services.BusinessService;
 using DataAccess.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using UserInterface.ViewModels;
 
 namespace UserInterface.Controllers
 {
+    [Authorize]
     public class MessageController : Controller
     {
         private readonly IUserBusinessService userBusinessService;
@@ -57,17 +59,10 @@ namespace UserInterface.Controllers
                     SecondInterlocutorId = user.Id
                 };
 
-                await messageBusinessService.CreateDialogControl(dialog);
-            }
-            else
-            {
-                dialog.Messages = await messageBusinessService.GetMessagesByDialogId(dialog.Id);
+                dialog = await messageBusinessService.CreateDialogControl(dialog);
             }
 
-            ViewBag.Receiver = user;
-            var dialogVM = mapper.Map<DialogControl, DialogViewModel>(dialog);
-
-            return View(dialogVM);
+            return RedirectToAction("Dialog", new { id = dialog.Id });
         }
 
         public async Task<IActionResult> Dialog(int? id)
@@ -88,6 +83,7 @@ namespace UserInterface.Controllers
             var user = await userBusinessService.GetUserById(userId);
             ViewBag.Receiver = user;
             var dialogVM = mapper.Map<DialogControl, DialogViewModel>(dialog);
+            dialogVM.Messages = await messageBusinessService.GetMessagesByDialogId(id);
 
             return View(dialogVM);
         }
