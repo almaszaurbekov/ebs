@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BusinessLogic.Services.BusinessService;
@@ -29,7 +30,7 @@ namespace UserInterface.Controllers
         {
             var dialogs = await messageBusinessService.GetDialogs(User.Identity.Name);
             var dialogsVM = mapper.Map<List<DialogControl>, List<DialogViewModel>>(dialogs);
-            return View(dialogsVM);
+            return View(dialogsVM.OrderByDescending(s => s.LastMessageDate).ToList());
         }
 
         public async Task<IActionResult> DialogByUser(int? id)
@@ -80,8 +81,14 @@ namespace UserInterface.Controllers
 
             var userId = dialog.FirstInterlocutorEmail == User.Identity.Name ? 
                 dialog.SecondInterlocutorId : dialog.FirstInterlocutorId;
+
             var user = await userBusinessService.GetUserById(userId);
+            var me = await userBusinessService.GetUserByEmail(User.Identity.Name);
+
             ViewBag.Receiver = user;
+            ViewBag.Me = me;
+            ViewBag.DialogId = id;
+
             var dialogVM = mapper.Map<DialogControl, DialogViewModel>(dialog);
             dialogVM.Messages = await messageBusinessService.GetMessagesByDialogId(id);
 

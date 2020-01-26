@@ -41,10 +41,16 @@ namespace UserInterface.Controllers
         public async Task<IActionResult> Index()
         {
             var user = await userBusinessService.GetUserByEmail(User.Identity.Name);
+            if(user == null)
+            {
+                return NotFound();
+            }
+
             var transactionsCount = await bookBusinessService.GetCountOfBookRequests(user.Id);
             ViewBag.Role = user.Role.Name;
             ViewData["Id"] = user.Id;
             ViewData["TrCount"] = transactionsCount;
+
             return View();
         }
 

@@ -11,7 +11,7 @@
                 <li class="breadcrumb-item"><a asp-action="Index" asp-controller="User">EBookSharing</a></li>
                 <li class="breadcrumb-item">Transactions</li>
                 <li class="breadcrumb-item">Borrow</li>
-                <li class="breadcrumb-item active" aria-current="page">@Model.BookId</li>
+                <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
             </ol>
         </nav>
         <div class="row">
@@ -42,8 +42,7 @@
                         <input type="hidden" asp-for="BookId" />
                     </div>
                     <div class="row">
-
-                        <div class="col-md-4"></div>
+                        @await Html.PartialAsync("../Shared/PartialViews/_TransactionComponent.cshtml", ViewData["Transactions"])
                     </div>
                 </form>
             </div>

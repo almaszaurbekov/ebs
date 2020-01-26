@@ -27,20 +27,22 @@ namespace UserInterface.Controllers
         private readonly IUserBusinessService userBusinessService;
         private readonly IBookBusinessService bookBusinessService;
         private readonly IBcBookService bookcityService;
+        private readonly IMessageBusinessService messageBusinessService;
         private readonly IMapper mapper;
         private readonly IWebHostEnvironment hostEnvironment;
         private string folder;
 
         public EbsApiController(IUserBusinessService userBusinessService, IMapper mapper,
             IWebHostEnvironment hostEnvironment, IBookBusinessService bookBusinessService,
-            IBcBookService bookcityService)
+            IBcBookService bookcityService, IMessageBusinessService messageBusinessService)
         {
             this.userBusinessService = userBusinessService;
             this.bookBusinessService = bookBusinessService;
             this.bookcityService = bookcityService;
-            this.mapper = mapper;
+            this.messageBusinessService = messageBusinessService;
             this.hostEnvironment = hostEnvironment;
             this.folder = Path.Combine(hostEnvironment.WebRootPath, "files");
+            this.mapper = mapper;
         }
 
         [HttpGet("test")]
@@ -184,6 +186,33 @@ namespace UserInterface.Controllers
                 transaction.OwnerAgreed = 0;
                 transaction.IsSuccess = 0;
                 await bookBusinessService.UpdateBookTransaction(transaction);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        [HttpGet("message/add")]
+        public async Task<bool> MessageCreate(int dialogId, int senderId, int receiverId, 
+            string sender, string receiver, string text)
+        {
+            try
+            {
+                var message = new Message()
+                {
+                    UserSenderEmail = sender,
+                    UserSenderId = senderId,
+                    UserReceiverEmail = receiver,
+                    UserReceiverId = receiverId,
+                    Text = text,
+                    DialogControlId = dialogId,
+                    CreatedBy = sender
+                };
+
+                await messageBusinessService.CreateMessage(message);
+                await messageBusinessService.UpdateDialog(dialogId, text);
                 return true;
             }
             catch

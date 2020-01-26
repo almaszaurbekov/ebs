@@ -1,6 +1,8 @@
 ﻿@model UserInterface.ViewModels.DialogViewModel
 @{
     ViewData["Title"] = "Dialog";
+    var myImage = ViewBag.Me.ImageSource == null ? "no-user.png" : ViewBag.Me.ImageSource;
+    var friendImage = ViewBag.Receiver.ImageSource == null ? "no-user.png" : ViewBag.Receiver.ImageSource;
 }
 <style>
 #messages {overflow-y: scroll;width: 100%;height: 60vh;}
@@ -23,12 +25,11 @@
                         {
                             if (message.UserSenderEmail == User.Identity.Name)
                             {
-                                var image = ViewBag.Me.ImageSource == null ? "no-user.png" : ViewBag.Receiver;
                                 <div class="myMessage">
                                     <div class="row mb-1">
                                         <div class="col-md-1">
                                             <div class="ebs-image">
-                                                <img src="~/img/@ViewBag.Me.ImageSource" />
+                                                <img src="~/img/@myImage" />
                                             </div>
                                         </div>
                                         <div class="col-md-11 pt-1 text-left">
@@ -39,12 +40,11 @@
                             }
                             else
                             {
-                                var image = ViewBag.Receiver.ImageSource == null ? "no-user.png" : ViewBag.Receiver;
                                 <div class="friendMessage">
                                     <div class="row mb-1">
                                         <div class="col-md-1">
                                             <div class="ebs-image">
-                                                <img src="~/img/@image" />
+                                                <img src="~/img/@friendImage" />
                                             </div>
                                         </div>
                                         <div class="col-md-11 pt-1 text-left">
@@ -73,32 +73,65 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
         $(document).ready(function () {
+            const id = @ViewBag.DialogId;
+
+            const me = "@User.Identity.Name";
+            const myId = @ViewBag.Me.Id;
+            const myImage = "@myImage";
+
+            const friendEmail = "@ViewBag.Receiver.Email";
+            const friendId = @ViewBag.Receiver.Id;
+            const friendImage = "@friendImage";
 
             const hubConnection = new signalR.HubConnectionBuilder()
             .withUrl("/chat")
             .build();
  
-            hubConnection.on("Send", function (data) {
-                let elem = document.createElement("p");
-                elem.appendChild(document.createTextNode(data));
-                let firstElem = document.getElementById("messages").firstChild;
-                document.getElementById("messages").insertBefore(elem, firstElem);
- 
-            });
- 
-            document.getElementById("sendMessage").addEventListener("click", function (e) {
-                let message = document.getElementById("messageText").value;
-                hubConnection.invoke("Send", message);
+            hubConnection.on("Send", function (email, message) {
+                var className = "myMessage";
+                var image = myImage;
+                if (email != me) {
+                    className = "friendMessage";
+                    image = friendImage;
+                }
+
+                let messageElement = $(`<div class="${className}"><div class="row mb-1"><div class="col-md-1">
+                                        <div class="ebs-image"><img src="/img/${image}" /></div></div>
+                                        <div class="col-md-11 pt-1 text-left"><p>${message}</p></div></div></div>`);
+
+                $("#messages").append(messageElement);
             });
  
             hubConnection.start();
 
-            //$("#sendMessage").click(function () {
-            //    var message = $("#messageText").val().trim();
-            //    if (message != "") {
-            //        toastr.success(message, "success");
-            //    }
-            //});
+            $("#sendMessage").click(function () {
+                var message = $("#messageText").val().trim();
+                if (message != "") {
+                    hubConnection.invoke("Send", me, message);
+                    $("#messageText").val("");
+                    $.ajax({
+                        method: "GET",
+                        url: "/api/ebs/message/add",
+                        data: {
+                            dialogId: id,
+                            senderId: myId,
+                            receiverId: friendId,
+                            sender: me,
+                            receiver: friendEmail,
+                            text: message
+                        },
+                        headers: {
+                            RequestVerificationToken:
+                                $('input:hidden[name="__RequestVerificationToken"]').val()
+                        }
+                    })
+                    .done(function (result) {
+                        if(!result) {
+                            toastr.error("Hello world!", "Error");
+                        }
+                    });
+                }
+            });
         });
     </script>
 }

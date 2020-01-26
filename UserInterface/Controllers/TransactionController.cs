@@ -35,7 +35,7 @@ namespace UserInterface.Controllers
                 return NotFound();
             }
 
-            var transactions = await bookBusinessService.GetBookTransactionsByUserId(id);
+            var transactions = await bookBusinessService.GetBookTransactionsByBorrowerId(id);
             var transactionsVM = mapper.Map<List<BookTransaction>, List<BookTransactionViewModel>>(transactions);
             var user = await this.userBusinessService.GetUserById(id);
 
@@ -61,7 +61,8 @@ namespace UserInterface.Controllers
             var currentUser = await userBusinessService.GetUserByEmail(User.Identity.Name);
             var transactions = await bookBusinessService.GetBookTransactionsByBookId(id);
             var transactionsVM = mapper.Map<List<BookTransaction>, List<BookTransactionViewModel>>(transactions);
-            ViewBag.Transactions = transactionsVM;
+            ViewData["Transactions"] = transactionsVM;
+            ViewData["Title"] = book.Title;
 
             if (book.UserId == currentUser.Id)
             {
@@ -107,6 +108,8 @@ namespace UserInterface.Controllers
                         {
                             var entity = mapper.Map<BookTransactionViewModel, BookTransaction>(model);
                             entity.CreatedDate = DateTime.Now;
+                            entity.OwnerAgreed = -1;
+                            entity.IsSuccess = -1;
                             
                             await bookBusinessService.CreateTransaction(entity);
 
@@ -166,7 +169,7 @@ namespace UserInterface.Controllers
             }
 
             var requestsVM = mapper.Map<List<BookTransaction>, List<BookTransactionViewModel>>(transactions);
-            return View(requestsVM.Where(s => !s.OwnerAgreed).ToList());
+            return View(requestsVM.Where(s => s.OwnerAgreed == -1).ToList());
         }
     }
 }

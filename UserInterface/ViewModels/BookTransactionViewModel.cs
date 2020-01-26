@@ -21,9 +21,10 @@ namespace UserInterface.ViewModels
         public int OwnerId { get; set; }
         [Required]
         public int BorrowerId { get; set; }
-        public bool IsSuccess { get; set; }
         public DateTime CreatedDate { get; set; }
         public BookViewModel Book { get; set; }
-        public bool OwnerAgreed { get; set; }
+        public int IsSuccess { get; set; }
+        public int OwnerAgreed { get; set; }
+        public bool OwnerHasSeen { get; set; }
     }
 }

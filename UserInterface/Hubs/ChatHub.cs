@@ -7,9 +7,9 @@ namespace UserInterface.Hubs
     [Authorize]
     public class ChatHub : Hub
     {
-        public async Task Send(string message)
+        public async Task Send(string email, string message)
         {
-            await this.Clients.All.SendAsync("Send", message);
+            await this.Clients.All.SendAsync("Send", email, message);
         }
     }
 }

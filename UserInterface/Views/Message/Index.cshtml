@@ -2,8 +2,14 @@
 @{
     ViewData["Title"] = "Messages";
 }
-
-<section style="padding-top:60px;">
+<style>
+    .ebs-dialog{width:100%; padding:20px;transition: all ease .3s;background:#F8F9FA;border-radius:10px;}
+    .ebs-dialog a {color: black;text-transform: none;text-decoration: none;}
+    .ebs-dialog a:hover {color:black;text-transform:none;text-decoration:none;}
+    .ebs-dialog:hover{background:#3B4368;}
+    .ebs-dialog:hover a {color:white}
+</style>
+<section style="padding-top: 60px; ">
     <div class="container pt-5">
         <a class="btn btn-primary mb-3" asp-controller="User" asp-action="Index">Back</a>
         <nav aria-label="breadcrumb">
@@ -17,11 +23,15 @@
             @foreach (var dialog in Model)
             {
                 var email = dialog.FirstInterlocutorEmail == User.Identity.Name ? dialog.SecondInterlocutorEmail : dialog.FirstInterlocutorEmail;
-                <div class="col-md-12 bg-light mb-3">
-                    <div style="width:100%; padding:10px">
+                <div class="col-md-12 mb-3">
+                    <div class="ebs-dialog">
                         <a asp-controller="Message" asp-action="Dialog" asp-route-id="@dialog.Id">
                             <h3>@email</h3>
                             <p>@dialog.LastMessage</p>
+                            @if (dialog.LastMessageDate.Year > 2019)
+                            {
+                                <span>@dialog.LastMessageDate</span>
+                            }
                         </a>
                     </div>
                 </div>
