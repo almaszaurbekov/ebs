@@ -14,13 +14,16 @@
             </ol>
         </nav>
         <div class="row">
-            @foreach (var message in Model)
+            @foreach (var dialog in Model)
             {
-                var email = message.UserReceiverEmail == User.Identity.Name ? message.UserSenderEmail : message.UserReceiverEmail;
-                <div class="col-md-12">
-                    <h3>@email</h3>
-                    <p>@message.LastMessage</p>
-                    <p class="text-secondary">@message.LastMessageDate</p>
+                var email = dialog.FirstInterlocutorEmail == User.Identity.Name ? dialog.SecondInterlocutorEmail : dialog.FirstInterlocutorEmail;
+                <div class="col-md-12 bg-light mb-3">
+                    <div style="width:100%; padding:10px">
+                        <a asp-controller="Message" asp-action="Dialog" asp-route-id="@dialog.Id">
+                            <h3>@email</h3>
+                            <p>@dialog.LastMessage</p>
+                        </a>
+                    </div>
                 </div>
             }
             @if (Model.Count < 1)

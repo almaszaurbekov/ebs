@@ -13,7 +13,7 @@
                     <div class="col-md-8">
                         <p><b>@user.Email</b></p>
                         <a asp-controller="User" asp-action="Details" asp-route-id="@user.Id" class="btn btn-outline-primary">Visit</a>
-                        <a asp-controller="Message" asp-action="Dialog" asp-route-id="@user.Id" class="btn btn-outline-success">Message</a>
+                        <a asp-controller="Message" asp-action="DialogByUser" asp-route-id="@user.Id" class="btn btn-outline-success">Message</a>
                         <a asp-controller="Book" asp-action="ByUser" asp-route-id="@user.Id" class="btn btn-primary">ELibrary</a>
                     </div>
                 </div>

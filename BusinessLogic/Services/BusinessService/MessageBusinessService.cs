@@ -9,7 +9,12 @@ namespace BusinessLogic.Services.BusinessService
     public interface IMessageBusinessService
     {
         Task<List<DialogControl>> GetDialogs(string email);
-        Task<DialogControl> CreateDialogControl(int userId);
+        Task<DialogControl> CreateDialogControl(DialogControl dialogControl);
+        Task<DialogControl> GetDialogControlById(int? id);
+        Task<DialogControl> GetDialogControlByUserId(int userId);
+        Task<DialogControl> GetDialogControlByInterlocutorsId(int firstIntercolutorId, int secondIntercolutorId);
+
+        Task<List<Message>> GetMessagesByDialogId(int id);
     }
 
     public class MessageBusinessService : IMessageBusinessService
@@ -24,21 +29,35 @@ namespace BusinessLogic.Services.BusinessService
             this.dialogControlService = dialogControlService;
         }
 
-        public async Task<DialogControl> CreateDialogControl(int userId)
+        public async Task<DialogControl> CreateDialogControl(DialogControl dialogControl)
         {
-            return new DialogControl();
+            return await dialogControlService.Create(dialogControl);
+        }
+
+        public async Task<DialogControl> GetDialogControlById(int? id)
+        {
+            return await dialogControlService.Find(s => s.Id == id);
+        }
+
+        public async Task<DialogControl> GetDialogControlByInterlocutorsId(int firstIntercolutorId, int secondIntercolutorId)
+        {
+            return await dialogControlService.Find(s => (s.FirstInterlocutorId == firstIntercolutorId && s.SecondInterlocutorId == secondIntercolutorId) ||
+                (s.SecondInterlocutorId == firstIntercolutorId && s.FirstInterlocutorId == secondIntercolutorId));
+        }
+
+        public Task<DialogControl> GetDialogControlByUserId(int userId)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<List<DialogControl>> GetDialogs(string email)
         {
-            var dialogIds = await messageService.GetDialogIds(email);
-            var dialogs = new List<DialogControl>();
-            foreach(var id in dialogIds)
-                dialogs.Add(await dialogControlService.Find(s => s.Id == id));
-
-            return dialogs;
+            return await dialogControlService.Filter(s => s.FirstInterlocutorEmail == email || s.SecondInterlocutorEmail == email);
         }
 
-        
+        public async Task<List<Message>> GetMessagesByDialogId(int id)
+        {
+            return await messageService.Filter(s => s.DialogControlId == id);
+        }
     }
 }

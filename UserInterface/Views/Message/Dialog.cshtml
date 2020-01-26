@@ -1,4 +1,4 @@
-﻿@model List<UserInterface.ViewModels.MessageViewModel>
+﻿@model UserInterface.ViewModels.DialogViewModel
 @{
     ViewData["Title"] = "Dialog";
 }
@@ -47,11 +47,11 @@
             <div class="col-md-12">
                 <div style="background:#D8DFE7">
                     <div class="bg-secondary pl-3 pt-3 pb-3 pt-3 text-light">
-                        <a asp-controller="User" asp-action="Index" class="btn btn-primary mr-3">Back</a>
+                        <a asp-controller="Message" asp-action="Index" class="btn btn-primary mr-3">Back</a>
                         <span>@ViewBag.Receiver.Email</span>
                     </div>
                     <div id="messages" class="pl-3 pr-3 pt-4 pb-2">
-                        @foreach (var message in Model)
+                        @foreach (var message in Model.Messages)
                         {
                             if (message.UserSenderEmail == User.Identity.Name)
                             {
