@@ -5,3 +5,4 @@ C:\Users\Almas\source\repos\ebs\Resources\obj\Debug\netcoreapp3.1\Resources.Asse
 C:\Users\Almas\source\repos\ebs\Resources\obj\Debug\netcoreapp3.1\Resources.AssemblyInfo.cs
 C:\Users\Almas\source\repos\ebs\Resources\obj\Debug\netcoreapp3.1\Resources.dll
 C:\Users\Almas\source\repos\ebs\Resources\obj\Debug\netcoreapp3.1\Resources.pdb
+C:\Users\Almas\source\repos\ebs\Resources\obj\Debug\netcoreapp3.1\Resources.csprojAssemblyReference.cache

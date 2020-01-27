@@ -30,6 +30,8 @@ namespace BusinessLogic.Services.BusinessService
 
     public class BookBusinessService : IBookBusinessService
     {
+        #region Initialize
+
         private readonly IMemoryCache cache;
         private readonly IBookService bookService;
         private readonly IUserService userService;
@@ -46,6 +48,8 @@ namespace BusinessLogic.Services.BusinessService
             this.transactionService = transactionService;
             this.commentService = commentService;
         }
+
+        #endregion
 
         public async Task<List<Book>> GetBooksByUserId(int? id) => await bookService.GetBooksByUserId(id);
         public async Task<List<Book>> GetBooksByUserEmail(string email)

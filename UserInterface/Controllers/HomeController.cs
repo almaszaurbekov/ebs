@@ -3,8 +3,8 @@ using System.Diagnostics;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Resources;
 using UserInterface.ViewModels;
 
 namespace UserInterface.Controllers
@@ -40,6 +40,9 @@ namespace UserInterface.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Подписка на еженедельные новости
+        /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Subscribe(string email)
@@ -48,14 +51,14 @@ namespace UserInterface.Controllers
             {
                 MailAddress from = new MailAddress("kz.ebooksharing@gmail.com", "kz.ebooksharing@gmail.com");
                 MailAddress to = new MailAddress(email);
-                MailMessage m = new MailMessage(from, to);
-                m.Subject = "EBookSharing - Weekly news";
-                m.Body = "<h2>Спасибо большое за подписку!</h2>";
-                m.IsBodyHtml = true;
+                MailMessage message = new MailMessage(from, to);
+                message.Subject = "EBookSharing - Weekly news";
+                message.Body = "<h2>Спасибо большое за подписку!</h2>";
+                message.IsBodyHtml = true;
                 SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-                smtp.Credentials = new NetworkCredential("kz.ebooksharing@gmail.com", "solune071");
+                smtp.Credentials = new NetworkCredential("kz.ebooksharing@gmail.com", PasswordHelper.EmailPassword());
                 smtp.EnableSsl = true;
-                await smtp.SendMailAsync(m);
+                await smtp.SendMailAsync(message);
                 return Redirect("Index?subscribed=yes");
             }
             catch (Exception e)

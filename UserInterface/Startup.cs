@@ -8,11 +8,8 @@ using DataAccess;
 using AutoMapper;
 using UserInterface.Mappings;
 using BusinessLogic.Services;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using BusinessLogic.Services.BusinessService;
-using Microsoft.AspNetCore.Http;
 using UserInterface.Hubs;
 
 namespace UserInterface
@@ -45,6 +42,8 @@ namespace UserInterface
             services.AddSingleton(mapper);
 
             // Dependency Injection Configurations
+            #region AddTransient
+
             services.AddTransient<IUserBusinessService, UserBusinessService>();
             services.AddTransient<IBookBusinessService, BookBusinessService>();
             services.AddTransient<IMessageBusinessService, MessageBusinessService>();
@@ -56,6 +55,8 @@ namespace UserInterface
             services.AddTransient<ICommentService, CommentService>();
             services.AddTransient<IBcBookService, BcBookService>();
             services.AddTransient<IBookTransactionService, BookTransactionService>();
+
+            #endregion
 
             // Authentication Configurations
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

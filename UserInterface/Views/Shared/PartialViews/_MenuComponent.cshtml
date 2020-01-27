@@ -1,4 +1,4 @@
-﻿@model  int
+﻿@model int
 
 <div class="ebs-left-menu mb-4">
     <p class="border-bottom"><a asp-controller="User" asp-action="Details" asp-route-id="@Model"><i class="fa fa-user-circle mr-2"></i> My Account</a></p>
@@ -7,6 +7,14 @@
     <p class="border-bottom"><a asp-controller="Book" asp-action="ByUser" asp-route-id="@Model"><i class="fa fa-book mr-2"></i> ELibrary</a></p>
     <p class="border-bottom"><a asp-controller="Book" asp-action="Index"><i class="fa fa-institution mr-2"></i> Books</a></p>
     <p class="border-bottom"><a asp-controller="Transaction" asp-action="Index" asp-route-id="@Model"><i class="fa fa-calendar mr-2"></i> Transactions</a></p>
-    <p class="border-bottom"><a asp-controller="Transaction" asp-action="Requests" asp-route-id="@Model"><i class="fa fa-cubes mr-1"></i> Requests <span id="signalr-requests" class="badge badge-pill badge-light ml-2 mb-2"></span></a></p>
+    <p class="border-bottom"><a asp-controller="Transaction" asp-action="Requests"><i class="fa fa-cubes mr-1"></i> Requests <span id="signalr-requests" class="badge badge-pill badge-light ml-2 mb-2"></span></a></p>
     <p><a asp-controller="User" asp-action="Logout"><i class="fa fa-sign-out mr-2"></i> Logout</a></p>
 </div>
+@if (ViewData["Role"].ToString() == "admin")
+{
+    <div class="ebs-left-menu mb-4">
+        <h4 class="text-light mb-3">Admin panel</h4>
+        <p class="border-bottom"><a href="#"><i class="fa fa-users mr-2"></i> Users</a></p>
+        <p class="border-bottom"><a href="#"><i class="fa fa-book mr-2"></i> Books</a></p>
+    </div>
+}

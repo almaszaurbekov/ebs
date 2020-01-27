@@ -23,6 +23,8 @@ namespace UserInterface.Controllers
     [Authorize]
     public class UserController : Controller
     {
+        #region Initialize
+
         private readonly IUserBusinessService userBusinessService;
         private readonly IWebHostEnvironment hostEnvironment;
         private readonly IBookBusinessService bookBusinessService;
@@ -37,7 +39,11 @@ namespace UserInterface.Controllers
             this.mapper = mapper;
         }
 
-        // Главная страница приложения
+        #endregion
+
+        /// <summary>
+        /// Главная страница приложения
+        /// </summary>
         public async Task<IActionResult> Index()
         {
             var user = await userBusinessService.GetUserByEmail(User.Identity.Name);
@@ -46,15 +52,17 @@ namespace UserInterface.Controllers
                 return NotFound();
             }
 
-            var transactionsCount = await bookBusinessService.GetCountOfBookRequests(user.Id);
-            ViewBag.Role = user.Role.Name;
+            ViewData["Role"] = user.Role.Name;
             ViewData["Id"] = user.Id;
-            ViewData["TrCount"] = transactionsCount;
+            ViewData["TrCount"] = await bookBusinessService.GetCountOfBookRequests(user.Id);
 
             return View();
         }
 
-        // Профиль пользователя
+        /// <summary>
+        /// Профиль пользователя
+        /// </summary>
+        /// <param name="id">Идентификатор пользователя</param>
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -69,11 +77,12 @@ namespace UserInterface.Controllers
             }
 
             var userVM = mapper.Map<User, UserViewModel> (user);
-
             return View(userVM);
         }
 
-        // Создать пользователя
+        /// <summary>
+        /// Создать пользователя
+        /// </summary>
         [Authorize(Roles = "admin")]
         public IActionResult Create()
         {
@@ -92,7 +101,10 @@ namespace UserInterface.Controllers
             return View(user);
         }
 
-        // Изменить данные пользователя
+        /// <summary>
+        /// Изменить данные пользователя
+        /// </summary>
+        /// <param name="id">Идентификатор пользователя</param>
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -101,7 +113,7 @@ namespace UserInterface.Controllers
             }
 
             var user = await userBusinessService.GetUserById(id);
-            if (user == null)
+            if (user == null || user.Email != User.Identity.Name)
             {
                 return NotFound();
             }
@@ -114,7 +126,7 @@ namespace UserInterface.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, UserViewModel model)
         {
-            if (id != model.Id)
+            if (id != model.Id || model.Email != User.Identity.Name)
             {
                 return NotFound();
             }
@@ -163,7 +175,10 @@ namespace UserInterface.Controllers
             return View(model);
         }
 
-        // Удалить профиль
+        /// <summary>
+        /// Удалить профиль
+        /// </summary>
+        /// <param name="id">Идентификатор пользователя</param>
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -172,7 +187,7 @@ namespace UserInterface.Controllers
             }
 
             var user = await userBusinessService.GetUserById(id);
-            if (user == null)
+            if (user == null || user.Email != User.Identity.Name)
             {
                 return NotFound();
             }
@@ -189,6 +204,9 @@ namespace UserInterface.Controllers
             return await Logout();
         }
 
+        /// <summary>
+        /// Список пользователей
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> List()
         {
@@ -199,7 +217,9 @@ namespace UserInterface.Controllers
             return View(usersVM);
         }
 
-        // Аутентификация пользователя
+        /// <summary>
+        /// Аутентификация пользователя
+        /// </summary>
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Login()
@@ -226,7 +246,9 @@ namespace UserInterface.Controllers
             return View(model);
         }
 
-        // Регистрация пользователя
+        /// <summary>
+        /// Регистрация пользователя
+        /// </summary>
         [HttpGet]
         [AllowAnonymous]
         public IActionResult SignUp()
@@ -262,13 +284,19 @@ namespace UserInterface.Controllers
             return View(model);
         }
 
-        // Выйти из профиля
+        /// <summary>
+        /// Выйти из профиля
+        /// </summary>
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login", "User");
         }
 
+        /// <summary>
+        /// Алгоритм аутентификации
+        /// </summary>
+        /// <param name="user">Пользователь</param>
         private async Task Authenticate(User user)
         {
             var claims = new List<Claim>
@@ -282,13 +310,17 @@ namespace UserInterface.Controllers
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
 
+        /// <summary>
+        /// Проверка на наличие пользователя
+        /// </summary>
+        /// <param name="id">Идентификатор пользователя</param>
         private async Task<bool> UserExists(int id)
         {
             return await userBusinessService.GetUserById(id) != null;
         }
 
         /// <summary>
-        /// Функция по созданию файла в wwwroot/images
+        /// Функция по созданию файла в wwwroot/img
         /// </summary>
         /// <param name="imgfileName">Имя файла, отправленного пользователем</param>
         /// <param name="image">HtppRequest фотографии</param>

@@ -20,6 +20,8 @@ namespace BusinessLogic.Services.BusinessService
 
     public class MessageBusinessService : IMessageBusinessService
     {
+        #region Initialize
+
         private readonly IMessageService messageService;
         private readonly IDialogControlService dialogControlService;
 
@@ -29,6 +31,8 @@ namespace BusinessLogic.Services.BusinessService
             this.messageService = messageService;
             this.dialogControlService = dialogControlService;
         }
+
+        #endregion
 
         public async Task<DialogControl> CreateDialogControl(DialogControl dialogControl)
         {

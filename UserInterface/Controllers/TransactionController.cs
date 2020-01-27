@@ -5,14 +5,18 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BusinessLogic.Services.BusinessService;
 using DataAccess.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using UserInterface.ViewModels;
 
 namespace UserInterface.Controllers
 {
+    [Authorize]
     public class TransactionController : Controller
     {
+        #region Initialize
+
         private readonly IBookBusinessService bookBusinessService;
         private readonly IUserBusinessService userBusinessService;
         private readonly IMapper mapper;
@@ -23,6 +27,8 @@ namespace UserInterface.Controllers
             this.userBusinessService = userBusinessService;
             this.mapper = mapper;
         }
+
+        #endregion
 
         /// <summary>
         /// Список транзакции пользователя
@@ -138,30 +144,15 @@ namespace UserInterface.Controllers
         }
 
         /// <summary>
-        /// Запросы на одолжения
+        /// Страница с запросами на одолжение
         /// </summary>
         /// <param name="id">Идентификатор пользователя</param>
         [HttpGet]
-        public async Task<IActionResult> Requests(int? id)
+        public async Task<IActionResult> Requests()
         {
-            if(id == null)
-            {
-                return NotFound();
-            }
+            var user = await userBusinessService.GetUserByEmail(User.Identity.Name);
 
-            var user = await userBusinessService.GetUserById(id);
-
-            if(user == null)
-            {
-                return NotFound();
-            }
-
-            if(user.Email != User.Identity.Name)
-            {
-                return NotFound();
-            }
-
-            var transactions = await bookBusinessService.GetBookTransactionsByOwnerId(id);
+            var transactions = await bookBusinessService.GetBookTransactionsByOwnerId(user.Id);
             foreach(var transaction in transactions)
             {
                 transaction.OwnerHasSeen = true;

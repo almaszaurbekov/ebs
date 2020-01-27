@@ -24,6 +24,8 @@ namespace UserInterface.Controllers
     [ApiController]
     public class EbsApiController : ControllerBase
     {
+        #region Initialize
+
         private readonly IUserBusinessService userBusinessService;
         private readonly IBookBusinessService bookBusinessService;
         private readonly IBcBookService bookcityService;
@@ -45,12 +47,22 @@ namespace UserInterface.Controllers
             this.mapper = mapper;
         }
 
+        #endregion
+
+        /// <summary>
+        /// Проверечный запрос
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("test")]
         public string Test()
         {
             return "200 OK";
         }
 
+        /// <summary>
+        /// Запрос на изменение данных о пользователе
+        /// </summary>
+        /// <param name="model">Пользователь</param>
         [HttpPost("user/edit")]
         public async Task<int> Edit(UserViewModel model)
         {
@@ -90,6 +102,10 @@ namespace UserInterface.Controllers
             }
         }
 
+        /// <summary>
+        /// Получить список книг из внутренней БД
+        /// </summary>
+        /// <param name="value">Значение поисковика</param>
         [HttpGet("books/byvalue")]
         public async Task<List<BcBook>> BooksByValue(string value)
         {
@@ -97,6 +113,10 @@ namespace UserInterface.Controllers
             return books.Take(50).ToList();
         }
 
+        /// <summary>
+        /// Запрос на автозаполнение книги из внутренней БД
+        /// </summary>
+        /// <param name="id">Идентификатор книги</param>
         [HttpGet("books/auto/add")]
         public async Task<int> AddAutoBook(int id)
         {
@@ -108,6 +128,10 @@ namespace UserInterface.Controllers
             return await bookBusinessService.AddBook(book);
         }
 
+        /// <summary>
+        /// Запрос на автозаполнение из внешней БД Bookcity
+        /// </summary>
+        /// <param name="href">Ссылка книги</param>
         [HttpGet("books/bc/add")]
         public async Task<int> AddBcBook(string href)
         {
@@ -121,6 +145,14 @@ namespace UserInterface.Controllers
             return await bookBusinessService.AddBook(book);
         }
 
+        /// <summary>
+        /// Запрос на заполнение книги вручную
+        /// </summary>
+        /// <param name="title">Титул книги</param>
+        /// <param name="author">Автор книги</param>
+        /// <param name="desc">Описание книги</param>
+        /// <param name="rate">Рейтинг книги</param>
+        /// <returns></returns>
         [HttpGet("books/manual/add")]
         public async Task<int> AddManualBook(string title, string author, string desc, int rate)
         {
@@ -136,6 +168,10 @@ namespace UserInterface.Controllers
             return await bookBusinessService.AddBook(book);
         }
 
+        /// <summary>
+        /// Поиск книг по ключевому тексту
+        /// </summary>
+        /// <param name="search">Ключевой текст</param>
         [HttpGet("books/index")]
         public async Task<IActionResult> GetBooksBySearch(string search)
         {
@@ -150,6 +186,10 @@ namespace UserInterface.Controllers
             return Ok(booksVM);
         }
 
+        /// <summary>
+        /// Поиск пользователей по ключевому тексту
+        /// </summary>
+        /// <param name="search">Ключевой текст</param>
         [HttpGet("users/list")]
         public async Task<IActionResult> GetUsersBySearch(string search)
         {
@@ -161,6 +201,10 @@ namespace UserInterface.Controllers
             return Ok(usersVM);
         }
 
+        /// <summary>
+        /// Запрос на успешную транзакцию
+        /// </summary>
+        /// <param name="id">Идентификатор транзакции</param>
         [HttpGet("transactions/accept")]
         public async Task<bool> TransactionAccept(string id)
         {
@@ -177,6 +221,10 @@ namespace UserInterface.Controllers
             }
         }
 
+        /// <summary>
+        /// Запрос на отмену транзакции
+        /// </summary>
+        /// <param name="id">Идентификатор транзакции</param>
         [HttpGet("transactions/cancel")]
         public async Task<bool> TransactionCancel(string id)
         {
@@ -194,6 +242,9 @@ namespace UserInterface.Controllers
             }
         }
 
+        /// <summary>
+        /// Запрос на добавление нового сообщения
+        /// </summary>
         [HttpGet("message/add")]
         public async Task<bool> MessageCreate(int dialogId, int senderId, int receiverId, 
             string sender, string receiver, string text)
@@ -221,6 +272,9 @@ namespace UserInterface.Controllers
             }
         }
 
+        /// <summary>
+        /// Получить ненулевое значение
+        /// </summary>
         private void ReplaceValue(object newValue, object oldValue)
         {
             if (newValue != null)
@@ -228,7 +282,7 @@ namespace UserInterface.Controllers
         }
 
         /// <summary>
-        /// Функция по созданию файла в wwwroot/images
+        /// Функция по созданию файла в wwwroot/img
         /// </summary>
         /// <param name="imgfileName">Имя файла, отправленного пользователем</param>
         /// <param name="image">HtppRequest фотографии</param>

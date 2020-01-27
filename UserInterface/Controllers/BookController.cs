@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using DataAccess;
 using DataAccess.Entities;
 using BusinessLogic.Services.BusinessService;
 using Microsoft.AspNetCore.Hosting;
@@ -20,6 +18,8 @@ namespace UserInterface.Controllers
     [Authorize]
     public class BookController : Controller
     {
+        #region Initialize
+
         private readonly IUserBusinessService userBusinessService;
         private readonly IBookBusinessService bookBusinessService;
         private readonly IWebHostEnvironment hostEnvironment;
@@ -34,7 +34,12 @@ namespace UserInterface.Controllers
             this.mapper = mapper;
         }
 
-        // Поисковик
+        #endregion
+
+        /// <summary>
+        /// Страница с поисковиком
+        /// </summary>
+        /// <param name="search">Объект поиска</param>
         public async Task<IActionResult> Index(string search)
         {
             var books = await bookBusinessService.GetBooksBySearchValue(search);
@@ -43,7 +48,10 @@ namespace UserInterface.Controllers
             return View(booksVM);
         }
 
-        // GET: Books/Details/5
+        /// <summary>
+        /// Детальная информация о книге
+        /// </summary>
+        /// <param name="id">Идентификатор книги</param>
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -58,21 +66,33 @@ namespace UserInterface.Controllers
             return View(bookVM);
         }
 
-        // ELibrary
+        /// <summary>
+        /// Получить список книг по пользователю
+        /// </summary>
+        /// <param name="id">Идентификатор пользователя</param>
         public async Task<IActionResult> ByUser(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            
+
+            var user = await userBusinessService.GetUserById(id);
+            if(user == null)
+            {
+                return NotFound();
+            }
+
             var books = await bookBusinessService.GetBooksByUserId(id);
             var booksVM = mapper.Map<List<Book>, List<BookViewModel>>(books.OrderBy(s => s.CreatedDate).ToList());
-            var user = await userBusinessService.GetUserById(id);
             ViewBag.Email = user.Email;
             return View(booksVM);
         }
 
+
+        /// <summary>
+        /// Создать книгу
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -86,6 +106,10 @@ namespace UserInterface.Controllers
             return View(new BookViewModel());
         }
 
+        /// <summary>
+        /// Редактировать книгу
+        /// </summary>
+        /// <param name="id">Идентификатор книги</param>
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -95,13 +119,19 @@ namespace UserInterface.Controllers
             }
 
             var book = await bookBusinessService.GetBookById(id, false);
-            var bookVM = mapper.Map<Book, BookViewModel>(book);
+
+            if(book == null)
+            {
+                return NotFound();
+            }
+
             var user = await userBusinessService.GetUserById(book.UserId);
             if(user.Email != User.Identity.Name)
             {
                 return RedirectToAction("Index", "User");
             }
 
+            var bookVM = mapper.Map<Book, BookViewModel>(book);
             return View(bookVM);
         }
 
@@ -144,13 +174,18 @@ namespace UserInterface.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// Проверка на наличие книги
+        /// </summary>
+        /// <param name="id">Идентификатор книги</param>
+        /// <returns></returns>
         private async Task<bool> BookExists(int id)
         {
             return await bookBusinessService.GetBookById(id) != null;
         }
 
         /// <summary>
-        /// Функция по созданию файла в wwwroot/images
+        /// Функция по созданию файла в wwwroot/img
         /// </summary>
         /// <param name="imgfileName">Имя файла, отправленного пользователем</param>
         /// <param name="image">HtppRequest фотографии</param>
@@ -163,110 +198,5 @@ namespace UserInterface.Controllers
             image.CopyTo(new FileStream(filepath, FileMode.Create));
             return fileName;
         }
-
-        //// POST: Books/Create
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("Title,Description,Author,Rate,ImageSource,UserId,Id")] Book book)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(book);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", book.UserId);
-        //    return View(book);
-        //}
-
-        //// GET: Books/Edit/5
-        //public async Task<IActionResult> Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var book = await _context.Books.FindAsync(id);
-        //    if (book == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", book.UserId);
-        //    return View(book);
-        //}
-
-        //// POST: Books/Edit/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("Title,Description,Author,Rate,ImageSource,UserId,Id")] Book book)
-        //{
-        //    if (id != book.Id)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(book);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!BookExists(book.Id))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", book.UserId);
-        //    return View(book);
-        //}
-
-        //// GET: Books/Delete/5
-        //public async Task<IActionResult> Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var book = await _context.Books
-        //        .Include(b => b.User)
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (book == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(book);
-        //}
-
-        //// POST: Books/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    var book = await _context.Books.FindAsync(id);
-        //    _context.Books.Remove(book);
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
-
-        //private bool BookExists(int id)
-        //{
-        //    return _context.Books.Any(e => e.Id == id);
-        //}
     }
 }

@@ -15,6 +15,8 @@ namespace UserInterface.Controllers
     [Authorize]
     public class MessageController : Controller
     {
+        #region Initialize
+
         private readonly IUserBusinessService userBusinessService;
         private readonly IMessageBusinessService messageBusinessService;
         private readonly IMapper mapper;
@@ -26,6 +28,11 @@ namespace UserInterface.Controllers
             this.mapper = mapper;
         }
 
+        #endregion
+
+        /// <summary>
+        /// Список диалогов
+        /// </summary>
         public async Task<IActionResult> Index()
         {
             var dialogs = await messageBusinessService.GetDialogs(User.Identity.Name);
@@ -33,6 +40,10 @@ namespace UserInterface.Controllers
             return View(dialogsVM.OrderByDescending(s => s.LastMessageDate).ToList());
         }
 
+        /// <summary>
+        /// Диалог по пользователю (получатель)
+        /// </summary>
+        /// <param name="id">Идентификатор получателя</param>
         public async Task<IActionResult> DialogByUser(int? id)
         {
             if (id == null)
@@ -66,6 +77,10 @@ namespace UserInterface.Controllers
             return RedirectToAction("Dialog", new { id = dialog.Id });
         }
 
+        /// <summary>
+        /// Страница диалог с пользователем
+        /// </summary>
+        /// <param name="id">Идентификатор диалога</param>
         public async Task<IActionResult> Dialog(int? id)
         {
             if(id == null)

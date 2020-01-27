@@ -25,6 +25,8 @@ namespace BusinessLogic.Services.BusinessService
 
     public class UserBusinessService : IUserBusinessService
     {
+        #region Initialize
+
         private readonly IUserService userService;
         private readonly IRoleService roleService;
         private readonly IMemoryCache cache;
@@ -36,6 +38,8 @@ namespace BusinessLogic.Services.BusinessService
             this.roleService = roleService;
             this.cache = cache;
         }
+
+        #endregion
 
         public async Task<User> GetUserByEmail(string email)
         {

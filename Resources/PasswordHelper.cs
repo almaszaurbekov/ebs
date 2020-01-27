@@ -8,11 +8,19 @@ namespace Resources
     {
         private readonly static string salt = "ebsepamfoxychmoxy123";
 
+        /// <summary>
+        /// Хэширует пароль с солью
+        /// </summary>
+        /// <param name="password">Пароль</param>
         public static string Hash(string password)
         {
             return (ComputeSha256Hash(password) + ComputeSha256Hash(salt)).ToString();
         }
 
+        /// <summary>
+        /// Алгоритм хэширования
+        /// </summary>
+        /// <param name="rawData">Объект хэширования</param>
         private static string ComputeSha256Hash(string rawData)
         {
             // Create a SHA256   
@@ -30,5 +38,10 @@ namespace Resources
                 return builder.ToString();
             }
         }
+
+        /// <summary>
+        /// Пароль от почтового аккаунта
+        /// </summary>
+        public static string EmailPassword() => "solune071";
     }
 }
