@@ -12,6 +12,7 @@ using UserInterface.ViewModels.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using UserInterface.ViewModels;
 
 namespace UserInterface.Controllers
 {
@@ -172,6 +173,51 @@ namespace UserInterface.Controllers
                 return RedirectToAction(nameof(Details), new { id = model.Id });
             }
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var book = await bookBusinessService.GetBookById(id, false);
+
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            var user = await userBusinessService.GetUserById(book.UserId);
+            if (user.Email != User.Identity.Name)
+            {
+                return RedirectToAction("Index", "User");
+            }
+
+            var bookVM = mapper.Map<Book, BookViewModel>(book);
+            return View(bookVM);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id, BookViewModel model)
+        {
+            if(id != model.Id)
+            {
+                return NotFound();
+            }
+
+            var entity = await bookBusinessService.GetBookById(model.Id, false);
+
+            if(entity.User.Email != User.Identity.Name)
+            {
+                return NotFound();
+            }
+
+            await bookBusinessService.DeleteBook(entity);
+
+            return RedirectToAction("ByUser", new { id = entity.User.Id });
         }
 
         /// <summary>

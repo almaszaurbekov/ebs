@@ -26,6 +26,7 @@ namespace BusinessLogic.Services.BusinessService
         Task<int> UpdateBookTransaction(BookTransaction entity);
         Task<List<BookTransaction>> GetBookTransactionsByBookId(int id);
         Task<int> GetCountOfBookRequests(int userId);
+        Task<int> DeleteBook(Book entity);
     }
 
     public class BookBusinessService : IBookBusinessService
@@ -163,6 +164,11 @@ namespace BusinessLogic.Services.BusinessService
         {
             var transactions = await transactionService.Filter(s => s.OwnerId == userId && !s.OwnerHasSeen);
             return transactions.Count;
+        }
+
+        public async Task<int> DeleteBook(Book entity)
+        {
+            return await bookService.Delete(entity);
         }
     }
 }
