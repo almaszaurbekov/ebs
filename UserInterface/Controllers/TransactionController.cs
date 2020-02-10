@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using BusinessLogic.Dto;
 using BusinessLogic.Services.BusinessService;
 using DataAccess.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -42,7 +43,8 @@ namespace UserInterface.Controllers
             }
 
             var transactions = await bookBusinessService.GetBookTransactionsByBorrowerId(id);
-            var transactionsVM = mapper.Map<List<BookTransaction>, List<BookTransactionViewModel>>(transactions);
+            var transactionsVM = mapper.Map<List<BookTransactionDto>, 
+                List<BookTransactionViewModel>>(transactions);
             var user = await this.userBusinessService.GetUserById(id);
 
             if(user == null)
@@ -66,7 +68,8 @@ namespace UserInterface.Controllers
             var book = await bookBusinessService.GetBookById(id, false);
             var currentUser = await userBusinessService.GetUserByEmail(User.Identity.Name);
             var transactions = await bookBusinessService.GetBookTransactionsByBookId(id);
-            var transactionsVM = mapper.Map<List<BookTransaction>, List<BookTransactionViewModel>>(transactions);
+            var transactionsVM = mapper.Map<List<BookTransactionDto>, 
+                List<BookTransactionViewModel>>(transactions);
             ViewData["Transactions"] = transactionsVM;
             ViewData["Title"] = book.Title;
 
@@ -112,14 +115,14 @@ namespace UserInterface.Controllers
                     {
                         if(await bookBusinessService.IsThisBookFree(model.BookId, start, end))
                         {
-                            var entity = mapper.Map<BookTransactionViewModel, BookTransaction>(model);
-                            entity.CreatedDate = DateTime.Now;
-                            entity.OwnerAgreed = -1;
-                            entity.IsSuccess = -1;
+                            var dtoModel = mapper.Map<BookTransactionViewModel, BookTransactionDto>(model);
+                            dtoModel.CreatedDate = DateTime.Now;
+                            dtoModel.OwnerAgreed = -1;
+                            dtoModel.IsSuccess = -1;
                             
-                            await bookBusinessService.CreateTransaction(entity);
+                            await bookBusinessService.CreateTransaction(dtoModel);
 
-                            return RedirectToAction("Index", new { id = entity.BorrowerId });
+                            return RedirectToAction("Index", new { id = dtoModel.BorrowerId });
                         }
                         else
                         {
@@ -138,7 +141,8 @@ namespace UserInterface.Controllers
             }
 
             var transactions = await bookBusinessService.GetBookTransactionsByBookId(model.BookId);
-            var transactionsVM = mapper.Map<List<BookTransaction>, List<BookTransactionViewModel>>(transactions);
+            var transactionsVM = mapper.Map<List<BookTransactionDto>, 
+                List<BookTransactionViewModel>>(transactions);
             ViewBag.Transactions = transactionsVM;
             return View(model);
         }
@@ -159,7 +163,8 @@ namespace UserInterface.Controllers
                 await bookBusinessService.UpdateBookTransaction(transaction);
             }
 
-            var requestsVM = mapper.Map<List<BookTransaction>, List<BookTransactionViewModel>>(transactions);
+            var requestsVM = mapper.Map<List<BookTransactionDto>, 
+                List<BookTransactionViewModel>>(transactions);
             return View(requestsVM.Where(s => s.OwnerAgreed == -1).ToList());
         }
     }

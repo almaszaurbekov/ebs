@@ -1,4 +1,7 @@
-﻿using DataAccess.Entities;
+﻿using AutoMapper;
+using AutoMapper.Configuration;
+using BusinessLogic.Dto;
+using DataAccess.Entities;
 using Microsoft.Extensions.Caching.Memory;
 using Resources;
 using System;
@@ -11,22 +14,22 @@ namespace BusinessLogic.Services.BusinessService
 {
     public interface IBookBusinessService
     {
-        Task<Book> GetBookById(int? id, bool needComments = true);
-        Task<List<Book>> GetBooksByUserId(int? id);
-        Task<List<Book>> GetBooksByUserEmail(string email);
-        Task<int> AddBook(Book entity);
-        Task<int> UpdateBook(Book entity);
-        Task<List<BookTransaction>> GetBookTransactionsByOwnerId(int? id);
-        Task<List<BookTransaction>> GetBookTransactionsByBorrowerId(int? id);
-        Task<List<BookTransaction>> GetBookTransactionsByUserId(int? id);
-        Task<BookTransaction> GetBookTransactionById(Guid? id);
-        Task<List<Book>> GetBooksBySearchValue(string value);
-        Task<int> CreateTransaction(BookTransaction entity);
+        Task<BookDto> GetBookById(int? id, bool needComments = true);
+        Task<List<BookDto>> GetBooksByUserId(int? id);
+        Task<List<BookDto>> GetBooksByUserEmail(string email);
+        Task<int> AddBook(BookDto dtoModel);
+        Task<int> UpdateBook(BookDto dtoModel);
+        Task<List<BookTransactionDto>> GetBookTransactionsByOwnerId(int? id);
+        Task<List<BookTransactionDto>> GetBookTransactionsByBorrowerId(int? id);
+        Task<List<BookTransactionDto>> GetBookTransactionsByUserId(int? id);
+        Task<BookTransactionDto> GetBookTransactionById(Guid? id);
+        Task<List<BookDto>> GetBooksBySearchValue(string value);
+        Task<int> CreateTransaction(BookTransactionDto dtoModel);
         Task<bool> IsThisBookFree(int bookId, DateTime start, DateTime end);
-        Task<int> UpdateBookTransaction(BookTransaction entity);
-        Task<List<BookTransaction>> GetBookTransactionsByBookId(int id);
+        Task<int> UpdateBookTransaction(BookTransactionDto dtoModel);
+        Task<List<BookTransactionDto>> GetBookTransactionsByBookId(int id);
         Task<int> GetCountOfBookRequests(int userId);
-        Task<int> DeleteBook(Book entity);
+        Task<int> DeleteBook(BookDto dtoModel);
     }
 
     public class BookBusinessService : IBookBusinessService
@@ -38,6 +41,7 @@ namespace BusinessLogic.Services.BusinessService
         private readonly IUserService userService;
         private readonly IBookTransactionService transactionService;
         private readonly ICommentService commentService;
+        private readonly IMapper mapper;
 
         public BookBusinessService(IMemoryCache cache, IBookService bookService,
             IUserService userService, IBookTransactionService transactionService,
@@ -48,22 +52,48 @@ namespace BusinessLogic.Services.BusinessService
             this.userService = userService;
             this.transactionService = transactionService;
             this.commentService = commentService;
+            this.mapper = MapperInitialize();
+        }
+
+        private IMapper MapperInitialize()
+        {
+            var config = new MapperConfiguration(CreateMap());
+            return config.CreateMapper();
+        }
+
+        private MapperConfigurationExpression CreateMap()
+        {
+            var cfg = new MapperConfigurationExpression();
+
+            cfg.CreateMap<Book, BookDto>();
+            cfg.CreateMap<BookDto, Book>();
+
+            cfg.CreateMap<BookTransaction, BookTransactionDto>();
+            cfg.CreateMap<BookTransactionDto, BookTransaction>();
+
+            return cfg;
         }
 
         #endregion
 
-        public async Task<List<Book>> GetBooksByUserId(int? id) => await bookService.GetBooksByUserId(id);
-        public async Task<List<Book>> GetBooksByUserEmail(string email)
+        public async Task<List<BookDto>> GetBooksByUserId(int? id)
+        {
+            var books = await bookService.GetBooksByUserId(id);
+            return mapper.Map<List<Book>, List<BookDto>>(books);
+        }
+        public async Task<List<BookDto>> GetBooksByUserEmail(string email)
         {
             var user = await userService.Find(s => s.Email == email);
-            return await bookService.GetBooksByUserId(user.Id);
+            var books = await bookService.GetBooksByUserId(user.Id);
+            return mapper.Map<List<Book>, List<BookDto>>(books);
         }
 
-        public async Task<int> AddBook(Book book)
+        public async Task<int> AddBook(BookDto book)
         {
             try
             {
-                await bookService.Create(book);
+                var entity = mapper.Map<BookDto, Book>(book);
+                await bookService.Create(entity);
                 return book.Id;
             }
             catch
@@ -72,7 +102,7 @@ namespace BusinessLogic.Services.BusinessService
             }
         }
 
-        public async Task<Book> GetBookById(int? id, bool needComments = true)
+        public async Task<BookDto> GetBookById(int? id, bool needComments = true)
         {
             var book = await bookService.Find(s => s.Id == id);
             if (needComments)
@@ -80,42 +110,48 @@ namespace BusinessLogic.Services.BusinessService
                 book.Comments = await commentService.Filter(s => s.BookId == id);
             }
 
-            return book;
+            return mapper.Map<Book, BookDto>(book);
         }
 
-        public async Task<int> UpdateBook(Book entity)
+        public async Task<int> UpdateBook(BookDto dtoModel)
         {
+            var entity = mapper.Map<BookDto, Book>(dtoModel);
             return await bookService.Update(entity);
         }
 
-        public async Task<List<BookTransaction>> GetBookTransactionsByUserId(int? id)
+        public async Task<List<BookTransactionDto>> GetBookTransactionsByUserId(int? id)
         {
-            return await transactionService.Filter(s => s.OwnerId == id || s.BorrowerId == id);
+            var trans = await transactionService.Filter(s => s.OwnerId == id || s.BorrowerId == id);
+            return mapper.Map<List<BookTransaction>, List<BookTransactionDto>>(trans);
         }
 
-        public async Task<List<BookTransaction>> GetBookTransactionsByBorrowerId(int? id)
+        public async Task<List<BookTransactionDto>> GetBookTransactionsByBorrowerId(int? id)
         {
-            return await transactionService.Filter(s => s.BorrowerId == id);
+            var trans = await transactionService.Filter(s => s.BorrowerId == id);
+            return mapper.Map<List<BookTransaction>, List<BookTransactionDto>>(trans);
         }
 
-        public async Task<List<BookTransaction>> GetBookTransactionsByOwnerId(int? id)
+        public async Task<List<BookTransactionDto>> GetBookTransactionsByOwnerId(int? id)
         {
-            return await transactionService.Filter(s => s.OwnerId == id && s.OwnerAgreed == -1);
+            var trans = await transactionService.Filter(s => s.OwnerId == id && s.OwnerAgreed == -1);
+            return mapper.Map<List<BookTransaction>, List<BookTransactionDto>>(trans);
         }
 
-        public async Task<BookTransaction> GetBookTransactionById(Guid? id)
+        public async Task<BookTransactionDto> GetBookTransactionById(Guid? id)
         {
-            return await transactionService.Find(s => s.Id == id);
+            var tran = await transactionService.Find(s => s.Id == id);
+            return mapper.Map<BookTransaction, BookTransactionDto>(tran);
         }
 
-        public async Task<List<Book>> GetBooksBySearchValue(string value)
+        public async Task<List<BookDto>> GetBooksBySearchValue(string value)
         {
             try
             {
                 if (string.IsNullOrEmpty(value))
                 {
                     var books = await bookService.GetBooksByDate();
-                    return books.OrderByDescending(s => s.CreatedDate).ToList();
+                    return mapper.Map<List<Book>, List<BookDto>>(
+                        books.OrderByDescending(s => s.CreatedDate).ToList());
                 }
                 else
                 {
@@ -123,7 +159,8 @@ namespace BusinessLogic.Services.BusinessService
                     if (books.Count < 5)
                         books.AddRange(await bookService.Filter(s => s.Author.Contains(value)));
 
-                    return books.OrderByDescending(s => s.CreatedDate).ToList();
+                    return mapper.Map<List<Book>, List<BookDto>>(
+                        books.OrderByDescending(s => s.CreatedDate).ToList());
                 }
             }
             catch
@@ -132,10 +169,11 @@ namespace BusinessLogic.Services.BusinessService
             }
         }
 
-        public async Task<int> CreateTransaction(BookTransaction entity)
+        public async Task<int> CreateTransaction(BookTransactionDto modelDto)
         {
             try
             {
+                var entity = mapper.Map<BookTransactionDto, BookTransaction>(modelDto);
                 await transactionService.Create(entity);
                 return 1;
             }
@@ -150,14 +188,16 @@ namespace BusinessLogic.Services.BusinessService
             return await transactionService.IsThisBookFree(bookId, start, end);
         }
 
-        public async Task<int> UpdateBookTransaction(BookTransaction entity)
+        public async Task<int> UpdateBookTransaction(BookTransactionDto modelDto)
         {
+            var entity = mapper.Map<BookTransactionDto, BookTransaction>(modelDto);
             return await transactionService.Update(entity);
         }
 
-        public async Task<List<BookTransaction>> GetBookTransactionsByBookId(int id)
+        public async Task<List<BookTransactionDto>> GetBookTransactionsByBookId(int id)
         {
-            return await transactionService.Filter(s => s.BookId == id);
+            var trans = await transactionService.Filter(s => s.BookId == id);
+            return mapper.Map<List<BookTransaction>, List<BookTransactionDto>>(trans);
         }
 
         public async Task<int> GetCountOfBookRequests(int userId)
@@ -166,8 +206,9 @@ namespace BusinessLogic.Services.BusinessService
             return transactions.Count;
         }
 
-        public async Task<int> DeleteBook(Book entity)
+        public async Task<int> DeleteBook(BookDto modelDto)
         {
+            var entity = mapper.Map<BookDto, Book>(modelDto);
             return await bookService.Delete(entity);
         }
     }

@@ -123,7 +123,7 @@ namespace UserInterface.Controllers
         {
             var user = await userBusinessService.GetUserByEmail(User.Identity.Name);
             var bcbook = await bookcityService.Find(s => s.Id == id);
-            var book = mapper.Map<BcBook, Book>(bcbook);
+            var book = mapper.Map<BcBook, BookDto>(bcbook);
             book.Id = 0;
             book.UserId = user.Id;
             return await bookBusinessService.AddBook(book);
@@ -141,7 +141,7 @@ namespace UserInterface.Controllers
             var client = new HttpClient();
             var response = await client.GetAsync(path);
             var result = response.Content.ReadAsStringAsync().Result;
-            var book = JsonConvert.DeserializeObject<Book>(result);
+            var book = JsonConvert.DeserializeObject<BookDto>(result);
             book.UserId = user.Id;
             return await bookBusinessService.AddBook(book);
         }
@@ -158,7 +158,7 @@ namespace UserInterface.Controllers
         public async Task<int> AddManualBook(string title, string author, string desc, int rate)
         {
             var user = await userBusinessService.GetUserByEmail(User.Identity.Name);
-            var book = new Book()
+            var book = new BookDto()
             {
                 Title = title,
                 Author = author,
@@ -180,7 +180,7 @@ namespace UserInterface.Controllers
             var booksVM = new List<BookListViewModel>();
             foreach (var book in books)
             {
-                var entity = mapper.Map<Book, BookListViewModel>(book);
+                var entity = mapper.Map<BookDto, BookListViewModel>(book);
                 entity.UserEmail = book.User.Email;
                 booksVM.Add(entity);
             }

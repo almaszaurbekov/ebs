@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using UserInterface.ViewModels;
+using BusinessLogic.Dto;
 
 namespace UserInterface.Controllers
 {
@@ -44,7 +45,7 @@ namespace UserInterface.Controllers
         public async Task<IActionResult> Index(string search)
         {
             var books = await bookBusinessService.GetBooksBySearchValue(search);
-            var booksVM = mapper.Map<List<Book>, List<BookViewModel>>(books);
+            var booksVM = mapper.Map<List<BookDto>, List<BookViewModel>>(books);
             ViewBag.Search = search;
             return View(booksVM);
         }
@@ -61,7 +62,7 @@ namespace UserInterface.Controllers
             }
 
             var book = await bookBusinessService.GetBookById(id);
-            var bookVM = mapper.Map<Book, BookViewModel>(book);
+            var bookVM = mapper.Map<BookDto, BookViewModel>(book);
             var user = await userBusinessService.GetUserById(book.UserId);
             ViewBag.IsCurrentUser = user.Email == User.Identity.Name;
             return View(bookVM);
@@ -85,7 +86,8 @@ namespace UserInterface.Controllers
             }
 
             var books = await bookBusinessService.GetBooksByUserId(id);
-            var booksVM = mapper.Map<List<Book>, List<BookViewModel>>(books.OrderBy(s => s.CreatedDate).ToList());
+            var booksVM = mapper.Map<List<BookDto>, List<BookViewModel>>(
+                books.OrderBy(s => s.CreatedDate).ToList());
             ViewBag.Email = user.Email;
             return View(booksVM);
         }
@@ -132,7 +134,7 @@ namespace UserInterface.Controllers
                 return RedirectToAction("Index", "User");
             }
 
-            var bookVM = mapper.Map<Book, BookViewModel>(book);
+            var bookVM = mapper.Map<BookDto, BookViewModel>(book);
             return View(bookVM);
         }
 
@@ -196,7 +198,7 @@ namespace UserInterface.Controllers
                 return RedirectToAction("Index", "User");
             }
 
-            var bookVM = mapper.Map<Book, BookViewModel>(book);
+            var bookVM = mapper.Map<BookDto, BookViewModel>(book);
             return View(bookVM);
         }
 

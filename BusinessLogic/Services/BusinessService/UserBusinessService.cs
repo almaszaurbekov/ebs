@@ -44,6 +44,25 @@ namespace BusinessLogic.Services.BusinessService
             this.mapper = MapperInitialize();
         }
 
+        private IMapper MapperInitialize()
+        {
+            var config = new MapperConfiguration(CreateMap());
+            return config.CreateMapper();
+        }
+
+        private MapperConfigurationExpression CreateMap()
+        {
+            var cfg = new MapperConfigurationExpression();
+
+            cfg.CreateMap<User, UserDto>();
+            cfg.CreateMap<UserDto, User>();
+
+            cfg.CreateMap<Role, RoleDto>();
+            cfg.CreateMap<RoleDto, Role>();
+
+            return cfg;
+        }
+
         #endregion
 
         public async Task<UserDto> GetUserByEmail(string email)
@@ -142,25 +161,6 @@ namespace BusinessLogic.Services.BusinessService
         {
             var users = await userService.Filter(s => s.Email.Contains(email.ToLower()));
             return mapper.Map<List<User>, List<UserDto>>(users);
-        }
-
-        private IMapper MapperInitialize()
-        {
-            var config = new MapperConfiguration(CreateMap());
-            return config.CreateMapper();
-        }
-
-        private MapperConfigurationExpression CreateMap()
-        {
-            var cfg = new MapperConfigurationExpression();
-
-            cfg.CreateMap<User, UserDto>();
-            cfg.CreateMap<UserDto, User>();
-
-            cfg.CreateMap<Role, RoleDto>();
-            cfg.CreateMap<RoleDto, Role>();
-
-            return cfg;
         }
     }
 }

@@ -13,16 +13,16 @@ namespace UserInterface.Mappings
             CreateMap<UserDto, UserViewModel>(MemberList.Source);
             CreateMap<UserViewModel, UserDto>(MemberList.None);
 
+            CreateMap<BookDto, BookViewModel>(MemberList.Source);
+            CreateMap<BookViewModel, BookDto>(MemberList.None);
+            CreateMap<BookDto, BookListViewModel>(MemberList.Source);
+            CreateMap<BookListViewModel, BookDto>(MemberList.None);
+            CreateMap<BcBook, BookDto>(MemberList.Source);
+
+            CreateMap<BookTransactionDto, BookTransactionViewModel>(MemberList.Source);
+            CreateMap<BookTransactionViewModel, BookTransactionDto>(MemberList.None);
+
             //
-
-            CreateMap<Book, BookViewModel>(MemberList.Source);
-            CreateMap<BookViewModel, Book>(MemberList.None);
-            CreateMap<Book, BookListViewModel>(MemberList.Source);
-            CreateMap<BookListViewModel, Book>(MemberList.None);
-            CreateMap<BcBook, Book>(MemberList.Source);
-
-            CreateMap<BookTransaction, BookTransactionViewModel>(MemberList.Source);
-            CreateMap<BookTransactionViewModel, BookTransaction>(MemberList.None);
 
             CreateMap<Message, MessageViewModel>(MemberList.Source);
             CreateMap<MessageViewModel, Message>(MemberList.None);
