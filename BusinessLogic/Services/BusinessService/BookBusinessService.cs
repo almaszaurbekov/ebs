@@ -64,7 +64,7 @@ namespace BusinessLogic.Services.BusinessService
             try
             {
                 await bookService.Create(book);
-                return 1;
+                return book.Id;
             }
             catch
             {

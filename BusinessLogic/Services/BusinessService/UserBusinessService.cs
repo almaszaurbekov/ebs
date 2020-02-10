@@ -1,4 +1,7 @@
-﻿using DataAccess.Entities;
+﻿using AutoMapper;
+using AutoMapper.Configuration;
+using BusinessLogic.Dto;
+using DataAccess.Entities;
 using Microsoft.Extensions.Caching.Memory;
 using Resources;
 using System;
@@ -10,17 +13,17 @@ namespace BusinessLogic.Services.BusinessService
 {
     public interface IUserBusinessService
     {
-        Task<User> GetUserById(int? id);
-        Task<User> GetUserByEmail(string email);
-        Task<List<User>> GetUsersBySearch(string email);
-        Task<User> GetUserByEmailAndPassword(string email, string password);
-        Task<List<User>> GetUsers();
-        Task<User> CreateUser(User entity);
-        Task<int> UpdateUser(User entity);
-        Task<int> DeleteUser(User entity);
-        Task<Role> GetRoleById(Guid? id);
-        Task<Role> GetRoleByName(string name);
-        Task<List<Role>> GetRoles();
+        Task<UserDto> GetUserById(int? id);
+        Task<UserDto> GetUserByEmail(string email);
+        Task<List<UserDto>> GetUsersBySearch(string email);
+        Task<UserDto> GetUserByEmailAndPassword(string email, string password);
+        Task<List<UserDto>> GetUsers();
+        Task<UserDto> CreateUser(UserDto entity);
+        Task<int> UpdateUser(UserDto entity);
+        Task<int> DeleteUser(UserDto entity);
+        Task<RoleDto> GetRoleById(Guid? id);
+        Task<RoleDto> GetRoleByName(string name);
+        Task<List<RoleDto>> GetRoles();
     }
 
     public class UserBusinessService : IUserBusinessService
@@ -30,6 +33,7 @@ namespace BusinessLogic.Services.BusinessService
         private readonly IUserService userService;
         private readonly IRoleService roleService;
         private readonly IMemoryCache cache;
+        private readonly IMapper mapper;
 
         public UserBusinessService(IUserService userService, IMemoryCache cache,
             IRoleService roleService)
@@ -37,16 +41,18 @@ namespace BusinessLogic.Services.BusinessService
             this.userService = userService;
             this.roleService = roleService;
             this.cache = cache;
+            this.mapper = MapperInitialize();
         }
 
         #endregion
 
-        public async Task<User> GetUserByEmail(string email)
+        public async Task<UserDto> GetUserByEmail(string email)
         {
-            return await userService.Find(s => s.Email == email);
+            var user = await userService.Find(s => s.Email == email);
+            return mapper.Map<User, UserDto> (user);
         }
 
-        public async Task<User> GetUserById(int? id)
+        public async Task<UserDto> GetUserById(int? id)
         {
             User user = null;
             if (!cache.TryGetValue(id, out user))
@@ -59,21 +65,27 @@ namespace BusinessLogic.Services.BusinessService
                 }
             }
 
-            return user;
+            return mapper.Map<User, UserDto>(user);
         }
 
-        public async Task<List<User>> GetUsers()
+        public async Task<List<UserDto>> GetUsers()
         {
-            return await userService.GetAll();
+            var users = await userService.GetAll();
+            var usersDto = mapper.Map<List<User>, List<UserDto>>(users);
+            return usersDto;
         }
 
-        public async Task<int> UpdateUser(User entity)
+        public async Task<int> UpdateUser(UserDto dtoModel)
         {
+            var entity = mapper.Map<UserDto, User>(dtoModel);
+            cache.Set(dtoModel.Id, dtoModel,
+                    new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(30)));
             return await userService.Update(entity);
         }
 
-        public async Task<User> CreateUser(User entity)
+        public async Task<UserDto> CreateUser(UserDto dtoModel)
         {
+            var entity = mapper.Map<UserDto, User>(dtoModel);
             var result = await userService.Create(entity);
             if (result != null)
             {
@@ -82,15 +94,16 @@ namespace BusinessLogic.Services.BusinessService
                     AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(30)
                 });
             }
-            return result;
+            return mapper.Map<User, UserDto>(result);
         }
 
-        public async Task<int> DeleteUser(User entity)
+        public async Task<int> DeleteUser(UserDto dtoModel)
         {
+            var entity = mapper.Map<UserDto, User>(dtoModel);
             return await userService.Delete(entity);
         }
 
-        public async Task<Role> GetRoleById(Guid? id)
+        public async Task<RoleDto> GetRoleById(Guid? id)
         {
             Role role = null;
             if (!cache.TryGetValue(id, out role))
@@ -103,28 +116,51 @@ namespace BusinessLogic.Services.BusinessService
                 }
             }
 
-            return role;
+            return mapper.Map<Role, RoleDto>(role);
         }
 
-        public async Task<List<Role>> GetRoles()
+        public async Task<List<RoleDto>> GetRoles()
         {
-            return await roleService.GetAll();
+            var roles = await roleService.GetAll();
+            return mapper.Map<List<Role>, List<RoleDto>>(roles);
         }
 
-        public async Task<User> GetUserByEmailAndPassword(string email, string password)
+        public async Task<UserDto> GetUserByEmailAndPassword(string email, string password)
         {
-            return await userService.Find(s => s.Email == email &&
+            var user = await userService.Find(s => s.Email == email &&
                     s.Password == PasswordHelper.Hash(password));
+            return mapper.Map<User, UserDto>(user);
         }
 
-        public async Task<Role> GetRoleByName(string name)
+        public async Task<RoleDto> GetRoleByName(string name)
         {
-            return await roleService.Find(s => s.Name == name);
+            var role = await roleService.Find(s => s.Name == name);
+            return mapper.Map<Role, RoleDto>(role);
         }
 
-        public async Task<List<User>> GetUsersBySearch(string email)
+        public async Task<List<UserDto>> GetUsersBySearch(string email)
         {
-            return await userService.Filter(s => s.Email.Contains(email.ToLower()));
+            var users = await userService.Filter(s => s.Email.Contains(email.ToLower()));
+            return mapper.Map<List<User>, List<UserDto>>(users);
+        }
+
+        private IMapper MapperInitialize()
+        {
+            var config = new MapperConfiguration(CreateMap());
+            return config.CreateMapper();
+        }
+
+        private MapperConfigurationExpression CreateMap()
+        {
+            var cfg = new MapperConfigurationExpression();
+
+            cfg.CreateMap<User, UserDto>();
+            cfg.CreateMap<UserDto, User>();
+
+            cfg.CreateMap<Role, RoleDto>();
+            cfg.CreateMap<RoleDto, Role>();
+
+            return cfg;
         }
     }
 }

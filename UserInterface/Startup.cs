@@ -30,7 +30,7 @@ namespace UserInterface
 
             // DbContext Configurations
             services.AddDbContext<EbsContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("LocalConnection")));
             
             // Auto Mapper Configurations
             var mappingConfig = new MapperConfiguration(mc =>

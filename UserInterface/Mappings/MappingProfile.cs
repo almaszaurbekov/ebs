@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BusinessLogic.Dto;
 using DataAccess.Entities;
 using UserInterface.ViewModels;
 using UserInterface.ViewModels.Entities;
@@ -9,8 +10,10 @@ namespace UserInterface.Mappings
     {
         public MappingProfile()
         {
-            CreateMap<User, UserViewModel>(MemberList.Source);
-            CreateMap<UserViewModel, User>(MemberList.None);
+            CreateMap<UserDto, UserViewModel>(MemberList.Source);
+            CreateMap<UserViewModel, UserDto>(MemberList.None);
+
+            //
 
             CreateMap<Book, BookViewModel>(MemberList.Source);
             CreateMap<BookViewModel, Book>(MemberList.None);

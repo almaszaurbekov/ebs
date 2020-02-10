@@ -17,6 +17,7 @@ using System.IO;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Linq;
+using BusinessLogic.Dto;
 
 namespace UserInterface.Controllers
 {
@@ -76,7 +77,7 @@ namespace UserInterface.Controllers
                 return NotFound();
             }
 
-            var userVM = mapper.Map<User, UserViewModel> (user);
+            var userVM = mapper.Map<UserDto, UserViewModel> (user);
             return View(userVM);
         }
 
@@ -91,7 +92,7 @@ namespace UserInterface.Controllers
 
         [HttpPost]
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> Create([Bind("Email,Password,FirstName,LastName,ImageSource,Address,Id")] User user)
+        public async Task<IActionResult> Create([Bind("Email,Password,FirstName,LastName,ImageSource,Address,Id")] UserDto user)
         {
             if (ModelState.IsValid)
             {
@@ -118,7 +119,7 @@ namespace UserInterface.Controllers
                 return NotFound();
             }
 
-            var userVM = mapper.Map<User, UserViewModel>(user);
+            var userVM = mapper.Map<UserDto, UserViewModel>(user);
             return View(userVM);
         }
 
@@ -211,7 +212,7 @@ namespace UserInterface.Controllers
         public async Task<IActionResult> List()
         {
             var users = await userBusinessService.GetUsers();
-            var usersVM = mapper.Map<List<User>, List<UserViewModel>>(users);
+            var usersVM = mapper.Map<List<UserDto>, List<UserViewModel>>(users);
             var me = usersVM.Where(s => s.Email == User.Identity.Name).FirstOrDefault();
             usersVM.Remove(me);
             return View(usersVM);
@@ -234,7 +235,7 @@ namespace UserInterface.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = await userBusinessService.GetUserByEmailAndPassword(model.Email.ToLower(), model.Password);
+                var user = await userBusinessService.GetUserByEmailAndPassword(model.Email.ToLower(), model.Password);
                 if (user != null)
                 {
                     await Authenticate(user);
@@ -264,11 +265,11 @@ namespace UserInterface.Controllers
             if (ModelState.IsValid)
             {
                 var email = model.Email.ToLower();
-                User user = await userBusinessService.GetUserByEmail(email);
+                var user = await userBusinessService.GetUserByEmail(email);
                 if (user == null)
                 {
-                    user = new User { Email = email, Password = PasswordHelper.Hash(model.Password) };
-                    Role role = await userBusinessService.GetRoleByName("user");
+                    user = new UserDto { Email = email, Password = PasswordHelper.Hash(model.Password) };
+                    RoleDto role = await userBusinessService.GetRoleByName("user");
                     if (role != null)
                         user.Role = role;
                     
@@ -297,7 +298,7 @@ namespace UserInterface.Controllers
         /// Алгоритм аутентификации
         /// </summary>
         /// <param name="user">Пользователь</param>
-        private async Task Authenticate(User user)
+        private async Task Authenticate(UserDto user)
         {
             var claims = new List<Claim>
             {

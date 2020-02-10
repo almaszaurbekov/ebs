@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
+using BusinessLogic.Dto;
 using BusinessLogic.Services;
 using BusinessLogic.Services.BusinessService;
 using DataAccess.Entities;
@@ -117,7 +118,7 @@ namespace UserInterface.Controllers
         /// Запрос на автозаполнение книги из внутренней БД
         /// </summary>
         /// <param name="id">Идентификатор книги</param>
-        [HttpGet("books/auto/add")]
+        [HttpPost("books/auto/add")]
         public async Task<int> AddAutoBook(int id)
         {
             var user = await userBusinessService.GetUserByEmail(User.Identity.Name);
@@ -132,7 +133,7 @@ namespace UserInterface.Controllers
         /// Запрос на автозаполнение из внешней БД Bookcity
         /// </summary>
         /// <param name="href">Ссылка книги</param>
-        [HttpGet("books/bc/add")]
+        [HttpPost("books/bc/add")]
         public async Task<int> AddBcBook(string href)
         {
             var path = "https://murmuring-savannah-25756.herokuapp.com/ebs/bookcity/details/" + href;
@@ -153,7 +154,7 @@ namespace UserInterface.Controllers
         /// <param name="desc">Описание книги</param>
         /// <param name="rate">Рейтинг книги</param>
         /// <returns></returns>
-        [HttpGet("books/manual/add")]
+        [HttpPost("books/manual/add")]
         public async Task<int> AddManualBook(string title, string author, string desc, int rate)
         {
             var user = await userBusinessService.GetUserByEmail(User.Identity.Name);
@@ -194,7 +195,7 @@ namespace UserInterface.Controllers
         public async Task<IActionResult> GetUsersBySearch(string search)
         {
             var users = await userBusinessService.GetUsersBySearch(search);
-            var usersVM = mapper.Map<List<User>, List<UserViewModel>>(users);
+            var usersVM = mapper.Map<List<UserDto>, List<UserViewModel>>(users);
             var me = usersVM.Where(s => s.Email == User.Identity.Name).FirstOrDefault();
             if(me != null)
                 usersVM.Remove(me);
@@ -245,7 +246,7 @@ namespace UserInterface.Controllers
         /// <summary>
         /// Запрос на добавление нового сообщения
         /// </summary>
-        [HttpGet("message/add")]
+        [HttpPost("message/add")]
         public async Task<bool> MessageCreate(int dialogId, int senderId, int receiverId, 
             string sender, string receiver, string text)
         {

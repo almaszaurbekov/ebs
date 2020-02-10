@@ -2319,6 +2319,7 @@
       },
       "BusinessLogic/1.0.0": {
         "dependencies": {
+          "AutoMapper": "9.0.0",
           "DataAccess": "1.0.0",
           "Microsoft.Azure.KeyVault.Core": "3.0.4",
           "Microsoft.NETCore.App": "2.2.8",

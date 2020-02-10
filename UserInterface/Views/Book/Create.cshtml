@@ -107,7 +107,7 @@
                 var value = $("#book-auto").val();
                 if (value.trim() != "") {
                     $.ajax({
-                        method: "GET",
+                        method: "POST",
                         url: "/api/ebs/books/byvalue",
                         data: {
                             value: value.trim()
@@ -179,7 +179,7 @@
 
             $('#book-list').on('click', '.book-auto-details', function () {
                 $.ajax({
-                    method: "GET",
+                    method: "POST",
                     url: "/api/ebs/books/auto/add",
                     data: { id: $(this).attr("data-id") },
                     headers: {
@@ -201,7 +201,7 @@
 
             $('#book-list').on('click', '.book-bc-details', function () {
                 $.ajax({
-                    method: "GET",
+                    method: "POST",
                     url: "/api/ebs/books/bc/add",
                     data: { href: $(this).attr("data-id") },
                     headers: {

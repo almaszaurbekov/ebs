@@ -14,9 +14,9 @@ namespace DataAccess.Entities
         public User User { get; set; }
         public List<Comment> Comments { get; set; }
         public List<BookTransaction> BookTransactions { get; set; }
-        public bool IsBorrowed { get; set; } = false;
-        public bool InGoodCondition { get; set; } = true;
-        public bool IsPainted { get; set; } = false;
+        public bool IsBorrowed { get; set; }
+        public bool InGoodCondition { get; set; }
+        public bool IsPainted { get; set; }
 
         public Book()
         {
