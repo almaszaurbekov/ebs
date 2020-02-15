@@ -1,10 +1,9 @@
-﻿using DataAccess.Entities;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using UserInterface.Mappings;
 
 namespace UserInterface.ViewModels
 {
-    public class LoginViewModel : IMapFrom<User>
+    public class LoginViewModel
     {
         [Required(ErrorMessage = "Не указан Email")]
         public string Email { get; set; }

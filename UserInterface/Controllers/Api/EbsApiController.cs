@@ -9,7 +9,6 @@ using AutoMapper;
 using BusinessLogic.Dto;
 using BusinessLogic.Services;
 using BusinessLogic.Services.BusinessService;
-using DataAccess.Entities;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Hosting;
@@ -29,7 +28,6 @@ namespace UserInterface.Controllers
 
         private readonly IUserBusinessService userBusinessService;
         private readonly IBookBusinessService bookBusinessService;
-        private readonly IBcBookService bookcityService;
         private readonly IMessageBusinessService messageBusinessService;
         private readonly IMapper mapper;
         private readonly IWebHostEnvironment hostEnvironment;
@@ -37,11 +35,10 @@ namespace UserInterface.Controllers
 
         public EbsApiController(IUserBusinessService userBusinessService, IMapper mapper,
             IWebHostEnvironment hostEnvironment, IBookBusinessService bookBusinessService,
-            IBcBookService bookcityService, IMessageBusinessService messageBusinessService)
+            IMessageBusinessService messageBusinessService)
         {
             this.userBusinessService = userBusinessService;
             this.bookBusinessService = bookBusinessService;
-            this.bookcityService = bookcityService;
             this.messageBusinessService = messageBusinessService;
             this.hostEnvironment = hostEnvironment;
             this.folder = Path.Combine(hostEnvironment.WebRootPath, "files");
@@ -108,9 +105,9 @@ namespace UserInterface.Controllers
         /// </summary>
         /// <param name="value">Значение поисковика</param>
         [HttpGet("books/byvalue")]
-        public async Task<List<BcBook>> BooksByValue(string value)
+        public async Task<List<BcBookDto>> BooksByValue(string value)
         {
-            var books = await bookcityService.GetBooksByValue(value);
+            var books = await bookBusinessService.GetBooksByValue(value);
             return books.Take(50).ToList();
         }
 
@@ -122,8 +119,8 @@ namespace UserInterface.Controllers
         public async Task<int> AddAutoBook(int id)
         {
             var user = await userBusinessService.GetUserByEmail(User.Identity.Name);
-            var bcbook = await bookcityService.Find(s => s.Id == id);
-            var book = mapper.Map<BcBook, BookDto>(bcbook);
+            var bcbook = await bookBusinessService.GetBcBook(id);
+            var book = mapper.Map<BcBookDto, BookDto>(bcbook);
             book.Id = 0;
             book.UserId = user.Id;
             return await bookBusinessService.AddBook(book);
@@ -252,15 +249,14 @@ namespace UserInterface.Controllers
         {
             try
             {
-                var message = new Message()
+                var message = new MessageDto()
                 {
                     UserSenderEmail = sender,
                     UserSenderId = senderId,
                     UserReceiverEmail = receiver,
                     UserReceiverId = receiverId,
                     Text = text,
-                    DialogControlId = dialogId,
-                    CreatedBy = sender
+                    DialogControlId = dialogId
                 };
 
                 await messageBusinessService.CreateMessage(message);

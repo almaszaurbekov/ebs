@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BusinessLogic.Dto;
 using BusinessLogic.Services.BusinessService;
-using DataAccess.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

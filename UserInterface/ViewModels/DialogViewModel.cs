@@ -1,4 +1,4 @@
-﻿using DataAccess.Entities;
+﻿using BusinessLogic.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace UserInterface.ViewModels
     public class DialogViewModel
     {
         public int Id { get; set; }
-        public List<Message> Messages { get; set; }
+        public List<MessageDto> Messages { get; set; }
         public string LastMessage { get; set; }
         public DateTime LastMessageDate { get; set; }
         public int FirstInterlocutorId { get; set; }
@@ -19,7 +19,7 @@ namespace UserInterface.ViewModels
 
         public DialogViewModel()
         {
-            Messages = new List<Message>();
+            Messages = new List<MessageDto>();
         }
     }
 }

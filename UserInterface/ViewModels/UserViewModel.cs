@@ -1,11 +1,10 @@
-﻿using DataAccess.Entities;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 using UserInterface.Mappings;
 
 namespace UserInterface.ViewModels.Entities
 {
-    public class UserViewModel : IMapFrom<User>
+    public class UserViewModel
     {
         [Required]
         public int Id { get; set; }

@@ -30,6 +30,8 @@ namespace BusinessLogic.Services.BusinessService
         Task<List<BookTransactionDto>> GetBookTransactionsByBookId(int id);
         Task<int> GetCountOfBookRequests(int userId);
         Task<int> DeleteBook(BookDto dtoModel);
+        Task<List<BcBookDto>> GetBooksByValue(string value);
+        Task<BcBookDto> GetBcBook(int id);
     }
 
     public class BookBusinessService : IBookBusinessService
@@ -41,17 +43,19 @@ namespace BusinessLogic.Services.BusinessService
         private readonly IUserService userService;
         private readonly IBookTransactionService transactionService;
         private readonly ICommentService commentService;
+        private readonly IBcBookService bookcityService;
         private readonly IMapper mapper;
 
         public BookBusinessService(IMemoryCache cache, IBookService bookService,
             IUserService userService, IBookTransactionService transactionService,
-            ICommentService commentService)
+            ICommentService commentService, IBcBookService bookcityService)
         {
             this.cache = cache;
             this.bookService = bookService;
             this.userService = userService;
             this.transactionService = transactionService;
             this.commentService = commentService;
+            this.bookcityService = bookcityService;
             this.mapper = MapperInitialize();
         }
 
@@ -67,6 +71,9 @@ namespace BusinessLogic.Services.BusinessService
 
             cfg.CreateMap<Book, BookDto>();
             cfg.CreateMap<BookDto, Book>();
+
+            cfg.CreateMap<BcBook, BcBookDto>();
+            cfg.CreateMap<BcBookDto, BcBook>();
 
             cfg.CreateMap<BookTransaction, BookTransactionDto>();
             cfg.CreateMap<BookTransactionDto, BookTransaction>();
@@ -210,6 +217,18 @@ namespace BusinessLogic.Services.BusinessService
         {
             var entity = mapper.Map<BookDto, Book>(modelDto);
             return await bookService.Delete(entity);
+        }
+
+        public async Task<List<BcBookDto>> GetBooksByValue(string value)
+        {
+            var books = await bookcityService.GetBooksByValue(value);
+            return mapper.Map<List<BcBook>, List<BcBookDto>>(books);
+        }
+
+        public async Task<BcBookDto> GetBcBook(int id)
+        {
+            var book = await bookcityService.Find(s => s.Id == id);
+            return mapper.Map<BcBook, BcBookDto>(book);
         }
     }
 }

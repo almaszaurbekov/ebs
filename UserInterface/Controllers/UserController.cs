@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using DataAccess.Entities;
 using Microsoft.AspNetCore.Authorization;
 using UserInterface.ViewModels;
 using Resources;

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using DataAccess.Entities;
 using BusinessLogic.Services.BusinessService;
 using Microsoft.AspNetCore.Hosting;
 using AutoMapper;

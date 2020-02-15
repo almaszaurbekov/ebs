@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using BusinessLogic.Dto;
-using DataAccess.Entities;
 using UserInterface.ViewModels;
 using UserInterface.ViewModels.Entities;
 
@@ -17,18 +16,16 @@ namespace UserInterface.Mappings
             CreateMap<BookViewModel, BookDto>(MemberList.None);
             CreateMap<BookDto, BookListViewModel>(MemberList.Source);
             CreateMap<BookListViewModel, BookDto>(MemberList.None);
-            CreateMap<BcBook, BookDto>(MemberList.Source);
+            CreateMap<BcBookDto, BookDto>(MemberList.Source);
 
             CreateMap<BookTransactionDto, BookTransactionViewModel>(MemberList.Source);
             CreateMap<BookTransactionViewModel, BookTransactionDto>(MemberList.None);
 
-            //
+            CreateMap<MessageDto, MessageViewModel>(MemberList.Source);
+            CreateMap<MessageViewModel, MessageDto>(MemberList.None);
 
-            CreateMap<Message, MessageViewModel>(MemberList.Source);
-            CreateMap<MessageViewModel, Message>(MemberList.None);
-
-            CreateMap<DialogControl, DialogViewModel>(MemberList.Source);
-            CreateMap<DialogViewModel, DialogControl>(MemberList.Source);
+            CreateMap<DialogControlDto, DialogViewModel>(MemberList.Source);
+            CreateMap<DialogViewModel, DialogControlDto>(MemberList.Source);
         }
     }
 }

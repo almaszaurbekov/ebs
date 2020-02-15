@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using BusinessLogic.Dto;
 using BusinessLogic.Services.BusinessService;
 using DataAccess.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -36,7 +37,7 @@ namespace UserInterface.Controllers
         public async Task<IActionResult> Index()
         {
             var dialogs = await messageBusinessService.GetDialogs(User.Identity.Name);
-            var dialogsVM = mapper.Map<List<DialogControl>, List<DialogViewModel>>(dialogs);
+            var dialogsVM = mapper.Map<List<DialogControlDto>, List<DialogViewModel>>(dialogs);
             return View(dialogsVM.OrderByDescending(s => s.LastMessageDate).ToList());
         }
 
@@ -62,16 +63,15 @@ namespace UserInterface.Controllers
 
             if (dialog == null)
             {
-                dialog = new DialogControl()
+                dialog = new DialogControlDto()
                 {
-                    CreatedBy = User.Identity.Name,
                     FirstInterlocutorEmail = User.Identity.Name,
                     FirstInterlocutorId = me.Id,
                     SecondInterlocutorEmail = user.Email,
                     SecondInterlocutorId = user.Id
                 };
 
-                dialog = await messageBusinessService.CreateDialogControl(dialog);
+                dialog.Id = await messageBusinessService.CreateDialogControl(dialog);
             }
 
             return RedirectToAction("Dialog", new { id = dialog.Id });
@@ -104,7 +104,7 @@ namespace UserInterface.Controllers
             ViewBag.Me = me;
             ViewBag.DialogId = id;
 
-            var dialogVM = mapper.Map<DialogControl, DialogViewModel>(dialog);
+            var dialogVM = mapper.Map<DialogControlDto, DialogViewModel>(dialog);
             dialogVM.Messages = await messageBusinessService.GetMessagesByDialogId(id);
 
             return View(dialogVM);

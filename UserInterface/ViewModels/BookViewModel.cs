@@ -1,4 +1,4 @@
-﻿using DataAccess.Entities;
+﻿using BusinessLogic.Dto;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using UserInterface.Mappings;
 
 namespace UserInterface.ViewModels.Entities
 {
-    public class BookViewModel : IMapFrom<Book>
+    public class BookViewModel
     {
         [Key]
         public int Id { get; set; }
@@ -28,9 +28,9 @@ namespace UserInterface.ViewModels.Entities
         public bool InGoodCondition { get; set; } = true;
         [Required]
         public bool IsPainted { get; set; } = false;
-        public List<Comment> Comments { get; set; }
+        public List<CommentDto> Comments { get; set; }
         public bool RemoveImage { get; set; }
         public DateTime CreatedDate { get; set; }
-        public User User { get; set; }
+        public UserDto User { get; set; }
     }
 }
