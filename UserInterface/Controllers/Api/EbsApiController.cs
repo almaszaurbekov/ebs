@@ -47,57 +47,17 @@ namespace UserInterface.Controllers
 
         #endregion
 
-        /// <summary>
-        /// Проверечный запрос
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("test")]
+
+        [HttpGet("testGet/")]
         public string Test()
         {
-            return "200 OK";
+            return "Hello";
         }
 
-        /// <summary>
-        /// Запрос на изменение данных о пользователе
-        /// </summary>
-        /// <param name="model">Пользователь</param>
-        [HttpPost("user/edit")]
-        public async Task<int> Edit(UserViewModel model)
+        [HttpPost("testPost/")]
+        public string Test(string word)
         {
-            try
-            {
-                var entity = await userBusinessService.GetUserById(model.Id);
-
-                ReplaceValue(model.Email, entity.Email);
-                ReplaceValue(model.FirstName, entity.FirstName);
-                ReplaceValue(model.LastName, entity.LastName);
-                ReplaceValue(model.Address, entity.Address);
-
-                if (model.Image != null)
-                    entity.ImageSource = CreateFile(model.Image.FileName, model.Image);
-
-                if (model.RemoveImage)
-                    entity.ImageSource = null;
-
-                if (User.Identity.Name != entity.Email)
-                {
-                    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-                    var claims = new List<Claim>
-                        {
-                            new Claim(ClaimsIdentity.DefaultNameClaimType, entity.Email)
-                        };
-
-                    ClaimsIdentity claimsId = new ClaimsIdentity(claims, "ApplicationCookie",
-                        ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsId));
-                }
-
-                return 1;
-            }
-            catch
-            {
-                return 0;
-            }
+            return $"Hello {word}";
         }
 
         /// <summary>
@@ -131,16 +91,24 @@ namespace UserInterface.Controllers
         /// </summary>
         /// <param name="href">Ссылка книги</param>
         [HttpPost("books/bc/add")]
+        [ValidateAntiForgeryToken]
         public async Task<int> AddBcBook(string href)
         {
-            var path = "https://murmuring-savannah-25756.herokuapp.com/ebs/bookcity/details/" + href;
-            var user = await userBusinessService.GetUserByEmail(User.Identity.Name);
-            var client = new HttpClient();
-            var response = await client.GetAsync(path);
-            var result = response.Content.ReadAsStringAsync().Result;
-            var book = JsonConvert.DeserializeObject<BookDto>(result);
-            book.UserId = user.Id;
-            return await bookBusinessService.AddBook(book);
+            try
+            {
+                var path = "https://murmuring-savannah-25756.herokuapp.com/ebs/bookcity/details/" + href;
+                var user = await userBusinessService.GetUserByEmail(User.Identity.Name);
+                var client = new HttpClient();
+                var response = await client.GetAsync(path);
+                var result = response.Content.ReadAsStringAsync().Result;
+                var book = JsonConvert.DeserializeObject<BookDto>(result);
+                book.UserId = user.Id;
+                return await bookBusinessService.AddBook(book);
+            }
+            catch
+            {
+                return -1;
+            }
         }
 
         /// <summary>
@@ -267,15 +235,6 @@ namespace UserInterface.Controllers
             {
                 return false;
             }
-        }
-
-        /// <summary>
-        /// Получить ненулевое значение
-        /// </summary>
-        private void ReplaceValue(object newValue, object oldValue)
-        {
-            if (newValue != null)
-                oldValue = newValue;
         }
 
         /// <summary>

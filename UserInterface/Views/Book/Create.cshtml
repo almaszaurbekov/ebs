@@ -101,8 +101,12 @@
     </div>
 </section>
 @section Scripts {
+    <script src="~/js/app/bookController.js"></script>
     <script>
         $(document).ready(function () {
+
+            var controller = new BookController(null, "#book-list");
+
             $("#book-search-auto").click(function () {
                 var value = $("#book-auto").val();
                 if (value.trim() != "") {
@@ -141,39 +145,35 @@
                 }
             });
 
+            function createRow(val) {
+                return 
+                `<div class="row bg-light mb-2 pl-2 pt-2 pr-2 pb-2">
+                    <div class="col-md-4">
+                        <img src="${val.image}" width="100%">
+                    </div>
+                    <div class="col-md-8">
+                        <p class="border-bottom">
+                            <b>${val.title}</b>
+                        </p>
+                        <button data-id="${val.href}" 
+                                class="book-bc-details btn btn-primary pull-right">Добавить</button>
+                        <p>${val.author}</p>
+                    </div>
+                </div>`;
+            }
+
             $("#book-search-bc").click(function () {
                 var value = $("#book-bc").val();
                 if (value.trim() != "") {
-                    var url = `https://murmuring-savannah-25756.herokuapp.com/ebs/bookcity/${value.trim()}`
-                    $.ajax({
-                        method: "GET",
-                        url: url,
-                        headers: {
-                            RequestVerificationToken:
-                                $('input:hidden[name="__RequestVerificationToken"]').val()
-                        },
-                        beforeSend: function () {
-                            $("#book-list").empty();
-                            $('.wait-pre-con').show();
-                            toastr.info("Your book is searching, please wait", "Got it!");
+                    var books = controller.getBooksByValue(value);
+                    if (books.length > 0) {
+                        toastr.success("A lot of books", "Yeah, we have it!");
+                        for (let val of books) {
+                            $("#book-list").append(createRow(val));
                         }
-                    })
-                    .done(function (result) {
-                        $('.wait-pre-con').hide();
-                        if (result.length > 0) {
-                            toastr.success("A lot of books", "Yeah, we have it!");
-                            for (let val of result) {
-                                $("#book-list").append(`<div class="row bg-light mb-2 pl-2 pt-2 pr-2 pb-2">
-                                                            <div class="col-md-4"><img src="${val.image}" width="100%"></div>
-                                                            <div class="col-md-8"><p class="border-bottom"><b>${val.title}</b></p>
-                                                            <button data-id="${val.href}" class="book-bc-details btn btn-primary pull-right">Добавить</button>
-                                                            <p>${val.author}</p></div>
-                                                        </div>`);
-                            }
-                        } else {
-                            toastr.error("There is no one book what you are looking for", "Oops...");
-                        }
-                    });
+                    } else {
+                        toastr.error("There is no one book what you are looking for", "Oops...");
+                    }
                 }
             });
 
@@ -203,11 +203,14 @@
                 $.ajax({
                     method: "POST",
                     url: "/api/ebs/books/bc/add",
-                    data: { href: $(this).attr("data-id") },
+                    data: {
+                        href: $(this).attr("data-id")
+                    },
                     headers: {
                         RequestVerificationToken:
                             $('input:hidden[name="__RequestVerificationToken"]').val()
                     },
+                    contentType: 'application/json; charset=utf-8',
                     beforeSend: function () {
                         toastr.info("We are adding your book", "Please wait");
                     }

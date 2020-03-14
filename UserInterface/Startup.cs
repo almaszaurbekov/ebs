@@ -63,7 +63,7 @@ namespace UserInterface
             .AddCookie(options =>
             {
                 options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/User/Login");
-                options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/User/Login");
+                options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/User");
             });
 
             // SignalR Configurations

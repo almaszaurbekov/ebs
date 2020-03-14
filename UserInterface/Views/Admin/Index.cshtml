@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<section style="padding-top:50px">
+    <div class="container pt-5">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Index" asp-controller="User">EBookSharing</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Admin</li>
+            </ol>
+        </nav>
+        <div class="row">
+            @foreach(var b in ViewBag.Books)
+            {
+                <div class="col-md-12 bg-info py-3 my-3">
+                    <p>@b.Title</p>
+                </div>
+            }
+        </div>
+    </div>
+</section>

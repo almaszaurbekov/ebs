@@ -14,6 +14,7 @@ namespace BusinessLogic.Services.BusinessService
 {
     public interface IBookBusinessService
     {
+        Task<List<BookDto>> GetBooks();
         Task<BookDto> GetBookById(int? id, bool needComments = true);
         Task<List<BookDto>> GetBooksByUserId(int? id);
         Task<List<BookDto>> GetBooksByUserEmail(string email);
@@ -229,6 +230,12 @@ namespace BusinessLogic.Services.BusinessService
         {
             var book = await bookcityService.Find(s => s.Id == id);
             return mapper.Map<BcBook, BcBookDto>(book);
+        }
+
+        public async Task<List<BookDto>> GetBooks()
+        {
+            var books = await bookService.GetBooksSQL();
+            return mapper.Map<List<Book>, List<BookDto>>(books);
         }
     }
 }
