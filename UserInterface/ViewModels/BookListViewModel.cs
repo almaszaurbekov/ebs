@@ -11,6 +11,7 @@ namespace UserInterface.ViewModels
         public string Author { get; set; }
         public string Title { get; set; }
         public string UserEmail { get; set; }
+        public int UserId { get; set; }
         public string ImageSource { get; set; }
         public DateTime CreatedDate { get; set; }
     }
