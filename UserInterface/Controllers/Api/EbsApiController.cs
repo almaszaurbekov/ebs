@@ -7,6 +7,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using BusinessLogic.Dto;
+using BusinessLogic.Models;
 using BusinessLogic.Services;
 using BusinessLogic.Services.BusinessService;
 using Microsoft.AspNetCore.Authentication;
@@ -221,6 +222,19 @@ namespace UserInterface.Controllers
             {
                 return false;
             }
+        }
+
+        [HttpGet("bs1")]
+        public async Task<string> GetBooksCountByUsers()
+        {
+            return await bookBusinessService.GetBooksCountByUsers();
+        }
+
+        [HttpGet("us1")]
+        public async Task<List<ShortUserList>> GetUserListAscending()
+        {
+            var isBorrowed = false;
+            return await userBusinessService.GetUserListAscending(isBorrowed);
         }
 
         /// <summary>

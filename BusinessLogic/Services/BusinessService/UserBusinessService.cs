@@ -2,6 +2,7 @@
 using AutoMapper.Configuration;
 using BusinessLogic.Dto;
 using BusinessLogic.Mappings;
+using BusinessLogic.Models;
 using DataAccess.Entities;
 using Microsoft.Extensions.Caching.Memory;
 using Resources;
@@ -25,6 +26,7 @@ namespace BusinessLogic.Services.BusinessService
         Task<RoleDto> GetRoleById(Guid? id);
         Task<RoleDto> GetRoleByName(string name);
         Task<List<RoleDto>> GetRoles();
+        Task<List<ShortUserList>> GetUserListAscending(bool isBorrowed);
     }
 
     public class UserBusinessService : IUserBusinessService
@@ -143,6 +145,12 @@ namespace BusinessLogic.Services.BusinessService
         {
             var users = await userService.Filter(s => s.Email.Contains(email.ToLower()));
             return mapper.Map<List<User>, List<UserDto>>(users);
+        }
+
+        public async Task<List<ShortUserList>> GetUserListAscending(bool isBorrowed)
+        {
+            var sql = $@"SELECT u.Id, u.Email FROM Users AS u ORDER BY u.Id";
+            return await userService.GetUserListAscending(sql);
         }
     }
 }

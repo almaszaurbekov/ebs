@@ -4,6 +4,7 @@ using BusinessLogic.Dto;
 using BusinessLogic.Mappings;
 using DataAccess.Entities;
 using Microsoft.Extensions.Caching.Memory;
+using Newtonsoft.Json;
 using Resources;
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,8 @@ namespace BusinessLogic.Services.BusinessService
 {
     public interface IBookBusinessService
     {
-        Task<List<BookDto>> GetBooks();
         Task<BookDto> GetBookById(int? id, bool needComments = true);
+        Task<List<BookDto>> GetBooks();
         Task<List<BookDto>> GetBooksByUserId(int? id);
         Task<List<BookDto>> GetBooksByUserEmail(string email);
         Task<int> AddBook(BookDto dtoModel);
@@ -34,6 +35,7 @@ namespace BusinessLogic.Services.BusinessService
         Task<int> DeleteBook(BookDto dtoModel);
         Task<List<BcBookDto>> GetBooksByValue(string value);
         Task<BcBookDto> GetBcBook(int id);
+        Task<string> GetBooksCountByUsers();
     }
 
     public class BookBusinessService : IBookBusinessService
@@ -211,9 +213,25 @@ namespace BusinessLogic.Services.BusinessService
             return mapper.Map<BcBook, BcBookDto>(book);
         }
 
+        public async Task<string> GetBooksCountByUsers()
+        {
+            var sql = @"
+                SELECT u.Email, count(b.UserId) 
+                FROM Books AS b JOIN Users AS u 
+                ON b.UserId = u.Id 
+                GROUP BY u.Email";
+
+            var books = await bookService.GetBooksCountByUsers(sql);
+            return JsonConvert.SerializeObject(books);
+
+            //return JsonConvert.SerializeObject();
+            //var books = await bookService.GetBooksBySQL(sql);
+            //return mapper.Map<List<Book>, List<BookDto>>(books);
+        }
+
         public async Task<List<BookDto>> GetBooks()
         {
-            var books = await bookService.GetBooksSQL();
+            var books = await bookService.GetAll();
             return mapper.Map<List<Book>, List<BookDto>>(books);
         }
     }

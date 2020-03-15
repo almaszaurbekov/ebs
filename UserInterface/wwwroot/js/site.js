@@ -26,17 +26,13 @@ scrollLoader();
 navbarScroll();
 
 $(".ebs-menu").click(function () {
-    $(".ebs-menu-body").animate({
-        "right":"0"
-    });
+    $(".ebs-menu-body").animate({ "right":"0" });
     $(".ebs-menu-target").addClass("animated");
     $(".ebs-menu-target").addClass("fadeInRight");
 });
 
 $(".ebs-menu-close").click(function () {
-    $(".ebs-menu-body").animate({
-        "right": "-100%"
-    });
+    $(".ebs-menu-body").animate({ "right": "-100%" });
     $(".ebs-menu-target").removeClass("animated");
     $(".ebs-menu-target").removeClass("fadeInRight");
 });

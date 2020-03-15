@@ -1,9 +1,11 @@
-﻿using BusinessLogic.Services.Base;
+﻿using BusinessLogic.Models;
+using BusinessLogic.Services.Base;
 using DataAccess;
 using DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -15,7 +17,7 @@ namespace BusinessLogic.Services
     {
         Task<List<Book>> GetBooksByUserId(int? id);
         Task<List<Book>> GetBooksByDate();
-        Task<List<Book>> GetBooksSQL();
+        Task<List<UserBookGroup>> GetBooksCountByUsers(string sql);
     }
 
     public class BookService : EntityService<Book>, IBookService
@@ -54,10 +56,40 @@ namespace BusinessLogic.Services
                 .ToListAsync();
         }
 
-        public async Task<List<Book>> GetBooksSQL()
+        public async Task<List<UserBookGroup>> GetBooksCountByUsers(string sql)
         {
-            string sql = "SELECT * FROM Books";
-            return await DbSet.FromSqlRaw(sql).ToListAsync();
+            var groups = new List<UserBookGroup>();
+            var conn = context.Database.GetDbConnection();
+
+            try
+            {
+                await conn.OpenAsync();
+                using (var command = conn.CreateCommand())
+                {
+                    command.CommandText = sql;
+                    DbDataReader reader = await command.ExecuteReaderAsync();
+
+                    if (reader.HasRows)
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            var row = new UserBookGroup { Email = reader.GetString(0), Count = reader.GetInt32(1) };
+                            groups.Add(row);
+                        }
+                    }
+                    reader.Dispose();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return groups;
         }
     }
 }
