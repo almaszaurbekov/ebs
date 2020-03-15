@@ -47,19 +47,6 @@ namespace UserInterface.Controllers
 
         #endregion
 
-
-        [HttpGet("testGet/")]
-        public string Test()
-        {
-            return "Hello";
-        }
-
-        [HttpPost("testPost/")]
-        public string Test(string word)
-        {
-            return $"Hello {word}";
-        }
-
         /// <summary>
         /// Получить список книг из внутренней БД
         /// </summary>
@@ -75,7 +62,7 @@ namespace UserInterface.Controllers
         /// Запрос на автозаполнение книги из внутренней БД
         /// </summary>
         /// <param name="id">Идентификатор книги</param>
-        [HttpPost("books/auto/add")]
+        [HttpGet("books/auto/add")]
         public async Task<int> AddAutoBook(int id)
         {
             var user = await userBusinessService.GetUserByEmail(User.Identity.Name);
@@ -90,8 +77,7 @@ namespace UserInterface.Controllers
         /// Запрос на автозаполнение из внешней БД Bookcity
         /// </summary>
         /// <param name="href">Ссылка книги</param>
-        [HttpPost("books/bc/add")]
-        [ValidateAntiForgeryToken]
+        [HttpGet("books/bc/add")]
         public async Task<int> AddBcBook(string href)
         {
             try
@@ -119,7 +105,7 @@ namespace UserInterface.Controllers
         /// <param name="desc">Описание книги</param>
         /// <param name="rate">Рейтинг книги</param>
         /// <returns></returns>
-        [HttpPost("books/manual/add")]
+        [HttpGet("books/manual/add")]
         public async Task<int> AddManualBook(string title, string author, string desc, int rate)
         {
             var user = await userBusinessService.GetUserByEmail(User.Identity.Name);
@@ -211,7 +197,7 @@ namespace UserInterface.Controllers
         /// <summary>
         /// Запрос на добавление нового сообщения
         /// </summary>
-        [HttpPost("message/add")]
+        [HttpGet("message/add")]
         public async Task<bool> MessageCreate(int dialogId, int senderId, int receiverId, 
             string sender, string receiver, string text)
         {

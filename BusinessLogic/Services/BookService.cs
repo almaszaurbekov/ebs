@@ -56,9 +56,8 @@ namespace BusinessLogic.Services
 
         public async Task<List<Book>> GetBooksSQL()
         {
-            string sql = "SELECT* FROM Books {0}";
-            string condition = "WHERE 1 = 1";
-            return await DbSet.FromSqlRaw(sql, condition).ToListAsync();
+            string sql = "SELECT * FROM Books";
+            return await DbSet.FromSqlRaw(sql).ToListAsync();
         }
     }
 }

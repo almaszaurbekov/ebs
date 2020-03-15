@@ -5,7 +5,7 @@ using UserInterface.ViewModels.Entities;
 
 namespace UserInterface.Mappings
 {
-    public class MappingProfile : Profile
+    internal class MappingProfile : Profile
     {
         public MappingProfile()
         {

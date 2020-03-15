@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.Configuration;
 using BusinessLogic.Dto;
+using BusinessLogic.Mappings;
 using DataAccess.Entities;
 using Microsoft.Extensions.Caching.Memory;
 using Resources;
@@ -57,29 +58,7 @@ namespace BusinessLogic.Services.BusinessService
             this.transactionService = transactionService;
             this.commentService = commentService;
             this.bookcityService = bookcityService;
-            this.mapper = MapperInitialize();
-        }
-
-        private IMapper MapperInitialize()
-        {
-            var config = new MapperConfiguration(CreateMap());
-            return config.CreateMapper();
-        }
-
-        private MapperConfigurationExpression CreateMap()
-        {
-            var cfg = new MapperConfigurationExpression();
-
-            cfg.CreateMap<Book, BookDto>();
-            cfg.CreateMap<BookDto, Book>();
-
-            cfg.CreateMap<BcBook, BcBookDto>();
-            cfg.CreateMap<BcBookDto, BcBook>();
-
-            cfg.CreateMap<BookTransaction, BookTransactionDto>();
-            cfg.CreateMap<BookTransactionDto, BookTransaction>();
-
-            return cfg;
+            this.mapper = MapperConfig.MapperInitialize();
         }
 
         #endregion

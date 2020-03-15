@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.Configuration;
 using BusinessLogic.Dto;
+using BusinessLogic.Mappings;
 using DataAccess.Entities;
 using System;
 using System.Collections.Generic;
@@ -34,26 +35,7 @@ namespace BusinessLogic.Services.BusinessService
         {
             this.messageService = messageService;
             this.dialogControlService = dialogControlService;
-            this.mapper = MapperInitialize();
-        }
-
-        private IMapper MapperInitialize()
-        {
-            var config = new MapperConfiguration(CreateMap());
-            return config.CreateMapper();
-        }
-
-        private MapperConfigurationExpression CreateMap()
-        {
-            var cfg = new MapperConfigurationExpression();
-
-            cfg.CreateMap<Message, MessageDto>();
-            cfg.CreateMap<MessageDto, Message>();
-
-            cfg.CreateMap<DialogControl, DialogControlDto>();
-            cfg.CreateMap<DialogControlDto, DialogControl>();
-
-            return cfg;
+            this.mapper = MapperConfig.MapperInitialize();
         }
 
         #endregion

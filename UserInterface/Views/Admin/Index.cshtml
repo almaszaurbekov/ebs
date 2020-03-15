@@ -12,12 +12,54 @@
             </ol>
         </nav>
         <div class="row">
-            @foreach(var b in ViewBag.Books)
-            {
-                <div class="col-md-12 bg-info py-3 my-3">
-                    <p>@b.Title</p>
-                </div>
-            }
+            <div class="col-md-6 text-center">
+                <button class="btn btn-outline-danger" id="btn-get">Get</button>
+            </div>
+            <div class="col-md-6 text-center">
+                <button class="btn btn-outline-success" id="btn-post">Post</button>
+            </div>
         </div>
     </div>
 </section>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+            var token = { __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val() };
+            var data = { word: "World!" };
+
+            $("#btn-get").click(function () {
+                $.get("https://localhost:44378/api/ebs/test/", function (data, status) {
+                    toastr.success(data, status);
+                });
+            });
+
+            $("#btn-post").click(function () {
+
+                $.ajax({
+                    url: "@Url.Action("TestPost", "EbsApi")",
+                    type: "post",
+                    contentType: "application/json",
+                    data: data,
+                    success: function (data) {
+                        toastr.success(data, "Success");
+                    },
+                    error: function (data) {
+                        toastr.error(data, "Error");
+                    }
+                });
+
+                //$.post("https://localhost:44378/api/ebs/testPost/",
+                //{
+                //    word: "World!",
+                //    __RequestVerificationToken: token
+                //},
+                //function (data, status) {
+                //    toastr.success(data, status);
+                //});
+            });
+
+        });
+    </script>
+}

@@ -12,18 +12,19 @@
         overflow: hidden;
         overflow-y: scroll;
         padding: 10px;
-        margin-bottom:50px;
+        margin-bottom: 50px;
     }
-    .wait-pre-con{
+
+    .wait-pre-con {
         width: 100%;
-        height:200px;
+        height: 200px;
         background: url('/img/loader.gif') center no-repeat #F1F2F3;
-        display:none;
+        display: none;
     }
 </style>
 <section style="padding-top:50px;">
     <div class="container pt-5">
-        <a class="btn btn-primary mb-3"  asp-controller="Book" asp-action="ByUser" asp-route-id="@ViewBag.UserId">Back</a>
+        <a class="btn btn-primary mb-3" asp-controller="Book" asp-action="ByUser" asp-route-id="@ViewBag.UserId">Back</a>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a asp-action="Index" asp-controller="User">EBookSharing</a></li>
@@ -101,17 +102,13 @@
     </div>
 </section>
 @section Scripts {
-    <script src="~/js/app/bookController.js"></script>
     <script>
         $(document).ready(function () {
-
-            var controller = new BookController(null, "#book-list");
-
             $("#book-search-auto").click(function () {
                 var value = $("#book-auto").val();
                 if (value.trim() != "") {
                     $.ajax({
-                        method: "POST",
+                        method: "GET",
                         url: "/api/ebs/books/byvalue",
                         data: {
                             value: value.trim()
@@ -126,60 +123,62 @@
                             toastr.info("Your book is searching, please wait", "Got it!");
                         }
                     })
-                    .done(function (result) {
-                        $('.wait-pre-con').hide();
-                        if (result.length > 0) {
-                            toastr.success("A lot of books", "Yeah, we have it!");
-                            for (let val of result) {
-                                $("#book-list").append(`<div class="row bg-light mb-2 pl-2 pt-2 pr-2 pb-2">
-                                                            <div class="col-md-4"><img src="/img/no-book.png" width="100%"></div>
-                                                            <div class="col-md-8"><p class="border-bottom"><b>${val.title}</b></p>
-                                                            <button data-id="${val.id}" class="book-auto-details btn btn-primary pull-right">Добавить</button>
-                                                            <p>${val.author}</p></div>
-                                                        </div>`);
+                        .done(function (result) {
+                            $('.wait-pre-con').hide();
+                            if (result.length > 0) {
+                                toastr.success("A lot of books", "Yeah, we have it!");
+                                for (let val of result) {
+                                    $("#book-list").append(`<div class="row bg-light mb-2 pl-2 pt-2 pr-2 pb-2">
+                                                                <div class="col-md-4"><img src="/img/no-book.png" width="100%"></div>
+                                                                <div class="col-md-8"><p class="border-bottom"><b>${val.title}</b></p>
+                                                                <button data-id="${val.id}" class="book-auto-details btn btn-primary pull-right">Добавить</button>
+                                                                <p>${val.author}</p></div>
+                                                            </div>`);
+                                }
+                            } else {
+                                toastr.error("There is no one book what you are looking for", "Oops...");
                             }
-                        } else {
-                            toastr.error("There is no one book what you are looking for", "Oops...");
-                        }
-                    });
+                        });
                 }
             });
-
-            function createRow(val) {
-                return 
-                `<div class="row bg-light mb-2 pl-2 pt-2 pr-2 pb-2">
-                    <div class="col-md-4">
-                        <img src="${val.image}" width="100%">
-                    </div>
-                    <div class="col-md-8">
-                        <p class="border-bottom">
-                            <b>${val.title}</b>
-                        </p>
-                        <button data-id="${val.href}" 
-                                class="book-bc-details btn btn-primary pull-right">Добавить</button>
-                        <p>${val.author}</p>
-                    </div>
-                </div>`;
-            }
-
             $("#book-search-bc").click(function () {
                 var value = $("#book-bc").val();
                 if (value.trim() != "") {
-                    var books = controller.getBooksByValue(value);
-                    if (books.length > 0) {
-                        toastr.success("A lot of books", "Yeah, we have it!");
-                        for (let val of books) {
-                            $("#book-list").append(createRow(val));
+                    var url = `https://murmuring-savannah-25756.herokuapp.com/ebs/bookcity/${value.trim()}`
+                    $.ajax({
+                        method: "GET",
+                        url: url,
+                        headers: {
+                            RequestVerificationToken:
+                                $('input:hidden[name="__RequestVerificationToken"]').val()
+                        },
+                        beforeSend: function () {
+                            $("#book-list").empty();
+                            $('.wait-pre-con').show();
+                            toastr.info("Your book is searching, please wait", "Got it!");
                         }
-                    } else {
-                        toastr.error("There is no one book what you are looking for", "Oops...");
-                    }
+                    })
+                        .done(function (result) {
+                            $('.wait-pre-con').hide();
+                            if (result.length > 0) {
+                                toastr.success("A lot of books", "Yeah, we have it!");
+                                for (let val of result) {
+                                    $("#book-list").append(`<div class="row bg-light mb-2 pl-2 pt-2 pr-2 pb-2">
+                                                                <div class="col-md-4"><img src="${val.image}" width="100%"></div>
+                                                                <div class="col-md-8"><p class="border-bottom"><b>${val.title}</b></p>
+                                                                <button data-id="${val.href}" class="book-bc-details btn btn-primary pull-right">Добавить</button>
+                                                                <p>${val.author}</p></div>
+                                                            </div>`);
+                                }
+                            } else {
+                                toastr.error("There is no one book what you are looking for", "Oops...");
+                            }
+                        });
                 }
             });
-
             $('#book-list').on('click', '.book-auto-details', function () {
                 $.ajax({
-                    method: "POST",
+                    method: "GET",
                     url: "/api/ebs/books/auto/add",
                     data: { id: $(this).attr("data-id") },
                     headers: {
@@ -190,55 +189,47 @@
                         toastr.info("We are adding your book", "Please wait");
                     }
                 })
-                .done(function (result) {
-                    if (result == 1) {
-                        toastr.success("Book was added to your library", "Successful!");
-                    } else {
-                        toastr.error("There is some problems", "Oops...");
-                    }
-                });
+                    .done(function (result) {
+                        if (result == 1) {
+                            toastr.success("Book was added to your library", "Successful!");
+                        } else {
+                            toastr.error("There is some problems", "Oops...");
+                        }
+                    });
             });
-
             $('#book-list').on('click', '.book-bc-details', function () {
                 $.ajax({
-                    method: "POST",
+                    method: "GET",
                     url: "/api/ebs/books/bc/add",
-                    data: {
-                        href: $(this).attr("data-id")
-                    },
+                    data: { href: $(this).attr("data-id") },
                     headers: {
                         RequestVerificationToken:
                             $('input:hidden[name="__RequestVerificationToken"]').val()
                     },
-                    contentType: 'application/json; charset=utf-8',
                     beforeSend: function () {
                         toastr.info("We are adding your book", "Please wait");
                     }
                 })
-                .done(function (result) {
-                    if (result == 1) {
-                        toastr.success("Book was added to your library", "Successful!");
-                    } else {
-                        toastr.error("There is some problems", "Oops...");
-                    }
-                });
+                    .done(function (result) {
+                        if (result == 1) {
+                            toastr.success("Book was added to your library", "Successful!");
+                        } else {
+                            toastr.error("There is some problems", "Oops...");
+                        }
+                    });
             });
-
             $("#book-man-submit").click(function () {
                 var title = $("#book-title-man").val();
-                if(!formField(title, "Title"))
+                if (!formField(title, "Title"))
                     return false;
-
                 var author = $("#book-author-man").val();
-                if(!formField(author, "Author"))
+                if (!formField(author, "Author"))
                     return false;
-
                 var desc = $("#book-desc-man").val();
-                if(!formField(desc, "Description"))
+                if (!formField(desc, "Description"))
                     return false;
-
                 var rate = $("#book-rate-man").val();
-                
+
                 $.ajax({
                     method: "GET",
                     url: "/api/ebs/books/manual/add",
@@ -256,15 +247,14 @@
                         toastr.info("We are adding your book", "Please wait");
                     }
                 })
-                .done(function (result) {
-                    if (result == 1) {
-                        toastr.success("Book was added to your library", "Successful!");
-                    } else {
-                        toastr.error("There is some problems", "Oops...");
-                    }
-                });
+                    .done(function (result) {
+                        if (result == 1) {
+                            toastr.success("Book was added to your library", "Successful!");
+                        } else {
+                            toastr.error("There is some problems", "Oops...");
+                        }
+                    });
             });
-
             function formField(field, fieldName) {
                 if (field != null && field.trim() != "") {
                     return true;

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.Configuration;
 using BusinessLogic.Dto;
+using BusinessLogic.Mappings;
 using DataAccess.Entities;
 using Microsoft.Extensions.Caching.Memory;
 using Resources;
@@ -41,26 +42,7 @@ namespace BusinessLogic.Services.BusinessService
             this.userService = userService;
             this.roleService = roleService;
             this.cache = cache;
-            this.mapper = MapperInitialize();
-        }
-
-        private IMapper MapperInitialize()
-        {
-            var config = new MapperConfiguration(CreateMap());
-            return config.CreateMapper();
-        }
-
-        private MapperConfigurationExpression CreateMap()
-        {
-            var cfg = new MapperConfigurationExpression();
-
-            cfg.CreateMap<User, UserDto>();
-            cfg.CreateMap<UserDto, User>();
-
-            cfg.CreateMap<Role, RoleDto>();
-            cfg.CreateMap<RoleDto, Role>();
-
-            return cfg;
+            this.mapper = MapperConfig.MapperInitialize();
         }
 
         #endregion
