@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 from flask_cors import CORS, cross_origin
 from bc import *
 
@@ -9,7 +9,23 @@ CORS(app)
 
 @app.route('/')
 def index():
-    return "<h1>Hello world</h1>"
+    lev = {
+        "db": 2004,
+        "name": "Lev",
+        "height": 170,
+        "weight": 70
+    }
+
+    almas = {
+        "db": 1999,
+        "name": "Almas",
+        "height": 170,
+        "weight": 65
+    }
+
+    persons = [lev, almas]
+
+    return render_template('index.html', persons=persons)
 
 @app.route('/ebs/test', methods=['GET'])
 def test():

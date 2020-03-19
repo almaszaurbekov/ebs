@@ -26,7 +26,9 @@ namespace BusinessLogic.Services.BusinessService
         Task<RoleDto> GetRoleById(Guid? id);
         Task<RoleDto> GetRoleByName(string name);
         Task<List<RoleDto>> GetRoles();
-        Task<List<ShortUserList>> GetUserListAscending(bool isBorrowed);
+        Task<List<ShortUserList>> GetBooksCountByUsers();
+        Task<List<ShortUserList>> GetMessagesCountByUsers();
+        Task<List<ShortUserList>> GetCommentsCountByUsers();
     }
 
     public class UserBusinessService : IUserBusinessService
@@ -147,10 +149,29 @@ namespace BusinessLogic.Services.BusinessService
             return mapper.Map<List<User>, List<UserDto>>(users);
         }
 
-        public async Task<List<ShortUserList>> GetUserListAscending(bool isBorrowed)
+        public async Task<List<ShortUserList>> GetBooksCountByUsers()
         {
-            var sql = $@"SELECT u.Id, u.Email FROM Users AS u ORDER BY u.Id";
-            return await userService.GetUserListAscending(sql);
+            var sql = @"SELECT u.Id, COUNT(*) FROM Users AS u 
+                        JOIN Books AS b ON u.Id = b.UserId
+                        GROUP BY u.Id";
+            return await userService.GetShortUserList(sql);
+        }
+
+        public async Task<List<ShortUserList>> GetMessagesCountByUsers()
+        {
+            var sql = @"SELECT u.Id, COUNT(*) FROM Users AS u 
+                        JOIN Messages AS m ON u.Id = m.UserSenderId OR
+                        u.Id = m.UserReceiverId
+                        GROUP BY u.Id";
+            return await userService.GetShortUserList(sql);
+        }
+
+        public async Task<List<ShortUserList>> GetCommentsCountByUsers()
+        {
+            var sql = @"SELECT u.Id, COUNT(*) FROM Users AS u 
+                        JOIN Comments AS c ON u.Id = c.UserId
+                        GROUP BY u.Id";
+            return await userService.GetShortUserList(sql);
         }
     }
 }

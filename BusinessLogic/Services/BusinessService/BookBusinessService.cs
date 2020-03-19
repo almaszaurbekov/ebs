@@ -2,6 +2,7 @@
 using AutoMapper.Configuration;
 using BusinessLogic.Dto;
 using BusinessLogic.Mappings;
+using BusinessLogic.Models;
 using DataAccess.Entities;
 using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
@@ -35,7 +36,7 @@ namespace BusinessLogic.Services.BusinessService
         Task<int> DeleteBook(BookDto dtoModel);
         Task<List<BcBookDto>> GetBooksByValue(string value);
         Task<BcBookDto> GetBcBook(int id);
-        Task<string> GetBooksCountByUsers();
+        Task<List<BookGroup>> GetBooksCountByAuthor(int count);
     }
 
     public class BookBusinessService : IBookBusinessService
@@ -213,20 +214,19 @@ namespace BusinessLogic.Services.BusinessService
             return mapper.Map<BcBook, BcBookDto>(book);
         }
 
-        public async Task<string> GetBooksCountByUsers()
+        
+        /// <summary>
+        /// Get group of books by authors with a minimal count
+        /// </summary>
+        /// <param name="minCount">Minimum count of books</param>
+        /// <returns></returns>
+        public async Task<List<BookGroup>> GetBooksCountByAuthor(int minCount)
         {
-            var sql = @"
-                SELECT u.Email, count(b.UserId) 
-                FROM Books AS b JOIN Users AS u 
-                ON b.UserId = u.Id 
-                GROUP BY u.Email";
+            var sql = $@"SELECT b.Author, COUNT(*) FROM Books AS b
+                        GROUP BY b.Author
+                        HAVING COUNT(*) >= {minCount}";
 
-            var books = await bookService.GetBooksCountByUsers(sql);
-            return JsonConvert.SerializeObject(books);
-
-            //return JsonConvert.SerializeObject();
-            //var books = await bookService.GetBooksBySQL(sql);
-            //return mapper.Map<List<Book>, List<BookDto>>(books);
+            return await bookService.GetBooksCountByAuthor(sql);
         }
 
         public async Task<List<BookDto>> GetBooks()

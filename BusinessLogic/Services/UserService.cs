@@ -15,7 +15,7 @@ namespace BusinessLogic.Services
 {
     public interface IUserService : IService<User>
     {
-        Task<List<ShortUserList>> GetUserListAscending(string sql);
+        Task<List<ShortUserList>> GetShortUserList(string sql);
     }
 
     public class UserService : EntityService<User>, IUserService
@@ -30,9 +30,12 @@ namespace BusinessLogic.Services
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<List<ShortUserList>> GetUserListAscending(string sql)
+        /// <summary>
+        /// Group By SQL Command
+        /// </summary>
+        public async Task<List<ShortUserList>> GetShortUserList(string sql)
         {
-            var groups = new List<ShortUserList>();
+            var entities = new List<ShortUserList>();
             var conn = context.Database.GetDbConnection();
 
             try
@@ -47,10 +50,10 @@ namespace BusinessLogic.Services
                     {
                         while (await reader.ReadAsync())
                         {
-                            var row = new ShortUserList { Id = reader.GetInt32(0), Email = reader.GetString(1) };
-                            groups.Add(row);
+                            entities.Add(new ShortUserList { Id = reader.GetInt32(0), Count = reader.GetInt32(1) });
                         }
                     }
+
                     reader.Dispose();
                 }
             }
@@ -63,7 +66,7 @@ namespace BusinessLogic.Services
                 conn.Close();
             }
 
-            return groups;
+            return entities;
         }
     }
 }

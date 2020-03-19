@@ -1,14 +1,14 @@
 ﻿namespace BusinessLogic.Models
 {
-    public class UserBookGroup
+    public class BookGroup
     {
         /// <summary>
-        /// User's email
+        /// Book's author
         /// </summary>
-        public string Email { get; set; }
+        public string Author { get; set; }
 
         /// <summary>
-        /// How many books user has
+        /// Books count
         /// </summary>
         public int Count { get; set; }
     }

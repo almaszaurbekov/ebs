@@ -110,7 +110,7 @@
                     hubConnection.invoke("Send", me, message);
                     $("#messageText").val("");
                     $.ajax({
-                        method: "POST",
+                        method: "GET",
                         url: "/api/ebs/message/add",
                         data: {
                             dialogId: id,

@@ -17,7 +17,7 @@ namespace BusinessLogic.Services
     {
         Task<List<Book>> GetBooksByUserId(int? id);
         Task<List<Book>> GetBooksByDate();
-        Task<List<UserBookGroup>> GetBooksCountByUsers(string sql);
+        Task<List<BookGroup>> GetBooksCountByAuthor(string sql);
     }
 
     public class BookService : EntityService<Book>, IBookService
@@ -56,9 +56,9 @@ namespace BusinessLogic.Services
                 .ToListAsync();
         }
 
-        public async Task<List<UserBookGroup>> GetBooksCountByUsers(string sql)
+        public async Task<List<BookGroup>> GetBooksCountByAuthor(string sql)
         {
-            var groups = new List<UserBookGroup>();
+            var entities = new List<BookGroup>();
             var conn = context.Database.GetDbConnection();
 
             try
@@ -73,8 +73,8 @@ namespace BusinessLogic.Services
                     {
                         while (await reader.ReadAsync())
                         {
-                            var row = new UserBookGroup { Email = reader.GetString(0), Count = reader.GetInt32(1) };
-                            groups.Add(row);
+                            var row = new BookGroup { Author = reader.GetString(0), Count = reader.GetInt32(1) };
+                            entities.Add(row);
                         }
                     }
                     reader.Dispose();
@@ -89,7 +89,7 @@ namespace BusinessLogic.Services
                 conn.Close();
             }
 
-            return groups;
+            return entities;
         }
     }
 }

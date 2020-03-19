@@ -8,8 +8,8 @@
         public int Id { get; set; }
 
         /// <summary>
-        /// User's Email
+        /// User's Count of something
         /// </summary>
-        public string Email { get; set; }
+        public int Count { get; set; }
     }
 }

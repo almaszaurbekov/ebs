@@ -35,8 +35,10 @@
         $(document).ready(function () {
 
             var controller = new AdminController();
-            $("#bs1").click(function () { controller.getBooksCountByUser(); });
-            $("#us1").click(function () { controller.getUserListAsc(); });
+            $("#bs1").click(function () { controller.getBooksCountByAuthor(); });
+            $("#us1").click(function () { controller.getBooksCountByUsers(); });
+            $("#us2").click(function () { controller.getMessagesCountByUsers(); });
+            $("#us3").click(function () { controller.getCommentsCountByUsers(); });
 
         });
     </script>

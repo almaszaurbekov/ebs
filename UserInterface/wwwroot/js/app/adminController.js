@@ -9,8 +9,10 @@
 
     _init() { }
 
-    getBooksCountByUser() { this.__ajaxQuery("GET", "/api/ebs/bs1"); }
-    getUserListAsc() { this.__ajaxQuery("GET", "/api/ebs/us1"); }
+    getBooksCountByAuthor() { this.__ajaxQuery("GET", "/api/ebs/bs1"); }
+    getBooksCountByUsers() { this.__ajaxQuery("GET", "/api/ebs/us1"); }
+    getMessagesCountByUsers() { this.__ajaxQuery("GET", "/api/ebs/us2"); }
+    getCommentsCountByUsers() { this.__ajaxQuery("GET", "/api/ebs/us3"); }
 
     __ajaxQuery(method, url) {
         $.ajax({
