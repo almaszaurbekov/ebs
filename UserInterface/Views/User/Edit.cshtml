@@ -60,7 +60,7 @@
                             </div>
                         }
                         <div class="pt-3">
-                            <input type="submit" value="Сохранить" class="btn ebs-submit" style="background:#6C63FF;color:white; width:100%;" />
+                            <input type="submit" value="Сохранить" class="btn" style="background:#6C63FF;color:white; width:100%;" />
                         </div>
                     </form>
                 </div>
@@ -73,25 +73,4 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    <script>
-        $(document).ready(function () {
-            $(".custom-file-input").on("change", function () {
-                var filename = $(this).val().split("\\").pop();
-                $(this).next(".custom-file-label").html(filename);
-            });
-            $("#RemoveImage").change(function () {
-                if (this.checked) { $("#Image").attr("disabled", "true"); }
-                else { $("#Image").removeAttr("disabled"); }
-            });
-        });
-
-        $(".ebs-submit").click(function () {
-            var entity = {
-                "Email": $("#Email").val(),
-                "FirstName" : $("#Email").val(),
-                "LastName" : $("#Email").val(),
-                "Address": $("#Email").val()
-            }
-        });
-    </script>
 }

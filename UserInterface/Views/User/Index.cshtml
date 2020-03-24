@@ -5,10 +5,6 @@
 }
 <style>
     .ebs-menu{display:none} .card{margin:0 auto;}
-    .ebs-left-menu {background:#3C3A52;box-shadow:0 0 10px rgba(0,0,0,0.5);border-radius: 5px;padding: 20px;}
-    .ebs-left-menu a{color:white;font-size:20px;padding-bottom:10px;text-decoration:none;transition:all ease .3s;}
-    .ebs-left-menu a:hover{color:#6C63FF;text-decoration:none;padding-left:10px;}
-    .ebs-left-menu p {border-color:#6C63FF !important;}
 </style>
 <section style="padding-top:60px;">
     <div class="container-fluid">
@@ -60,27 +56,3 @@
         </div>
     </div>
 </section>
-@section Scripts {
-    <script>
-        var trCount = @ViewData["TrCount"];
-        if (trCount > 0) {
-            $("#signalr-requests").html(trCount);
-        }
-        const hubConnection = new signalR.HubConnectionBuilder().withUrl("/requests").build();
- 
-        hubConnection.on("Send", function (data) {
-            let elem = document.createElement("p");
-            elem.appendChild(document.createTextNode(data));
-            let firstElem = document.getElementById("chatroom").firstChild;
-            document.getElementById("chatroom").insertBefore(elem, firstElem);
- 
-        });
- 
-        document.getElementById("sendBtn").addEventListener("click", function (e) {
-            let message = document.getElementById("message").value;
-            hubConnection.invoke("Send", message);
-        });
- 
-        hubConnection.start();
-    </script>
-}

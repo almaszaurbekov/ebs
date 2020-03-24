@@ -35,6 +35,7 @@
         $(document).ready(function () {
 
             var controller = new AdminController();
+
             $("#bs1").click(function () { controller.getBooksCountByAuthor(); });
             $("#us1").click(function () { controller.getBooksCountByUsers(); });
             $("#us2").click(function () { controller.getMessagesCountByUsers(); });

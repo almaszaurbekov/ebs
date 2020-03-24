@@ -88,17 +88,5 @@
 </section>
 
 @section Scripts {
-@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-<script>
-    $(document).ready(function () {
-        $(".custom-file-input").on("change", function () {
-            var filename = $(this).val().split("\\").pop();
-            $(this).next(".custom-file-label").html(filename);
-        });
-        $("#RemoveImage").change(function () {
-            if (this.checked) { $("#Image").attr("disabled", "true"); }
-            else { $("#Image").removeAttr("disabled"); }
-        });
-    });
-</script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -8,7 +8,7 @@
     }
 
     _init() { }
-
+    
     getBooksCountByAuthor() { this.__ajaxQuery("GET", "/api/ebs/bs1"); }
     getBooksCountByUsers() { this.__ajaxQuery("GET", "/api/ebs/us1"); }
     getMessagesCountByUsers() { this.__ajaxQuery("GET", "/api/ebs/us2"); }
@@ -29,6 +29,6 @@
                 console.log(xhr);
                 toastr.error("Failed to process request", "Error");
             }
-        })
+        });
     }
 }

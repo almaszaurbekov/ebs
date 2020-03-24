@@ -1,6 +1,6 @@
 ﻿@model List<UserInterface.ViewModels.Entities.BookViewModel>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Books";
 }
 
 <section style="padding-top:50px">
@@ -27,69 +27,5 @@
     </div>
 </section>
 @section Scripts {
-    <script>
-        $(document).ready(function () {
-            $(".ebs-search").css("display", "none");
-
-            $("#ebs-search-submit").click(function () {
-                var search = $("#ebs-search-value").val();
-                if (search.trim() != "") {
-                    $.ajax({
-                        method: "GET",
-                        url: "/api/ebs/books/index",
-                        contentType: "application/json; charset=utf-8",
-                        type:"JSON",
-                        data: {
-                            search: search,
-                        },
-                        headers: {
-                            RequestVerificationToken:
-                                $('input:hidden[name="__RequestVerificationToken"]').val()
-                        },
-                        beforeSend: function () {
-                            toastr.info("We are updating your book list", "Please wait");
-                        },
-                        success: function (result) {
-                            console.log(result);
-                            if (result.length > 0) {
-                                toastr.success("Your book list was successfully updated", "Successful!");
-                                $("#ebs-target-list").empty();
-                                for (let book of result) {
-                                    var { imageSource, title, author, id, createdDate, userEmail } = book;
-                                    var image = "/img/no-book.png";
-                                    if (imageSource != null) {
-                                        image = "/img/" + imageSource;
-                                    }
-                                    if (imageSource != null && imageSource.includes("http")) {
-                                        image = imageSource;
-                                    }
-                                    var col = `   <div class="col-md-12">
-                                                <div class="row pt-3 pl-3 pr-3 pb-3 bg-light mb-3">
-                                                    <div class="col-md-4"><img src="${image}" width="100%" /></div>
-                                                    <div class="col-md-8">
-                                                        <p><b>${title}</b></p>
-                                                        <p>${author}</p>
-                                                        <a href="/Book/Details/${id}" class="btn btn-outline-primary pull-right">Visit</a>
-                                                        <p>${createdDate}</p>
-                                                        <p>${userEmail}</p>
-                                                    </div>
-                                                </div>
-                                            </div>`;
-                                    $("#ebs-target-list").append(col);
-                                }
-                            } else {
-                                toastr.error("There is no books that you have searching", "No result");
-                            }
-                        },
-                        error: function (result) {
-                            toastr.error(result, "Oops...");
-                        }
-                    });
-                }
-                else {
-                    toastr.error("Search field is empty", "What!?");
-                }
-            });
-        });
-    </script>
+    <script src="~/js/app/bookController.js"></script>
 }

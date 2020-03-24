@@ -141,15 +141,5 @@
 @section scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js"></script>
-    <script>
-        $(".ebs-counter").counterUp();
-        var url = window.location.href;
-        if (url.includes("subscribed=yes")) {
-            toastr.success("You signed up for weekly news", "Successful!");
-        }
-        else if (url.includes("subscribed=no")) {
-            toastr.error("Something went wrong", "Oops...");
-        }
-        window.history.pushState({}, "", "/");
-    </script>
+    <script> $(".ebs-counter").counterUp(); </script>
 }
