@@ -31,16 +31,4 @@
 
 @section Scripts {
     <script src="~/js/app/adminController.js"></script>
-    <script>
-        $(document).ready(function () {
-
-            var controller = new AdminController();
-
-            $("#bs1").click(function () { controller.getBooksCountByAuthor(); });
-            $("#us1").click(function () { controller.getBooksCountByUsers(); });
-            $("#us2").click(function () { controller.getMessagesCountByUsers(); });
-            $("#us3").click(function () { controller.getCommentsCountByUsers(); });
-
-        });
-    </script>
 }

@@ -3,27 +3,44 @@
 
         this.options = options;
         this.target = target;
+        this.url = "/api/ebs/admin/"
 
         this._init();
     }
 
     _init() { }
     
-    getBooksCountByAuthor() { this.__ajaxQuery("GET", "/api/ebs/bs1"); }
-    getBooksCountByUsers() { this.__ajaxQuery("GET", "/api/ebs/us1"); }
-    getMessagesCountByUsers() { this.__ajaxQuery("GET", "/api/ebs/us2"); }
-    getCommentsCountByUsers() { this.__ajaxQuery("GET", "/api/ebs/us3"); }
+    getBooksCountByAuthor() {
+        var url = this.url + "getBooksAuthor";
+        this.__ajaxQuery("GET", url, {});
+    }
 
-    __ajaxQuery(method, url) {
+    getBooksCountByUsers() {
+        var url = this.url + "getBooksUser"
+        this.__ajaxQuery("GET", url, {});
+    }
+
+    getMessagesCountByUsers() {
+        var url = this.url + "getMessages";
+        this.__ajaxQuery("GET", url, {});
+    }
+
+    getCommentsCountByUsers() {
+        var url = this.url = "getComments";
+        this.__ajaxQuery("GET", url, {});
+    }
+
+    __ajaxQuery(method, url, data) {
         $.ajax({
             method: method,
             url: url,
+            data: data,
             beforeSend: function () {
                 toastr.info("We process your request", "Please wait.");
             },
             success: function (result) {
-                console.log(result);
-                toastr.success("Request processed successfully", "Press F12");
+                toastr.success("Request processed successfully", "Success!");
+                return result;
             },
             error: function (xhr) {
                 console.log(xhr);
@@ -32,3 +49,27 @@
         });
     }
 }
+
+
+$(document).ready(function () {
+
+    var controller = new AdminController();
+
+    $("#bs1").click(function () {
+        var groups = controller.getBooksCountByAuthor();
+        console.log(groups);
+    });
+    $("#us1").click(function () {
+        var groups = controller.getBooksCountByUsers();
+        console.log(groups);
+    });
+    $("#us2").click(function () {
+        var groups = controller.getMessagesCountByUsers();
+        console.log(groups);
+    });
+    $("#us3").click(function () {
+        var groups = controller.getCommentsCountByUsers();
+        console.log(groups);
+    });
+
+});

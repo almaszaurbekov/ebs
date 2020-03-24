@@ -224,25 +224,25 @@ namespace UserInterface.Controllers
             }
         }
 
-        [HttpGet("bs1")]
+        [HttpGet("admin/getBooksAuthor")]
         public async Task<List<BookGroup>> GetBooksCountByAuthor()
         {
             return await bookBusinessService.GetBooksCountByAuthor(3);
         }
 
-        [HttpGet("us1")]
+        [HttpGet("admin/getBooksUser")]
         public async Task<List<ShortUserList>> GetBooksCountByUsers()
         {
             return await userBusinessService.GetBooksCountByUsers();
         }
 
-        [HttpGet("us2")]
+        [HttpGet("admin/getMessages")]
         public async Task<List<ShortUserList>> GetMessagesCountByUsers()
         {
             return await userBusinessService.GetMessagesCountByUsers();
         }
 
-        [HttpGet("us3")]
+        [HttpGet("admin/getComments")]
         public async Task<List<ShortUserList>> GetCommentsCountByUsers()
         {
             return await userBusinessService.GetCommentsCountByUsers();
