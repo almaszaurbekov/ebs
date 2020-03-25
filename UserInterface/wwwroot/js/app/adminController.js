@@ -12,26 +12,26 @@
     
     getBooksCountByAuthor() {
         var url = this.url + "getBooksAuthor";
-        this.__ajaxQuery("GET", url, {});
+        return this.__ajaxQuery("GET", url, {});
     }
 
     getBooksCountByUsers() {
         var url = this.url + "getBooksUser"
-        this.__ajaxQuery("GET", url, {});
+        return this.__ajaxQuery("GET", url, {});
     }
 
     getMessagesCountByUsers() {
         var url = this.url + "getMessages";
-        this.__ajaxQuery("GET", url, {});
+        return this.__ajaxQuery("GET", url, {});
     }
 
     getCommentsCountByUsers() {
-        var url = this.url = "getComments";
-        this.__ajaxQuery("GET", url, {});
+        var url = this.url + "getComments";
+        return this.__ajaxQuery("GET", url, {});
     }
 
     __ajaxQuery(method, url, data) {
-        $.ajax({
+        var ajax = $.ajax({
             method: method,
             url: url,
             data: data,
@@ -40,13 +40,15 @@
             },
             success: function (result) {
                 toastr.success("Request processed successfully", "Success!");
-                return result;
             },
+            async: false,
             error: function (xhr) {
                 console.log(xhr);
                 toastr.error("Failed to process request", "Error");
             }
         });
+
+        return ajax.responseJSON;
     }
 }
 
