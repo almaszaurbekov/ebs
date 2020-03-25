@@ -1,16 +1,12 @@
 ﻿using AutoMapper;
-using AutoMapper.Configuration;
 using BusinessLogic.Dto;
 using BusinessLogic.Mappings;
 using BusinessLogic.Models;
 using DataAccess.Entities;
 using Microsoft.Extensions.Caching.Memory;
-using Newtonsoft.Json;
-using Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BusinessLogic.Services.BusinessService

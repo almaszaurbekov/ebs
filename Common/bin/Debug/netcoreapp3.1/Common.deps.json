@@ -1,0 +1,41 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "Common/1.0.0": {
+        "dependencies": {
+          "GemBox.Spreadsheet": "45.0.1131"
+        },
+        "runtime": {
+          "Common.dll": {}
+        }
+      },
+      "GemBox.Spreadsheet/45.0.1131": {
+        "runtime": {
+          "lib/netcoreapp3.0/GemBox.Spreadsheet.dll": {
+            "assemblyVersion": "45.0.300.1131",
+            "fileVersion": "45.0.300.1131"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Common/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "GemBox.Spreadsheet/45.0.1131": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-K77TAQCNOnp6eyk+q3g8LHSqADxG7EOILqR0D+g+SJ54vpwHU7FZHzGZ1p6DWrU5LdBFm/wKtmtglLXYiUf/aA==",
+      "path": "gembox.spreadsheet/45.0.1131",
+      "hashPath": "gembox.spreadsheet.45.0.1131.nupkg.sha512"
+    }
+  }
+}

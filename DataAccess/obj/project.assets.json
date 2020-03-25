@@ -2,6 +2,15 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
+      "GemBox.Spreadsheet/45.0.1131": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.0/GemBox.Spreadsheet.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/GemBox.Spreadsheet.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.Http.Abstractions/2.2.0": {
         "type": "package",
         "dependencies": {
@@ -1315,19 +1324,43 @@
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Resources/1.0.0": {
+      "Common/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "GemBox.Spreadsheet": "45.0.1131"
+        },
         "compile": {
-          "bin/placeholder/Resources.dll": {}
+          "bin/placeholder/Common.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Resources.dll": {}
+          "bin/placeholder/Common.dll": {}
         }
       }
     }
   },
   "libraries": {
+    "GemBox.Spreadsheet/45.0.1131": {
+      "sha512": "K77TAQCNOnp6eyk+q3g8LHSqADxG7EOILqR0D+g+SJ54vpwHU7FZHzGZ1p6DWrU5LdBFm/wKtmtglLXYiUf/aA==",
+      "type": "package",
+      "path": "gembox.spreadsheet/45.0.1131",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Readme.txt",
+        "gembox.spreadsheet.45.0.1131.nupkg.sha512",
+        "gembox.spreadsheet.nuspec",
+        "images/NugetGbs.png",
+        "lib/net35/GemBox.Spreadsheet.dll",
+        "lib/net35/GemBox.Spreadsheet.xml",
+        "lib/netcoreapp3.0/GemBox.Spreadsheet.dll",
+        "lib/netcoreapp3.0/GemBox.Spreadsheet.xml",
+        "lib/netstandard2.0/GemBox.Spreadsheet.dll",
+        "lib/netstandard2.0/GemBox.Spreadsheet.xml",
+        "licenses/EULA.txt",
+        "licenses/ThirdPartyCodeLicenses.txt"
+      ]
+    },
     "Microsoft.AspNetCore.Http.Abstractions/2.2.0": {
       "sha512": "IkuRKkTFEbO30FwfCVuL0piikRBK/kgsaLbfbeUg8Rejpe5nCRUDZ3RDLzaW0FPMZxdb1opQ/zBYibItL1AezQ==",
       "type": "package",
@@ -5030,19 +5063,19 @@
         "system.xml.xmlserializer.nuspec"
       ]
     },
-    "Resources/1.0.0": {
+    "Common/1.0.0": {
       "type": "project",
-      "path": "../Resources/Resources.csproj",
-      "msbuildProject": "../Resources/Resources.csproj"
+      "path": "../Common/Common.csproj",
+      "msbuildProject": "../Common/Common.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "Common >= 1.0.0",
       "Microsoft.AspNetCore.Http.Abstractions >= 2.2.0",
       "Microsoft.EntityFrameworkCore >= 3.1.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.1.0",
-      "Microsoft.EntityFrameworkCore.Tools >= 3.1.0",
-      "Resources >= 1.0.0"
+      "Microsoft.EntityFrameworkCore.Tools >= 3.1.0"
     ]
   },
   "packageFolders": {
@@ -5075,8 +5108,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\Users\\Almas\\source\\repos\\ebs\\Resources\\Resources.csproj": {
-              "projectPath": "C:\\Users\\Almas\\source\\repos\\ebs\\Resources\\Resources.csproj"
+            "C:\\Users\\Almas\\source\\repos\\ebs\\Common\\Common.csproj": {
+              "projectPath": "C:\\Users\\Almas\\source\\repos\\ebs\\Common\\Common.csproj"
             }
           }
         }

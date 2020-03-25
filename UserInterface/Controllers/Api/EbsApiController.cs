@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using BusinessLogic.Dto;
 using BusinessLogic.Models;
-using BusinessLogic.Services;
 using BusinessLogic.Services.BusinessService;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using Common;
+using GemBox.Spreadsheet;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.FileProviders;
 using Newtonsoft.Json;
 using UserInterface.ViewModels;
 using UserInterface.ViewModels.Entities;
@@ -225,27 +224,110 @@ namespace UserInterface.Controllers
         }
 
         [HttpGet("admin/getBooksAuthor")]
-        public async Task<List<BookGroup>> GetBooksCountByAuthor()
+        public async Task<IActionResult> GetBooksCountByAuthor()
         {
-            return await bookBusinessService.GetBooksCountByAuthor(3);
+            var groups = await bookBusinessService.GetBooksCountByAuthor(0);
+            var excel = new Excel();
+
+            excel.WriteCell(0, 0, "Author");
+            excel.WriteCell(0, 1, "Count of books");
+
+            for(var i = 0; i < groups.Count; i++)
+            {
+                excel.WriteCell(i+1, 0, groups[i].Author);
+                excel.WriteCell(i+1, 1, groups[i].Count.ToString());
+            }
+
+            return File(GetBytes(excel.xlsWorkBook, excel.xlsOptions), 
+                excel.xlsOptions.ContentType, "GetBooksCountByAuthor.xls");
         }
 
         [HttpGet("admin/getBooksUser")]
-        public async Task<List<ShortUserList>> GetBooksCountByUsers()
+        public async Task<IActionResult> GetBooksCountByUsers()
         {
-            return await userBusinessService.GetBooksCountByUsers();
+            var groups = await userBusinessService.GetBooksCountByUsers();
+            var excel = new Excel();
+
+            excel.WriteCell(0, 0, "ID");
+            excel.WriteCell(0, 1, "Count");
+
+            for (var i = 0; i < groups.Count; i++)
+            {
+                excel.WriteCell(i + 1, 0, groups[i].Id.ToString());
+                excel.WriteCell(i + 1, 1, groups[i].Count.ToString());
+            }
+
+            return File(GetBytes(excel.xlsWorkBook, excel.xlsOptions), 
+                excel.xlsOptions.ContentType, "GetBooksCountByUsers.xls");
         }
 
         [HttpGet("admin/getMessages")]
-        public async Task<List<ShortUserList>> GetMessagesCountByUsers()
+        public async Task<IActionResult> GetMessagesCountByUsers()
         {
-            return await userBusinessService.GetMessagesCountByUsers();
+            var groups = await userBusinessService.GetMessagesCountByUsers();
+            var excel = new Excel();
+
+            excel.WriteCell(0, 0, "ID");
+            excel.WriteCell(0, 1, "Count");
+
+            for (var i = 0; i < groups.Count; i++)
+            {
+                excel.WriteCell(i + 1, 0, groups[i].Id.ToString());
+                excel.WriteCell(i + 1, 1, groups[i].Count.ToString());
+            }
+
+            return File(GetBytes(excel.xlsWorkBook, excel.xlsOptions), 
+                excel.xlsOptions.ContentType, "GetMessagesCountByUsers.xls");
         }
 
         [HttpGet("admin/getComments")]
-        public async Task<List<ShortUserList>> GetCommentsCountByUsers()
+        public async Task<IActionResult> GetCommentsCountByUsers()
         {
-            return await userBusinessService.GetCommentsCountByUsers();
+            var groups = await userBusinessService.GetCommentsCountByUsers();
+            var excel = new Excel();
+
+            excel.WriteCell(0, 0, "ID");
+            excel.WriteCell(0, 1, "Count");
+
+            for (var i = 0; i < groups.Count; i++)
+            {
+                excel.WriteCell(i + 1, 0, groups[i].Id.ToString());
+                excel.WriteCell(i + 1, 1, groups[i].Count.ToString());
+            }
+
+            return File(GetBytes(excel.xlsWorkBook, excel.xlsOptions), 
+                excel.xlsOptions.ContentType, "GetCommentsCountByUsers.xls");
+        }
+
+        private static byte[] GetBytes(ExcelFile file, SaveOptions options)
+        {
+            using (var stream = new MemoryStream())
+            {
+                file.Save(stream, options);
+                return stream.ToArray();
+            }
+        }
+
+        /// <summary>
+        /// Скачать созданный файл
+        /// </summary>
+        /// <param name="fileName">Созданный файл</param>
+        [HttpGet("download")]
+        public FileResult DownloadExcel(string fileName)
+        {
+            if (!string.IsNullOrEmpty(fileName))
+            {
+                IFileProvider provider = new PhysicalFileProvider(folder);
+                IFileInfo fileInfo = provider.GetFileInfo(fileName);
+                var readStream = fileInfo.CreateReadStream();
+                var fileType = "text/plain";
+
+                return File(readStream, fileType, fileName);
+            }
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>

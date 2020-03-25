@@ -156,8 +156,6 @@ C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\View
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\User\Details.cshtml.g.cs
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\User\Edit.cshtml.g.cs
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\User\Index.cshtml.g.cs
-C:\Users\Almas\source\repos\ebs\UserInterface\bin\Debug\netcoreapp3.1\Resources.dll
-C:\Users\Almas\source\repos\ebs\UserInterface\bin\Debug\netcoreapp3.1\Resources.pdb
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\User\Login.cshtml.g.cs
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\User\Signup.cshtml.g.cs
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\Home\Contacts.cshtml.g.cs
@@ -183,7 +181,6 @@ C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\View
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\Message\Index.cshtml.g.cs
 C:\Users\Almas\source\repos\ebs\UserInterface\bin\Debug\netcoreapp3.1\Microsoft.Extensions.PlatformAbstractions.dll
 C:\Users\Almas\source\repos\ebs\UserInterface\bin\Debug\netcoreapp3.1\Nancy.dll
-C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\UserInterface.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\Transaction\Borrow.cshtml.g.cs
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\Transaction\Index.cshtml.g.cs
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\Transaction\Requests.cshtml.g.cs
@@ -199,3 +196,7 @@ C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\View
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\Shared\PartialViews\AdminViews\_AdminBookListComponent.cshtml.g.cs
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\Shared\PartialViews\AdminViews\_AdminMenuComponent.cshtml.g.cs
 C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\Razor\Views\Shared\PartialViews\AdminViews\_AdminUserListComponent.cshtml.g.cs
+C:\Users\Almas\source\repos\ebs\UserInterface\bin\Debug\netcoreapp3.1\Common.dll
+C:\Users\Almas\source\repos\ebs\UserInterface\bin\Debug\netcoreapp3.1\Common.pdb
+C:\Users\Almas\source\repos\ebs\UserInterface\bin\Debug\netcoreapp3.1\GemBox.Spreadsheet.dll
+C:\Users\Almas\source\repos\ebs\UserInterface\obj\Debug\netcoreapp3.1\UserInterface.MvcApplicationPartsAssemblyInfo.cache

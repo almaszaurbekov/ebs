@@ -45,6 +45,15 @@
           "lib/netcoreapp2.1/Microsoft.Scripting.dll": {}
         }
       },
+      "GemBox.Spreadsheet/45.0.1131": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.0/GemBox.Spreadsheet.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/GemBox.Spreadsheet.dll": {}
+        }
+      },
       "IronPython/2.7.9": {
         "type": "package",
         "dependencies": {
@@ -2886,30 +2895,33 @@
           "bin/placeholder/BusinessLogic.dll": {}
         }
       },
+      "Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "GemBox.Spreadsheet": "45.0.1131"
+        },
+        "compile": {
+          "bin/placeholder/Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Common.dll": {}
+        }
+      },
       "DataAccess/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
+          "Common": "1.0.0",
           "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
           "Microsoft.EntityFrameworkCore": "3.1.0",
-          "Microsoft.EntityFrameworkCore.SqlServer": "3.1.0",
-          "Resources": "1.0.0"
+          "Microsoft.EntityFrameworkCore.SqlServer": "3.1.0"
         },
         "compile": {
           "bin/placeholder/DataAccess.dll": {}
         },
         "runtime": {
           "bin/placeholder/DataAccess.dll": {}
-        }
-      },
-      "Resources/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v3.1",
-        "compile": {
-          "bin/placeholder/Resources.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Resources.dll": {}
         }
       }
     }
@@ -2974,6 +2986,27 @@
         "lib/netcoreapp2.1/Microsoft.Scripting.Metadata.xml",
         "lib/netcoreapp2.1/Microsoft.Scripting.dll",
         "lib/netcoreapp2.1/Microsoft.Scripting.xml"
+      ]
+    },
+    "GemBox.Spreadsheet/45.0.1131": {
+      "sha512": "K77TAQCNOnp6eyk+q3g8LHSqADxG7EOILqR0D+g+SJ54vpwHU7FZHzGZ1p6DWrU5LdBFm/wKtmtglLXYiUf/aA==",
+      "type": "package",
+      "path": "gembox.spreadsheet/45.0.1131",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Readme.txt",
+        "gembox.spreadsheet.45.0.1131.nupkg.sha512",
+        "gembox.spreadsheet.nuspec",
+        "images/NugetGbs.png",
+        "lib/net35/GemBox.Spreadsheet.dll",
+        "lib/net35/GemBox.Spreadsheet.xml",
+        "lib/netcoreapp3.0/GemBox.Spreadsheet.dll",
+        "lib/netcoreapp3.0/GemBox.Spreadsheet.xml",
+        "lib/netstandard2.0/GemBox.Spreadsheet.dll",
+        "lib/netstandard2.0/GemBox.Spreadsheet.xml",
+        "licenses/EULA.txt",
+        "licenses/ThirdPartyCodeLicenses.txt"
       ]
     },
     "IronPython/2.7.9": {
@@ -9096,15 +9129,15 @@
       "path": "../BusinessLogic/BusinessLogic.csproj",
       "msbuildProject": "../BusinessLogic/BusinessLogic.csproj"
     },
+    "Common/1.0.0": {
+      "type": "project",
+      "path": "../Common/Common.csproj",
+      "msbuildProject": "../Common/Common.csproj"
+    },
     "DataAccess/1.0.0": {
       "type": "project",
       "path": "../DataAccess/DataAccess.csproj",
       "msbuildProject": "../DataAccess/DataAccess.csproj"
-    },
-    "Resources/1.0.0": {
-      "type": "project",
-      "path": "../Resources/Resources.csproj",
-      "msbuildProject": "../Resources/Resources.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -9112,6 +9145,8 @@
       "AutoMapper >= 9.0.0",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 7.0.0",
       "BusinessLogic >= 1.0.0",
+      "Common >= 1.0.0",
+      "GemBox.Spreadsheet >= 45.0.1131",
       "IronPython >= 2.7.9",
       "Microsoft.Azure.KeyVault.Core >= 3.0.4",
       "Microsoft.EntityFrameworkCore >= 3.1.0",
@@ -9122,7 +9157,6 @@
       "Microsoft.NETCore.App >= 2.2.8",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.1",
       "Nancy >= 2.0.0",
-      "Resources >= 1.0.0",
       "WindowsAzure.Storage >= 9.3.3"
     ]
   },
@@ -9159,8 +9193,8 @@
             "C:\\Users\\Almas\\source\\repos\\ebs\\BusinessLogic\\BusinessLogic.csproj": {
               "projectPath": "C:\\Users\\Almas\\source\\repos\\ebs\\BusinessLogic\\BusinessLogic.csproj"
             },
-            "C:\\Users\\Almas\\source\\repos\\ebs\\Resources\\Resources.csproj": {
-              "projectPath": "C:\\Users\\Almas\\source\\repos\\ebs\\Resources\\Resources.csproj"
+            "C:\\Users\\Almas\\source\\repos\\ebs\\Common\\Common.csproj": {
+              "projectPath": "C:\\Users\\Almas\\source\\repos\\ebs\\Common\\Common.csproj"
             }
           }
         }
@@ -9181,6 +9215,10 @@
           "AutoMapper.Extensions.Microsoft.DependencyInjection": {
             "target": "Package",
             "version": "[7.0.0, )"
+          },
+          "GemBox.Spreadsheet": {
+            "target": "Package",
+            "version": "[45.0.1131, )"
           },
           "IronPython": {
             "target": "Package",

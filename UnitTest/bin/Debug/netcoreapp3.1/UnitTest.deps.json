@@ -9,11 +9,11 @@
       "UnitTest/1.0.0": {
         "dependencies": {
           "BusinessLogic": "1.0.0",
+          "Common": "1.0.0",
           "DataAccess": "1.0.0",
           "IronPython": "2.7.9",
           "Microsoft.NET.Test.Sdk": "16.2.0",
           "Moq": "4.13.1",
-          "Resources": "1.0.0",
           "UserInterface": "1.0.0",
           "coverlet.collector": "1.0.1",
           "xunit": "2.4.0",
@@ -86,6 +86,14 @@
           "lib/netcoreapp2.1/Microsoft.Scripting.dll": {
             "assemblyVersion": "1.2.2.0",
             "fileVersion": "1.2.2.1000"
+          }
+        }
+      },
+      "GemBox.Spreadsheet/45.0.1131": {
+        "runtime": {
+          "lib/netcoreapp3.0/GemBox.Spreadsheet.dll": {
+            "assemblyVersion": "45.0.300.1131",
+            "fileVersion": "45.0.300.1131"
           }
         }
       },
@@ -2351,20 +2359,23 @@
           "BusinessLogic.dll": {}
         }
       },
+      "Common/1.0.0": {
+        "dependencies": {
+          "GemBox.Spreadsheet": "45.0.1131"
+        },
+        "runtime": {
+          "Common.dll": {}
+        }
+      },
       "DataAccess/1.0.0": {
         "dependencies": {
+          "Common": "1.0.0",
           "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
           "Microsoft.EntityFrameworkCore": "3.1.0",
-          "Microsoft.EntityFrameworkCore.SqlServer": "3.1.0",
-          "Resources": "1.0.0"
+          "Microsoft.EntityFrameworkCore.SqlServer": "3.1.0"
         },
         "runtime": {
           "DataAccess.dll": {}
-        }
-      },
-      "Resources/1.0.0": {
-        "runtime": {
-          "Resources.dll": {}
         }
       },
       "UserInterface/1.0.0": {
@@ -2372,6 +2383,8 @@
           "AutoMapper": "9.0.0",
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "7.0.0",
           "BusinessLogic": "1.0.0",
+          "Common": "1.0.0",
+          "GemBox.Spreadsheet": "45.0.1131",
           "IronPython": "2.7.9",
           "Microsoft.Azure.KeyVault.Core": "3.0.4",
           "Microsoft.EntityFrameworkCore": "3.1.0",
@@ -2381,7 +2394,6 @@
           "Microsoft.NETCore.App": "2.2.8",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.1.1",
           "Nancy": "2.0.0",
-          "Resources": "1.0.0",
           "WindowsAzure.Storage": "9.3.3"
         },
         "runtime": {
@@ -2430,6 +2442,13 @@
       "sha512": "sha512-xNsMK0WWX85K5CNIIdjiHa3Va6hIZA5/GRBoMYG7KJ+iU6pCFFJMmq/EL0QjHmzWO14PQqviIZ0JQHCArv4gjQ==",
       "path": "dynamiclanguageruntime/1.2.2",
       "hashPath": "dynamiclanguageruntime.1.2.2.nupkg.sha512"
+    },
+    "GemBox.Spreadsheet/45.0.1131": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-K77TAQCNOnp6eyk+q3g8LHSqADxG7EOILqR0D+g+SJ54vpwHU7FZHzGZ1p6DWrU5LdBFm/wKtmtglLXYiUf/aA==",
+      "path": "gembox.spreadsheet/45.0.1131",
+      "hashPath": "gembox.spreadsheet.45.0.1131.nupkg.sha512"
     },
     "IronPython/2.7.9": {
       "type": "package",
@@ -3787,12 +3806,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "DataAccess/1.0.0": {
+    "Common/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "Resources/1.0.0": {
+    "DataAccess/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

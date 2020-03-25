@@ -5,9 +5,9 @@ C:\Users\Almas\source\repos\ebs\BusinessLogic\bin\Debug\netcoreapp3.1\BusinessLo
 C:\Users\Almas\source\repos\ebs\BusinessLogic\bin\Debug\netcoreapp3.1\BusinessLogic.dll
 C:\Users\Almas\source\repos\ebs\BusinessLogic\bin\Debug\netcoreapp3.1\BusinessLogic.pdb
 C:\Users\Almas\source\repos\ebs\BusinessLogic\bin\Debug\netcoreapp3.1\DataAccess.dll
-C:\Users\Almas\source\repos\ebs\BusinessLogic\bin\Debug\netcoreapp3.1\Resources.dll
 C:\Users\Almas\source\repos\ebs\BusinessLogic\bin\Debug\netcoreapp3.1\DataAccess.pdb
-C:\Users\Almas\source\repos\ebs\BusinessLogic\bin\Debug\netcoreapp3.1\Resources.pdb
 C:\Users\Almas\source\repos\ebs\BusinessLogic\obj\Debug\netcoreapp3.1\BusinessLogic.csproj.CopyComplete
 C:\Users\Almas\source\repos\ebs\BusinessLogic\obj\Debug\netcoreapp3.1\BusinessLogic.dll
 C:\Users\Almas\source\repos\ebs\BusinessLogic\obj\Debug\netcoreapp3.1\BusinessLogic.pdb
+C:\Users\Almas\source\repos\ebs\BusinessLogic\bin\Debug\netcoreapp3.1\Common.dll
+C:\Users\Almas\source\repos\ebs\BusinessLogic\bin\Debug\netcoreapp3.1\Common.pdb

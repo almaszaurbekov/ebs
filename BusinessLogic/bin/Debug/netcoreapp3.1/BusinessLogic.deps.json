@@ -30,6 +30,14 @@
           }
         }
       },
+      "GemBox.Spreadsheet/45.0.1131": {
+        "runtime": {
+          "lib/netcoreapp3.0/GemBox.Spreadsheet.dll": {
+            "assemblyVersion": "45.0.300.1131",
+            "fileVersion": "45.0.300.1131"
+          }
+        }
+      },
       "Microsoft.AspNetCore.Http.Abstractions/2.2.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Http.Features": "2.2.0",
@@ -1158,20 +1166,23 @@
           }
         }
       },
+      "Common/1.0.0": {
+        "dependencies": {
+          "GemBox.Spreadsheet": "45.0.1131"
+        },
+        "runtime": {
+          "Common.dll": {}
+        }
+      },
       "DataAccess/1.0.0": {
         "dependencies": {
+          "Common": "1.0.0",
           "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
           "Microsoft.EntityFrameworkCore": "3.1.0",
-          "Microsoft.EntityFrameworkCore.SqlServer": "3.1.0",
-          "Resources": "1.0.0"
+          "Microsoft.EntityFrameworkCore.SqlServer": "3.1.0"
         },
         "runtime": {
           "DataAccess.dll": {}
-        }
-      },
-      "Resources/1.0.0": {
-        "runtime": {
-          "Resources.dll": {}
         }
       }
     }
@@ -1188,6 +1199,13 @@
       "sha512": "sha512-xCqvoxT4HIrNY/xlXG9W+BA/awdrhWvMTKTK/igkGSRbhOhpl3Q8O8Gxlhzjc9JsYqE7sS6AxgyuUUvZ6R5/Bw==",
       "path": "automapper/9.0.0",
       "hashPath": "automapper.9.0.0.nupkg.sha512"
+    },
+    "GemBox.Spreadsheet/45.0.1131": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-K77TAQCNOnp6eyk+q3g8LHSqADxG7EOILqR0D+g+SJ54vpwHU7FZHzGZ1p6DWrU5LdBFm/wKtmtglLXYiUf/aA==",
+      "path": "gembox.spreadsheet/45.0.1131",
+      "hashPath": "gembox.spreadsheet.45.0.1131.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Http.Abstractions/2.2.0": {
       "type": "package",
@@ -2043,12 +2061,12 @@
       "path": "windowsazure.storage/9.3.3",
       "hashPath": "windowsazure.storage.9.3.3.nupkg.sha512"
     },
-    "DataAccess/1.0.0": {
+    "Common/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "Resources/1.0.0": {
+    "DataAccess/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -1,8 +1,7 @@
 ﻿using DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
-using Resources;
-using Microsoft.AspNetCore.Http;
+using Common;
 
 namespace DataAccess
 {
