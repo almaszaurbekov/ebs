@@ -1,0 +1,109 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "GemBox.Spreadsheet/45.0.1131": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.0/GemBox.Spreadsheet.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/GemBox.Spreadsheet.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "GemBox.Spreadsheet/45.0.1131": {
+      "sha512": "K77TAQCNOnp6eyk+q3g8LHSqADxG7EOILqR0D+g+SJ54vpwHU7FZHzGZ1p6DWrU5LdBFm/wKtmtglLXYiUf/aA==",
+      "type": "package",
+      "path": "gembox.spreadsheet/45.0.1131",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Readme.txt",
+        "gembox.spreadsheet.45.0.1131.nupkg.sha512",
+        "gembox.spreadsheet.nuspec",
+        "images/NugetGbs.png",
+        "lib/net35/GemBox.Spreadsheet.dll",
+        "lib/net35/GemBox.Spreadsheet.xml",
+        "lib/netcoreapp3.0/GemBox.Spreadsheet.dll",
+        "lib/netcoreapp3.0/GemBox.Spreadsheet.xml",
+        "lib/netstandard2.0/GemBox.Spreadsheet.dll",
+        "lib/netstandard2.0/GemBox.Spreadsheet.xml",
+        "licenses/EULA.txt",
+        "licenses/ThirdPartyCodeLicenses.txt"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETCoreApp,Version=v3.1": [
+      "GemBox.Spreadsheet >= 45.0.1131"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\Almas\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\Almas\\source\\repos\\ebs\\Common\\Common.csproj",
+      "projectName": "Common",
+      "projectPath": "C:\\Users\\Almas\\source\\repos\\ebs\\Common\\Common.csproj",
+      "packagesPath": "C:\\Users\\Almas\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Almas\\source\\repos\\ebs\\Common\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\Almas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "netcoreapp3.1"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "netcoreapp3.1": {
+        "dependencies": {
+          "GemBox.Spreadsheet": {
+            "target": "Package",
+            "version": "[45.0.1131, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
