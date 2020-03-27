@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace UserInterface.ViewModels
+﻿namespace UserInterface.ViewModels
 {
     public class UserListViewModel
     {
@@ -16,7 +11,7 @@ namespace UserInterface.ViewModels
             get { return FirstName + " " + LastName; } 
         }
         public string ImageSource { get; set; }
-        public Guid RoleId { get; set; }
+        public string RoleName { get; set; }
         public string Address { get; set; }
     }
 }

@@ -22,6 +22,13 @@ namespace BusinessLogic.Services
     {
         public UserService(EbsContext context) : base(context) { }
 
+        public override async Task<List<User>> GetAll()
+        {
+            return await DbSet
+                    .Include(u => u.Role)
+                    .ToListAsync();
+        }
+
         public override async Task<User> Find(Expression<Func<User, bool>> predicate)
         {
             return await DbSet

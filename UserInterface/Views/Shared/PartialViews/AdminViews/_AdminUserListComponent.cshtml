@@ -7,18 +7,18 @@
             <th scope="col">Email</th>
             <th scope="col">FullName</th>
             <th scope="col">Address</th>
-            <th scope="col">RoleId</th>
+            <th scope="col">Role</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var user in Model)
+        @foreach (UserInterface.ViewModels.UserListViewModel user in Model)
         {
             <tr>
                 <th scope="row">@user.Id</th>
                 <td>@user.Email</td>
                 <td>@user.FullName</td>
                 <td>@user.Address</td>
-                <td>@user.RoleId</td>
+                <td>@user.RoleName</td>
             </tr>
         }
     </tbody>
