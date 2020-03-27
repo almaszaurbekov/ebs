@@ -1,6 +1,9 @@
 PythonScripts/venv/
 PythonScripts/__pycache__/
 PythonScripts/.idea/
+PythonScripts/amz.py
+PythonScripts/database.py
+PythonScripts/isbn.py
 .vs/
 .vs
 /.vs/
