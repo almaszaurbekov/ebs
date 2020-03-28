@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using Common;
+using DataAccess.Context;
 
 namespace DataAccess
 {
@@ -28,24 +29,7 @@ namespace DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            string adminRoleName = "admin";
-            string userRoleName = "user";
-
-            string adminEmail = "foxxychmoxy@gmail.com";
-            string adminPassword = "123qweAS1!";
-
-            string userEmail = "almasgaara@mail.ru";
-            string userPassword = "123qweAS1!";
-
-            Role adminRole = new Role { Id = Guid.NewGuid(), Name = adminRoleName };
-            Role userRole = new Role { Id = Guid.NewGuid(), Name = userRoleName };
-
-            User adminUser = new User { Id = 1, Email = adminEmail, Password = PasswordHelper.Hash(adminPassword), RoleId = adminRole.Id };
-            User simpleUser = new User { Id = 2, Email = userEmail, Password = PasswordHelper.Hash(userPassword), RoleId = userRole.Id };
-
-            modelBuilder.Entity<Role>().HasData(new Role[] { adminRole, userRole });
-            modelBuilder.Entity<User>().HasData(new User[] { adminUser, simpleUser });
-
+            modelBuilder = SeedData.Initialize(modelBuilder);
             base.OnModelCreating(modelBuilder);
         }
     }
