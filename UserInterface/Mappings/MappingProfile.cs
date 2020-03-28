@@ -11,7 +11,8 @@ namespace UserInterface.Mappings
         {
             CreateMap<UserDto, UserViewModel>(MemberList.Source);
             CreateMap<UserViewModel, UserDto>(MemberList.None);
-            CreateMap<UserDto, UserListViewModel>(MemberList.Source);
+            CreateMap<UserDto, UserListViewModel>(MemberList.Source)
+                .ForMember("RoleName", opt => opt.MapFrom(c => c.Role.Name));
             CreateMap<UserListViewModel, UserDto>(MemberList.None);
 
             CreateMap<BookDto, BookViewModel>(MemberList.Source);
