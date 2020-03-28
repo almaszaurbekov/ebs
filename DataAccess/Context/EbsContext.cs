@@ -8,15 +8,7 @@ namespace DataAccess
 {
     public class EbsContext : DbContext
     {
-        public EbsContext(DbContextOptions<EbsContext> options) : base(options)
-        {
-            Database.EnsureCreated();
-        }
-
-        public EbsContext()
-        {
-            Database.EnsureCreated();
-        }
+        public EbsContext(DbContextOptions<EbsContext> options) : base(options) { }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Book> Books { get; set; }
