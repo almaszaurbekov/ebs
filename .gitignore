@@ -8,3 +8,6 @@ PythonScripts/isbn.py
 .vs
 /.vs/
 /.vs
+bin
+obj
+packages
