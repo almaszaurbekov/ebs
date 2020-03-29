@@ -248,8 +248,8 @@ namespace UserInterface.Controllers
             var groups = await userBusinessService.GetBooksCountByUsers();
             var excel = new Excel();
 
-            excel.WriteCell(0, 0, "ID");
-            excel.WriteCell(0, 1, "Count");
+            excel.WriteCell(0, 0, "User ID");
+            excel.WriteCell(0, 1, "Count of Books");
 
             for (var i = 0; i < groups.Count; i++)
             {
@@ -267,8 +267,8 @@ namespace UserInterface.Controllers
             var groups = await userBusinessService.GetMessagesCountByUsers();
             var excel = new Excel();
 
-            excel.WriteCell(0, 0, "ID");
-            excel.WriteCell(0, 1, "Count");
+            excel.WriteCell(0, 0, "User ID");
+            excel.WriteCell(0, 1, "Count of Messages");
 
             for (var i = 0; i < groups.Count; i++)
             {
@@ -286,8 +286,8 @@ namespace UserInterface.Controllers
             var groups = await userBusinessService.GetCommentsCountByUsers();
             var excel = new Excel();
 
-            excel.WriteCell(0, 0, "ID");
-            excel.WriteCell(0, 1, "Count");
+            excel.WriteCell(0, 0, "User ID");
+            excel.WriteCell(0, 1, "Count of Comments");
 
             for (var i = 0; i < groups.Count; i++)
             {
