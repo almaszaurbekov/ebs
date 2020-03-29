@@ -81,7 +81,7 @@ namespace BusinessLogic.Services.Base
             }
             catch (Exception ex)
             {
-                return entity;
+                throw ex;
             }
         }
 

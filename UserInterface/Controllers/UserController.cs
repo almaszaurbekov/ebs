@@ -269,10 +269,11 @@ namespace UserInterface.Controllers
                 {
                     user = new UserDto { Email = email, Password = PasswordHelper.Hash(model.Password) };
                     RoleDto role = await userBusinessService.GetRoleByName("user");
-                    if (role != null)
-                        user.Role = role;
+                    if (role != null){
+                        user.RoleId = role.Id;
+                    }
                     
-                    await userBusinessService.CreateUser(user);
+                    user = await userBusinessService.CreateUser(user);
 
                     await Authenticate(user);
 
