@@ -12,43 +12,22 @@
     
     getBooksCountByAuthor() {
         var url = this.url + "getBooksAuthor";
-        return this.__ajaxQuery("GET", url, {});
+        window.location = url;
     }
 
     getBooksCountByUsers() {
         var url = this.url + "getBooksUser"
-        return this.__ajaxQuery("GET", url, {});
+        window.location = url;
     }
 
     getMessagesCountByUsers() {
         var url = this.url + "getMessages";
-        return this.__ajaxQuery("GET", url, {});
+        window.location = url;
     }
 
     getCommentsCountByUsers() {
         var url = this.url + "getComments";
-        return this.__ajaxQuery("GET", url, {});
-    }
-
-    __ajaxQuery(method, url, data) {
-        var ajax = $.ajax({
-            method: method,
-            url: url,
-            data: data,
-            beforeSend: function () {
-                toastr.info("We process your request", "Please wait.");
-            },
-            success: function (result) {
-                toastr.success("Request processed successfully", "Success!");
-            },
-            async: false,
-            error: function (xhr) {
-                console.log(xhr);
-                toastr.error("Failed to process request", "Error");
-            }
-        });
-
-        return ajax.responseJSON;
+        window.location = url;
     }
 }
 
@@ -58,20 +37,16 @@ $(document).ready(function () {
     var controller = new AdminController();
 
     $("#bs1").click(function () {
-        var groups = controller.getBooksCountByAuthor();
-        console.log(groups);
+        controller.getBooksCountByAuthor();
     });
     $("#us1").click(function () {
-        var groups = controller.getBooksCountByUsers();
-        console.log(groups);
+        controller.getBooksCountByUsers();
     });
     $("#us2").click(function () {
-        var groups = controller.getMessagesCountByUsers();
-        console.log(groups);
+        controller.getMessagesCountByUsers();
     });
     $("#us3").click(function () {
-        var groups = controller.getCommentsCountByUsers();
-        console.log(groups);
+        controller.getCommentsCountByUsers();
     });
 
 });

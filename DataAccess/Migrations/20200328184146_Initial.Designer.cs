@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(EbsContext))]
-    [Migration("20200124070600_AddedOwnerPropertiesToTransaction")]
-    partial class AddedOwnerPropertiesToTransaction
+    [Migration("20200328184146_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -99,7 +99,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<DateTime>("DeletedDate")
+                    b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
@@ -130,7 +130,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("UserId")
@@ -141,6 +141,136 @@ namespace DataAccess.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Books");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Author = "Жюль Верн",
+                            CreatedBy = "ebs",
+                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 814, DateTimeKind.Utc).AddTicks(1899),
+                            Description = "Very good book",
+                            ImageSource = "https://static.librebook.me/uploads/pics/01/61/852.jpg",
+                            InGoodCondition = true,
+                            IsBorrowed = false,
+                            IsDeleted = false,
+                            IsPainted = false,
+                            Rate = 3.0,
+                            Title = "20 тысяч лье под водой",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Author = "Жюль Верн",
+                            CreatedBy = "ebs",
+                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 814, DateTimeKind.Utc).AddTicks(8110),
+                            Description = "Very good book",
+                            ImageSource = "https://www.mann-ivanov-ferber.ru/assets/images/covers/37/21737/1.00x-thumb.png",
+                            InGoodCondition = true,
+                            IsBorrowed = false,
+                            IsDeleted = false,
+                            IsPainted = false,
+                            Rate = 4.0,
+                            Title = "Дети капитана Гранта",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Author = "Жюль Верн",
+                            CreatedBy = "ebs",
+                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 814, DateTimeKind.Utc).AddTicks(8220),
+                            Description = "Very good book",
+                            ImageSource = "https://be2.aldebaran.ru/static/bookimages/42/41/09/42410912.bin.dir/42410912.cover.jpg",
+                            InGoodCondition = true,
+                            IsBorrowed = false,
+                            IsDeleted = false,
+                            IsPainted = false,
+                            Rate = 3.0,
+                            Title = "Вокруг света за 80 дней",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Author = "Жюль Верн",
+                            CreatedBy = "ebs",
+                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 814, DateTimeKind.Utc).AddTicks(8224),
+                            Description = "Very good book",
+                            ImageSource = "https://j.livelib.ru/boocover/1001542410/o/1833/Zhyul_Vern__Puteshestvie_k_tsentru_Zemli.jpeg",
+                            InGoodCondition = true,
+                            IsBorrowed = false,
+                            IsDeleted = false,
+                            IsPainted = false,
+                            Rate = 2.0,
+                            Title = "Путешествие к центру земли",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Author = "Джоан Роулинг",
+                            CreatedBy = "ebs",
+                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 814, DateTimeKind.Utc).AddTicks(8226),
+                            Description = "Very good book",
+                            ImageSource = "https://i4.mybook.io/p/512x852/book_covers/86/25/86251214-92ea-44e9-a394-1a9ef1211400.jpe?v2",
+                            InGoodCondition = true,
+                            IsBorrowed = false,
+                            IsDeleted = false,
+                            IsPainted = false,
+                            Rate = 3.0,
+                            Title = "Гарри Поттер и философский камень",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Author = "Джоан Роулинг",
+                            CreatedBy = "ebs",
+                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 814, DateTimeKind.Utc).AddTicks(8233),
+                            Description = "Very good book",
+                            ImageSource = "https://i4.mybook.io/p/512x852/book_covers/37/81/37811194-8ad9-45a1-b394-9960b57b511f.jpe?v2",
+                            InGoodCondition = true,
+                            IsBorrowed = false,
+                            IsDeleted = false,
+                            IsPainted = false,
+                            Rate = 3.0,
+                            Title = "Гарри Поттер и кубок огня книга",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Author = "Джоан Роулинг",
+                            CreatedBy = "ebs",
+                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 814, DateTimeKind.Utc).AddTicks(8236),
+                            Description = "Very good book",
+                            ImageSource = "https://i4.mybook.io/p/512x852/book_covers/db/53/db53dd7e-10da-471a-b33e-2669f5a5abe9.jpe?v2",
+                            InGoodCondition = true,
+                            IsBorrowed = false,
+                            IsDeleted = false,
+                            IsPainted = false,
+                            Rate = 3.0,
+                            Title = "Гарри Поттер и орден феникса",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Author = "Федор Достоевский",
+                            CreatedBy = "ebs",
+                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 814, DateTimeKind.Utc).AddTicks(8238),
+                            Description = "Very good book",
+                            ImageSource = "https://azbyka.ru/fiction/wp-content/uploads/2013/02/55.jpg",
+                            InGoodCondition = true,
+                            IsBorrowed = false,
+                            IsDeleted = false,
+                            IsPainted = false,
+                            Rate = 3.0,
+                            Title = "Идиот",
+                            UserId = 2
+                        });
                 });
 
             modelBuilder.Entity("DataAccess.Entities.BookTransaction", b =>
@@ -172,17 +302,17 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<DateTime>("DeletedDate")
+                    b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsSuccess")
-                        .HasColumnType("bit");
+                    b.Property<int>("IsSuccess")
+                        .HasColumnType("int");
 
-                    b.Property<bool>("OwnerAgreed")
-                        .HasColumnType("bit");
+                    b.Property<int>("OwnerAgreed")
+                        .HasColumnType("int");
 
                     b.Property<bool>("OwnerHasSeen")
                         .HasColumnType("bit");
@@ -194,7 +324,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -225,7 +355,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<DateTime>("DeletedDate")
+                    b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
@@ -238,7 +368,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("UserId")
@@ -249,6 +379,28 @@ namespace DataAccess.Migrations
                     b.HasIndex("BookId");
 
                     b.ToTable("Comments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BookId = 1,
+                            CreatedBy = "ebs",
+                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 814, DateTimeKind.Utc).AddTicks(8758),
+                            IsDeleted = false,
+                            Text = "I think this is amazing book!",
+                            UserId = 2
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BookId = 6,
+                            CreatedBy = "ebs",
+                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 815, DateTimeKind.Utc).AddTicks(109),
+                            IsDeleted = false,
+                            Text = "This is awful book...",
+                            UserId = 1
+                        });
                 });
 
             modelBuilder.Entity("DataAccess.Entities.DialogControl", b =>
@@ -269,8 +421,14 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<DateTime>("DeletedDate")
+                    b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("FirstInterlocutorEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("FirstInterlocutorId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -281,11 +439,17 @@ namespace DataAccess.Migrations
                     b.Property<DateTime>("LastMessageDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("SecondInterlocutorEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SecondInterlocutorId")
+                        .HasColumnType("int");
+
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("UserId")
@@ -296,6 +460,21 @@ namespace DataAccess.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("DialogControls");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = "ebs",
+                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 815, DateTimeKind.Utc).AddTicks(971),
+                            FirstInterlocutorEmail = "foxxychmoxy@gmail.com",
+                            FirstInterlocutorId = 1,
+                            IsDeleted = false,
+                            LastMessage = "Hello! Yes, I know. Thank you!",
+                            LastMessageDate = new DateTime(2020, 3, 28, 18, 41, 33, 815, DateTimeKind.Utc).AddTicks(4348),
+                            SecondInterlocutorEmail = "almasgaara@mail.ru",
+                            SecondInterlocutorId = 2
+                        });
                 });
 
             modelBuilder.Entity("DataAccess.Entities.Message", b =>
@@ -316,7 +495,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<DateTime>("DeletedDate")
+                    b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("DialogControlId")
@@ -335,7 +514,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserReceiverEmail")
@@ -355,6 +534,36 @@ namespace DataAccess.Migrations
                     b.HasIndex("DialogControlId");
 
                     b.ToTable("Messages");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = "ebs",
+                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 815, DateTimeKind.Utc).AddTicks(5550),
+                            DialogControlId = 1,
+                            HasRead = true,
+                            IsDeleted = false,
+                            Text = "Hi! You are beautiful.",
+                            UserReceiverEmail = "almasgaara@mail.ru",
+                            UserReceiverId = 2,
+                            UserSenderEmail = "foxxychmoxy@gmail.com",
+                            UserSenderId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedBy = "ebs",
+                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 815, DateTimeKind.Utc).AddTicks(9953),
+                            DialogControlId = 1,
+                            HasRead = true,
+                            IsDeleted = false,
+                            Text = "Hello! Yes, I know. Thank you!",
+                            UserReceiverEmail = "foxxychmoxy@gmail.com",
+                            UserReceiverId = 1,
+                            UserSenderEmail = "almasgaara@mail.ru",
+                            UserSenderId = 2
+                        });
                 });
 
             modelBuilder.Entity("DataAccess.Entities.Role", b =>
@@ -374,7 +583,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<DateTime>("DeletedDate")
+                    b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
@@ -387,7 +596,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -397,27 +606,19 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("60e51fc5-dc9e-460a-8a08-bbe7376a22bb"),
+                            Id = new Guid("c0f08afd-19df-4c48-b022-8ad1bbf2e132"),
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 1, 24, 7, 5, 57, 481, DateTimeKind.Utc).AddTicks(9273),
-                            DeletedBy = "ebs",
-                            DeletedDate = new DateTime(2020, 1, 24, 7, 5, 57, 481, DateTimeKind.Utc).AddTicks(9295),
+                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 808, DateTimeKind.Utc).AddTicks(3654),
                             IsDeleted = false,
-                            Name = "admin",
-                            UpdatedBy = "ebs",
-                            UpdatedDate = new DateTime(2020, 1, 24, 7, 5, 57, 481, DateTimeKind.Utc).AddTicks(9294)
+                            Name = "admin"
                         },
                         new
                         {
-                            Id = new Guid("66deef9d-2049-4697-8e3b-2a5aff32b38a"),
+                            Id = new Guid("67258a53-b254-41af-9d26-5200835986b3"),
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 1, 24, 7, 5, 57, 482, DateTimeKind.Utc).AddTicks(2142),
-                            DeletedBy = "ebs",
-                            DeletedDate = new DateTime(2020, 1, 24, 7, 5, 57, 482, DateTimeKind.Utc).AddTicks(2151),
+                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 808, DateTimeKind.Utc).AddTicks(5737),
                             IsDeleted = false,
-                            Name = "user",
-                            UpdatedBy = "ebs",
-                            UpdatedDate = new DateTime(2020, 1, 24, 7, 5, 57, 482, DateTimeKind.Utc).AddTicks(2150)
+                            Name = "user"
                         });
                 });
 
@@ -442,7 +643,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<DateTime>("DeletedDate")
+                    b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -470,7 +671,7 @@ namespace DataAccess.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
-                    b.Property<DateTime>("UpdatedDate")
+                    b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -484,29 +685,21 @@ namespace DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 1, 24, 7, 5, 57, 482, DateTimeKind.Utc).AddTicks(5825),
-                            DeletedBy = "ebs",
-                            DeletedDate = new DateTime(2020, 1, 24, 7, 5, 57, 482, DateTimeKind.Utc).AddTicks(5835),
+                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 808, DateTimeKind.Utc).AddTicks(7812),
                             Email = "foxxychmoxy@gmail.com",
                             IsDeleted = false,
                             Password = "d9edce5cc424444d5c03fb834de779e9924eb69d05ea3f7be7dd5041bb87864e18b1b75c4d7a9b4abd9d9c784dc482701bdb711256c1f93610a107a161ceb2c2",
-                            RoleId = new Guid("60e51fc5-dc9e-460a-8a08-bbe7376a22bb"),
-                            UpdatedBy = "ebs",
-                            UpdatedDate = new DateTime(2020, 1, 24, 7, 5, 57, 482, DateTimeKind.Utc).AddTicks(5834)
+                            RoleId = new Guid("c0f08afd-19df-4c48-b022-8ad1bbf2e132")
                         },
                         new
                         {
                             Id = 2,
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 1, 24, 7, 5, 57, 489, DateTimeKind.Utc).AddTicks(3944),
-                            DeletedBy = "ebs",
-                            DeletedDate = new DateTime(2020, 1, 24, 7, 5, 57, 489, DateTimeKind.Utc).AddTicks(3967),
+                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 814, DateTimeKind.Utc).AddTicks(614),
                             Email = "almasgaara@mail.ru",
                             IsDeleted = false,
                             Password = "d9edce5cc424444d5c03fb834de779e9924eb69d05ea3f7be7dd5041bb87864e18b1b75c4d7a9b4abd9d9c784dc482701bdb711256c1f93610a107a161ceb2c2",
-                            RoleId = new Guid("66deef9d-2049-4697-8e3b-2a5aff32b38a"),
-                            UpdatedBy = "ebs",
-                            UpdatedDate = new DateTime(2020, 1, 24, 7, 5, 57, 489, DateTimeKind.Utc).AddTicks(3966)
+                            RoleId = new Guid("67258a53-b254-41af-9d26-5200835986b3")
                         });
                 });
 
@@ -521,7 +714,7 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("DataAccess.Entities.BookTransaction", b =>
                 {
-                    b.HasOne("DataAccess.Entities.Book", null)
+                    b.HasOne("DataAccess.Entities.Book", "Book")
                         .WithMany("BookTransactions")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
