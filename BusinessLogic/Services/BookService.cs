@@ -96,7 +96,7 @@ namespace BusinessLogic.Services
         {
             try
             {
-                //var books = await context.Books.FromSqlRaw<List<GoodBookList>>(sql).ToListAsync();
+                //var books = await DbSet.FromSql(sql).ToListAsync();
                 return new List<GoodBookList>();
             }
             catch (Exception ex)
