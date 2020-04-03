@@ -7,7 +7,7 @@ namespace BusinessLogic.Models
     /// <summary>
     /// Список книг в хорошем состоянии
     /// </summary>
-    class GoodBookList
+    public class GoodBookList
     {
         public string Author { get; set; }
         public string BookName { get; set; }

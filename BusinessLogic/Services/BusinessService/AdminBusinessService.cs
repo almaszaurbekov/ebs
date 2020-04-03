@@ -14,6 +14,7 @@ namespace BusinessLogic.Services.BusinessService
         Task<List<ShortUserList>> GetBooksCountByUsers();
         Task<List<ShortUserList>> GetMessagesCountByUsers();
         Task<List<ShortUserList>> GetCommentsCountByUsers();
+        Task<List<GoodBookList>> GetBooksInGoodCondition();
     }
 
     class AdminBusinessService : IAdminBusinessService
@@ -80,6 +81,11 @@ namespace BusinessLogic.Services.BusinessService
                         JOIN Comments AS c ON u.Id = c.UserId
                         GROUP BY u.Id";
             return await userService.GetShortUserList(sql);
+        }
+
+        public async Task<List<GoodBookList>> GetBooksInGoodCondition()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -29,18 +29,20 @@ namespace UserInterface.Controllers
         private readonly IUserBusinessService userBusinessService;
         private readonly IBookBusinessService bookBusinessService;
         private readonly IMessageBusinessService messageBusinessService;
+        private readonly IAdminBusinessService adminBusinessService;
         private readonly IMapper mapper;
         private readonly IWebHostEnvironment hostEnvironment;
         private string folder;
 
         public EbsApiController(IUserBusinessService userBusinessService, IMapper mapper,
             IWebHostEnvironment hostEnvironment, IBookBusinessService bookBusinessService,
-            IMessageBusinessService messageBusinessService)
+            IMessageBusinessService messageBusinessService, IAdminBusinessService adminBusinessService)
         {
             this.userBusinessService = userBusinessService;
             this.bookBusinessService = bookBusinessService;
             this.messageBusinessService = messageBusinessService;
             this.hostEnvironment = hostEnvironment;
+            this.adminBusinessService = adminBusinessService;
             this.folder = Path.Combine(hostEnvironment.WebRootPath, "files");
             this.mapper = mapper;
         }
@@ -226,7 +228,7 @@ namespace UserInterface.Controllers
         [HttpGet("admin/getBooksAuthor")]
         public async Task<IActionResult> GetBooksCountByAuthor()
         {
-            var groups = await bookBusinessService.GetBooksCountByAuthor(0);
+            var groups = await adminBusinessService.GetBooksCountByAuthor(0);
             var excel = new Excel();
 
             excel.WriteCell(0, 0, "Author");
@@ -245,7 +247,7 @@ namespace UserInterface.Controllers
         [HttpGet("admin/getBooksUser")]
         public async Task<IActionResult> GetBooksCountByUsers()
         {
-            var groups = await userBusinessService.GetBooksCountByUsers();
+            var groups = await adminBusinessService.GetBooksCountByUsers();
             var excel = new Excel();
 
             excel.WriteCell(0, 0, "User ID");
@@ -264,7 +266,7 @@ namespace UserInterface.Controllers
         [HttpGet("admin/getMessages")]
         public async Task<IActionResult> GetMessagesCountByUsers()
         {
-            var groups = await userBusinessService.GetMessagesCountByUsers();
+            var groups = await adminBusinessService.GetMessagesCountByUsers();
             var excel = new Excel();
 
             excel.WriteCell(0, 0, "User ID");
@@ -283,7 +285,7 @@ namespace UserInterface.Controllers
         [HttpGet("admin/getComments")]
         public async Task<IActionResult> GetCommentsCountByUsers()
         {
-            var groups = await userBusinessService.GetCommentsCountByUsers();
+            var groups = await adminBusinessService.GetCommentsCountByUsers();
             var excel = new Excel();
 
             excel.WriteCell(0, 0, "User ID");
