@@ -2,7 +2,7 @@
 
 <table class="table table-dark">
     <thead>
-        <tr>
+        <tr id="admin-thead-target">
             <th scope="col">#</th>
             <th scope="col">Email</th>
             <th scope="col">FullName</th>
@@ -10,7 +10,7 @@
             <th scope="col">Role</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="admin-tbody-target">
         @foreach (UserInterface.ViewModels.UserListViewModel user in Model)
         {
             <tr>

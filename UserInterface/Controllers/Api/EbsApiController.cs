@@ -11,8 +11,6 @@ namespace UserInterface.Controllers
     [ApiController]
     public partial class EbsApiController : ControllerBase
     {
-        #region Initialize
-
         protected readonly IUserBusinessService userBusinessService;
         protected readonly IBookBusinessService bookBusinessService;
         protected readonly IMessageBusinessService messageBusinessService;
@@ -45,15 +43,16 @@ namespace UserInterface.Controllers
             this.mapper = mapper;
         }
 
-        public EbsApiController(IAdminBusinessService adminBusinessService, IMapper mapper,
-            IWebHostEnvironment hostEnvironment)
+        public EbsApiController(IAdminBusinessService adminBusinessService, 
+            IUserBusinessService userBusinessService, IBookBusinessService bookBusinessService,
+            IMapper mapper, IWebHostEnvironment hostEnvironment)
         {
             this.adminBusinessService = adminBusinessService;
+            this.userBusinessService = userBusinessService;
+            this.bookBusinessService = bookBusinessService;
             this.folder = Path.Combine(hostEnvironment.WebRootPath, "files");
             this.mapper = mapper;
         }
-
-        #endregion
 
         /// <summary>
         /// Функция по созданию файла в wwwroot/img
