@@ -6,7 +6,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using AutoMapper;
 using BusinessLogic.Dto;
-using BusinessLogic.Models;
 using BusinessLogic.Services.BusinessService;
 using Common;
 using GemBox.Spreadsheet;
@@ -17,7 +16,6 @@ using Microsoft.Extensions.FileProviders;
 using Newtonsoft.Json;
 using UserInterface.ViewModels;
 using UserInterface.ViewModels.Entities;
-
 namespace UserInterface.Controllers
 {
     [Route("api/ebs")]
@@ -304,24 +302,37 @@ namespace UserInterface.Controllers
         [HttpGet("admin/getBooksInGoodConditon")]
         public async Task<IActionResult> GetBooksInGoodCondition()
         {
-            var groups = await adminBusinessService.GetBooksByCondition();
-            var excel = new Excel();
-
-            excel.WriteCell(0, 0, "Author");
-            excel.WriteCell(0, 1, "BookName");
-            excel.WriteCell(0, 2, "LastCommentText");
-            excel.WriteCell(0, 3, "LastCommnetTime");
-
-            for (var i = 0; i < groups.Count; i++)
+            try
             {
-                excel.WriteCell(i + 1, 0, groups[i].Author);
-                excel.WriteCell(i + 1, 1, groups[i].Title);
-                excel.WriteCell(i + 1, 2, groups[i].LastCommentText);
-                excel.WriteCell(i + 1, 3, groups[i].LastCommnetTime.ToShortDateString());
-            }
+                var groups = await adminBusinessService.GetBooksByCondition();
+                var excel = new Excel();
 
-            return File(GetBytes(excel.xlsWorkBook, excel.xlsOptions),
-                excel.xlsOptions.ContentType, "GetBooksInGoodCondition.xls");
+                excel.WriteCell(0, 0, "Author");
+                excel.WriteCell(0, 1, "BookName");
+                excel.WriteCell(0, 2, "LastCommentText");
+                excel.WriteCell(0, 3, "LastCommnetTime");
+
+                for (var i = 0; i < groups.Count; i++)
+                {
+                    string LastCommentTime = groups[i].LastCommentTime.HasValue ?
+                        groups[i].LastCommentTime.Value.ToShortDateString().ToString() : string.Empty;
+
+                    string LastCommentText = groups[i].LastCommentText != null ?
+                        groups[i].LastCommentText : string.Empty;
+
+                    excel.WriteCell(i + 1, 0, groups[i].Author);
+                    excel.WriteCell(i + 1, 1, groups[i].Title);
+                    excel.WriteCell(i + 1, 2, LastCommentText);
+                    excel.WriteCell(i + 1, 3, LastCommentTime);
+                }
+
+                return File(GetBytes(excel.xlsWorkBook, excel.xlsOptions),
+                    excel.xlsOptions.ContentType, "GetBooksInGoodCondition.xls");
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         private static byte[] GetBytes(ExcelFile file, SaveOptions options)

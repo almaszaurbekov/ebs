@@ -3,7 +3,7 @@
 
         this.options = options;
         this.target = target;
-        this.url = "/api/ebs/admin/"
+        this.url = "/api/ebs/admin/";
 
         this._init();
     }
@@ -16,7 +16,7 @@
     }
 
     getBooksCountByUsers() {
-        var url = this.url + "getBooksUser"
+        var url = this.url + "getBooksUser";
         window.location = url;
     }
 
@@ -32,7 +32,7 @@
 
     getBooksInGoodCondition() {
         var url = this.url + "getBooksInGoodConditon";
-        this.__ajaxQuery("GET", url, {});
+        window.location = url;
     }
 
     __ajaxQuery(method, url, data) {

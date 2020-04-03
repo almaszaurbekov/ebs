@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using BusinessLogic.Dto;
 using BusinessLogic.Mappings;
-using BusinessLogic.Models;
 using DataAccess.Entities;
 using Microsoft.Extensions.Caching.Memory;
 using System;

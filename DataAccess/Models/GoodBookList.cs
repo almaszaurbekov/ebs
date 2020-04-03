@@ -1,9 +1,5 @@
-﻿using DataAccess.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BusinessLogic.Models
+﻿using System;
+namespace DataAccess.Models
 {
     /// <summary>
     /// Список книг в хорошем состоянии
@@ -13,6 +9,6 @@ namespace BusinessLogic.Models
         public string Author { get; set; }
         public string Title { get; set; }
         public string LastCommentText { get; set; }
-        public DateTime LastCommnetTime { get; set; }
+        public DateTime? LastCommentTime { get; set; }
     }
 }

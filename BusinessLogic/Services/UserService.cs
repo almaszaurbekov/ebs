@@ -1,4 +1,4 @@
-﻿using BusinessLogic.Models;
+﻿using DataAccess.Models;
 using BusinessLogic.Services.Base;
 using DataAccess;
 using DataAccess.Entities;
@@ -37,43 +37,9 @@ namespace BusinessLogic.Services
                 .FirstOrDefaultAsync();
         }
 
-        /// <summary>
-        /// Group By SQL Command
-        /// </summary>
         public async Task<List<ShortUserList>> GetShortUserList(string sql)
         {
-            var entities = new List<ShortUserList>();
-            var conn = context.Database.GetDbConnection();
-
-            try
-            {
-                await conn.OpenAsync();
-                using (var command = conn.CreateCommand())
-                {
-                    command.CommandText = sql;
-                    DbDataReader reader = await command.ExecuteReaderAsync();
-
-                    if (reader.HasRows)
-                    {
-                        while (await reader.ReadAsync())
-                        {
-                            entities.Add(new ShortUserList { Id = reader.GetInt32(0), Count = reader.GetInt32(1) });
-                        }
-                    }
-
-                    reader.Dispose();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            finally
-            {
-                conn.Close();
-            }
-
-            return entities;
+            return await context.GetShortUserList(sql);
         }
     }
 }

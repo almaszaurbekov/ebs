@@ -1,4 +1,4 @@
-﻿using BusinessLogic.Models;
+﻿using DataAccess.Models;
 using BusinessLogic.Services.Base;
 using DataAccess;
 using DataAccess.Entities;
@@ -17,7 +17,7 @@ namespace BusinessLogic.Services
         Task<List<Book>> GetBooksByUserId(int? id);
         Task<List<Book>> GetBooksSortedByDate();
         Task<List<BookGroup>> GetBooksCountByAuthor(string sql);
-        Task<List<GoodBookList>> GetBooksByCondition(string sql);
+        Task<List<GoodBookList>> GetBooksByCondition(string sql, bool inGoodCondition);
     }
 
     public class BookService : EntityService<Book>, IBookService
@@ -58,51 +58,12 @@ namespace BusinessLogic.Services
 
         public async Task<List<BookGroup>> GetBooksCountByAuthor(string sql)
         {
-            var entities = new List<BookGroup>();
-            var conn = context.Database.GetDbConnection();
-
-            try
-            {
-                await conn.OpenAsync();
-                using (var command = conn.CreateCommand())
-                {
-                    command.CommandText = sql;
-                    DbDataReader reader = await command.ExecuteReaderAsync();
-
-                    if (reader.HasRows)
-                    {
-                        while (await reader.ReadAsync())
-                        {
-                            var row = new BookGroup { Author = reader.GetString(0), Count = reader.GetInt32(1) };
-                            entities.Add(row);
-                        }
-                    }
-                    reader.Dispose();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            finally
-            {
-                conn.Close();
-            }
-
-            return entities;
+            return await context.GetBooksCountByAuthor(sql);
         }
 
-        public async Task<List<GoodBookList>> GetBooksByCondition(string sql)
+        public async Task<List<GoodBookList>> GetBooksByCondition(string sql, bool inGoodCondition)
         {
-            try
-            {
-                //var books = await DbSet.FromSql(sql).ToListAsync();
-                return new List<GoodBookList>();
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            return await context.GetBooksByCondition(sql, inGoodCondition);
         }
     }
 }
