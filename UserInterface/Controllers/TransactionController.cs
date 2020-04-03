@@ -6,29 +6,27 @@ using AutoMapper;
 using BusinessLogic.Dto;
 using BusinessLogic.Services.BusinessService;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using UserInterface.Controllers.Base;
 using UserInterface.ViewModels;
 
 namespace UserInterface.Controllers
 {
     [Authorize]
-    public class TransactionController : Controller
+    public class TransactionController : BaseMvcController
     {
-        #region Initialize
-
         private readonly IBookBusinessService bookBusinessService;
         private readonly IUserBusinessService userBusinessService;
-        private readonly IMapper mapper;
+
         public TransactionController(IBookBusinessService bookBusinessService,
-            IMapper mapper, IUserBusinessService userBusinessService)
+            IMapper mapper, IUserBusinessService userBusinessService,
+            IWebHostEnvironment hostEnvironment) : base(mapper, hostEnvironment)
         {
             this.bookBusinessService = bookBusinessService;
             this.userBusinessService = userBusinessService;
-            this.mapper = mapper;
         }
-
-        #endregion
 
         /// <summary>
         /// Список транзакции пользователя

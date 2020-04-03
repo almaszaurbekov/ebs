@@ -13,29 +13,23 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using UserInterface.ViewModels;
 using BusinessLogic.Dto;
+using UserInterface.Controllers.Base;
 
 namespace UserInterface.Controllers
 {
     [Authorize]
-    public class BookController : Controller
+    public class BookController : BaseMvcController
     {
-        #region Initialize
-
         private readonly IUserBusinessService userBusinessService;
         private readonly IBookBusinessService bookBusinessService;
-        private readonly IWebHostEnvironment hostEnvironment;
-        private readonly IMapper mapper;
 
         public BookController(IBookBusinessService bookBusinessService, IMapper mapper,
-            IWebHostEnvironment hostEnvironment, IUserBusinessService userBusinessService)
+            IWebHostEnvironment hostEnvironment, IUserBusinessService userBusinessService) 
+            : base(mapper, hostEnvironment)
         {
             this.bookBusinessService = bookBusinessService;
             this.userBusinessService = userBusinessService;
-            this.hostEnvironment = hostEnvironment;
-            this.mapper = mapper;
         }
-
-        #endregion
 
         /// <summary>
         /// Страница с поисковиком
@@ -229,21 +223,6 @@ namespace UserInterface.Controllers
         private async Task<bool> BookExists(int id)
         {
             return await bookBusinessService.GetBookById(id) != null;
-        }
-
-        /// <summary>
-        /// Функция по созданию файла в wwwroot/img
-        /// </summary>
-        /// <param name="imgfileName">Имя файла, отправленного пользователем</param>
-        /// <param name="image">HtppRequest фотографии</param>
-        private string CreateFile(string imgfileName, IFormFile image)
-        {
-            string fileName = null;
-            string folder = Path.Combine(hostEnvironment.WebRootPath, "img");
-            fileName = Guid.NewGuid().ToString() + "_" + imgfileName;
-            string filepath = Path.Combine(folder, fileName);
-            image.CopyTo(new FileStream(filepath, FileMode.Create));
-            return fileName;
         }
     }
 }

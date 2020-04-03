@@ -17,29 +17,23 @@ using Microsoft.AspNetCore.Http;
 using System;
 using System.Linq;
 using BusinessLogic.Dto;
+using UserInterface.Controllers.Base;
 
 namespace UserInterface.Controllers
 {
     [Authorize]
-    public class UserController : Controller
+    public class UserController : BaseMvcController
     {
-        #region Initialize
-
         private readonly IUserBusinessService userBusinessService;
-        private readonly IWebHostEnvironment hostEnvironment;
         private readonly IBookBusinessService bookBusinessService;
-        private readonly IMapper mapper;
 
         public UserController(IUserBusinessService userBusinessService, IMapper mapper,
             IWebHostEnvironment hostEnvironment, IBookBusinessService bookBusinessService)
+            : base(mapper, hostEnvironment)
         {
             this.userBusinessService = userBusinessService;
             this.bookBusinessService = bookBusinessService;
-            this.hostEnvironment = hostEnvironment;
-            this.mapper = mapper;
         }
-
-        #endregion
 
         /// <summary>
         /// Главная страница приложения
@@ -318,21 +312,6 @@ namespace UserInterface.Controllers
         private async Task<bool> UserExists(int id)
         {
             return await userBusinessService.GetUserById(id) != null;
-        }
-
-        /// <summary>
-        /// Функция по созданию файла в wwwroot/img
-        /// </summary>
-        /// <param name="imgfileName">Имя файла, отправленного пользователем</param>
-        /// <param name="image">HtppRequest фотографии</param>
-        private string CreateFile(string imgfileName, IFormFile image)
-        {
-            string fileName = null;
-            string folder = Path.Combine(hostEnvironment.WebRootPath, "img");
-            fileName = Guid.NewGuid().ToString() + "_" + imgfileName;
-            string filepath = Path.Combine(folder, fileName);
-            image.CopyTo(new FileStream(filepath, FileMode.Create));
-            return fileName;
         }
     }
 }
