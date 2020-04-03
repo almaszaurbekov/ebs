@@ -134,7 +134,7 @@ namespace BusinessLogic.Services.BusinessService
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    var books = await bookService.GetBooksByDate();
+                    var books = await bookService.GetBooksSortedByDate();
                     return mapper.Map<List<Book>, List<BookDto>>(
                         books.OrderByDescending(s => s.CreatedDate).ToList());
                 }

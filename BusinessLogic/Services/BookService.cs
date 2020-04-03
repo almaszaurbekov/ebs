@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BusinessLogic.Services
@@ -16,8 +15,9 @@ namespace BusinessLogic.Services
     public interface IBookService : IService<Book>
     {
         Task<List<Book>> GetBooksByUserId(int? id);
-        Task<List<Book>> GetBooksByDate();
+        Task<List<Book>> GetBooksSortedByDate();
         Task<List<BookGroup>> GetBooksCountByAuthor(string sql);
+        Task<List<GoodBookList>> GetBooksByCondition(string sql);
     }
 
     public class BookService : EntityService<Book>, IBookService
@@ -48,7 +48,7 @@ namespace BusinessLogic.Services
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<List<Book>> GetBooksByDate()
+        public async Task<List<Book>> GetBooksSortedByDate()
         {
             return await DbSet
                 .Include(u => u.User)
@@ -90,6 +90,19 @@ namespace BusinessLogic.Services
             }
 
             return entities;
+        }
+
+        public async Task<List<GoodBookList>> GetBooksByCondition(string sql)
+        {
+            try
+            {
+                //var books = await context.Books.FromSqlRaw<List<GoodBookList>>(sql).ToListAsync();
+                return new List<GoodBookList>();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }

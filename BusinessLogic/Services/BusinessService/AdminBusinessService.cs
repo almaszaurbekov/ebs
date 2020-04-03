@@ -10,14 +10,14 @@ namespace BusinessLogic.Services.BusinessService
 {
     public interface IAdminBusinessService
     {
-        Task<List<BookGroup>> GetBooksCountByAuthor(int count);
-        Task<List<ShortUserList>> GetBooksCountByUsers();
         Task<List<ShortUserList>> GetMessagesCountByUsers();
         Task<List<ShortUserList>> GetCommentsCountByUsers();
-        Task<List<GoodBookList>> GetBooksInGoodCondition();
+        Task<List<ShortUserList>> GetBooksCountByUsers();
+        Task<List<BookGroup>> GetBooksCountByAuthor(int minCount = 1);
+        Task<List<GoodBookList>> GetBooksByCondition(bool inGoodCondition = true);
     }
 
-    class AdminBusinessService : IAdminBusinessService
+    public class AdminBusinessService : IAdminBusinessService
     {
         #region Initialize
 
@@ -49,7 +49,7 @@ namespace BusinessLogic.Services.BusinessService
         /// </summary>
         /// <param name="minCount">Minimum count of books</param>
         /// <returns></returns>
-        public async Task<List<BookGroup>> GetBooksCountByAuthor(int minCount)
+        public async Task<List<BookGroup>> GetBooksCountByAuthor(int minCount = 1)
         {
             var sql = $@"SELECT b.Author, COUNT(*) FROM Books AS b
                         GROUP BY b.Author
@@ -83,9 +83,11 @@ namespace BusinessLogic.Services.BusinessService
             return await userService.GetShortUserList(sql);
         }
 
-        public async Task<List<GoodBookList>> GetBooksInGoodCondition()
+        public async Task<List<GoodBookList>> GetBooksByCondition(bool inGoodCondition = true)
         {
-            throw new NotImplementedException();
+            var sql = $@"exec GetBooksByCondition 
+                        @inGoodCondition = {Convert.ToInt32(inGoodCondition)}";
+            return await bookService.GetBooksByCondition(sql);
         }
     }
 }

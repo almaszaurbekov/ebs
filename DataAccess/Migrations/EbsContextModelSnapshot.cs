@@ -146,7 +146,7 @@ namespace DataAccess.Migrations
                             Id = 1,
                             Author = "Жюль Верн",
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 814, DateTimeKind.Utc).AddTicks(1899),
+                            CreatedDate = new DateTime(2020, 4, 3, 10, 29, 35, 887, DateTimeKind.Utc).AddTicks(3884),
                             Description = "Very good book",
                             ImageSource = "https://static.librebook.me/uploads/pics/01/61/852.jpg",
                             InGoodCondition = true,
@@ -162,7 +162,7 @@ namespace DataAccess.Migrations
                             Id = 2,
                             Author = "Жюль Верн",
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 814, DateTimeKind.Utc).AddTicks(8110),
+                            CreatedDate = new DateTime(2020, 4, 3, 10, 29, 35, 887, DateTimeKind.Utc).AddTicks(9800),
                             Description = "Very good book",
                             ImageSource = "https://www.mann-ivanov-ferber.ru/assets/images/covers/37/21737/1.00x-thumb.png",
                             InGoodCondition = true,
@@ -178,7 +178,7 @@ namespace DataAccess.Migrations
                             Id = 3,
                             Author = "Жюль Верн",
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 814, DateTimeKind.Utc).AddTicks(8220),
+                            CreatedDate = new DateTime(2020, 4, 3, 10, 29, 35, 887, DateTimeKind.Utc).AddTicks(9924),
                             Description = "Very good book",
                             ImageSource = "https://be2.aldebaran.ru/static/bookimages/42/41/09/42410912.bin.dir/42410912.cover.jpg",
                             InGoodCondition = true,
@@ -194,7 +194,7 @@ namespace DataAccess.Migrations
                             Id = 4,
                             Author = "Жюль Верн",
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 814, DateTimeKind.Utc).AddTicks(8224),
+                            CreatedDate = new DateTime(2020, 4, 3, 10, 29, 35, 887, DateTimeKind.Utc).AddTicks(9928),
                             Description = "Very good book",
                             ImageSource = "https://j.livelib.ru/boocover/1001542410/o/1833/Zhyul_Vern__Puteshestvie_k_tsentru_Zemli.jpeg",
                             InGoodCondition = true,
@@ -210,7 +210,7 @@ namespace DataAccess.Migrations
                             Id = 5,
                             Author = "Джоан Роулинг",
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 814, DateTimeKind.Utc).AddTicks(8226),
+                            CreatedDate = new DateTime(2020, 4, 3, 10, 29, 35, 887, DateTimeKind.Utc).AddTicks(9931),
                             Description = "Very good book",
                             ImageSource = "https://i4.mybook.io/p/512x852/book_covers/86/25/86251214-92ea-44e9-a394-1a9ef1211400.jpe?v2",
                             InGoodCondition = true,
@@ -226,7 +226,7 @@ namespace DataAccess.Migrations
                             Id = 6,
                             Author = "Джоан Роулинг",
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 814, DateTimeKind.Utc).AddTicks(8233),
+                            CreatedDate = new DateTime(2020, 4, 3, 10, 29, 35, 887, DateTimeKind.Utc).AddTicks(9937),
                             Description = "Very good book",
                             ImageSource = "https://i4.mybook.io/p/512x852/book_covers/37/81/37811194-8ad9-45a1-b394-9960b57b511f.jpe?v2",
                             InGoodCondition = true,
@@ -242,7 +242,7 @@ namespace DataAccess.Migrations
                             Id = 7,
                             Author = "Джоан Роулинг",
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 814, DateTimeKind.Utc).AddTicks(8236),
+                            CreatedDate = new DateTime(2020, 4, 3, 10, 29, 35, 887, DateTimeKind.Utc).AddTicks(9939),
                             Description = "Very good book",
                             ImageSource = "https://i4.mybook.io/p/512x852/book_covers/db/53/db53dd7e-10da-471a-b33e-2669f5a5abe9.jpe?v2",
                             InGoodCondition = true,
@@ -258,7 +258,7 @@ namespace DataAccess.Migrations
                             Id = 8,
                             Author = "Федор Достоевский",
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 814, DateTimeKind.Utc).AddTicks(8238),
+                            CreatedDate = new DateTime(2020, 4, 3, 10, 29, 35, 887, DateTimeKind.Utc).AddTicks(9942),
                             Description = "Very good book",
                             ImageSource = "https://azbyka.ru/fiction/wp-content/uploads/2013/02/55.jpg",
                             InGoodCondition = true,
@@ -384,7 +384,7 @@ namespace DataAccess.Migrations
                             Id = 1,
                             BookId = 1,
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 814, DateTimeKind.Utc).AddTicks(8758),
+                            CreatedDate = new DateTime(2020, 4, 3, 10, 29, 35, 888, DateTimeKind.Utc).AddTicks(444),
                             IsDeleted = false,
                             Text = "I think this is amazing book!",
                             UserId = 2
@@ -394,7 +394,7 @@ namespace DataAccess.Migrations
                             Id = 2,
                             BookId = 6,
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 815, DateTimeKind.Utc).AddTicks(109),
+                            CreatedDate = new DateTime(2020, 4, 3, 10, 29, 35, 888, DateTimeKind.Utc).AddTicks(1758),
                             IsDeleted = false,
                             Text = "This is awful book...",
                             UserId = 1
@@ -464,12 +464,12 @@ namespace DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 815, DateTimeKind.Utc).AddTicks(971),
+                            CreatedDate = new DateTime(2020, 4, 3, 10, 29, 35, 888, DateTimeKind.Utc).AddTicks(2484),
                             FirstInterlocutorEmail = "foxxychmoxy@gmail.com",
                             FirstInterlocutorId = 1,
                             IsDeleted = false,
                             LastMessage = "Hello! Yes, I know. Thank you!",
-                            LastMessageDate = new DateTime(2020, 3, 28, 18, 41, 33, 815, DateTimeKind.Utc).AddTicks(4348),
+                            LastMessageDate = new DateTime(2020, 4, 3, 10, 29, 35, 888, DateTimeKind.Utc).AddTicks(5764),
                             SecondInterlocutorEmail = "almasgaara@mail.ru",
                             SecondInterlocutorId = 2
                         });
@@ -538,7 +538,7 @@ namespace DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 815, DateTimeKind.Utc).AddTicks(5550),
+                            CreatedDate = new DateTime(2020, 4, 3, 10, 29, 35, 888, DateTimeKind.Utc).AddTicks(6832),
                             DialogControlId = 1,
                             HasRead = true,
                             IsDeleted = false,
@@ -552,7 +552,7 @@ namespace DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 815, DateTimeKind.Utc).AddTicks(9953),
+                            CreatedDate = new DateTime(2020, 4, 3, 10, 29, 35, 889, DateTimeKind.Utc).AddTicks(951),
                             DialogControlId = 1,
                             HasRead = true,
                             IsDeleted = false,
@@ -604,17 +604,17 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c0f08afd-19df-4c48-b022-8ad1bbf2e132"),
+                            Id = new Guid("2b7a277d-1ded-4dfd-bd80-1b4433c7e6b8"),
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 808, DateTimeKind.Utc).AddTicks(3654),
+                            CreatedDate = new DateTime(2020, 4, 3, 10, 29, 35, 882, DateTimeKind.Utc).AddTicks(2883),
                             IsDeleted = false,
                             Name = "admin"
                         },
                         new
                         {
-                            Id = new Guid("67258a53-b254-41af-9d26-5200835986b3"),
+                            Id = new Guid("f00f2d1d-1929-4cad-914a-5bc4e6ad35a3"),
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 808, DateTimeKind.Utc).AddTicks(5737),
+                            CreatedDate = new DateTime(2020, 4, 3, 10, 29, 35, 882, DateTimeKind.Utc).AddTicks(4836),
                             IsDeleted = false,
                             Name = "user"
                         });
@@ -683,21 +683,21 @@ namespace DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 808, DateTimeKind.Utc).AddTicks(7812),
+                            CreatedDate = new DateTime(2020, 4, 3, 10, 29, 35, 882, DateTimeKind.Utc).AddTicks(6935),
                             Email = "foxxychmoxy@gmail.com",
                             IsDeleted = false,
                             Password = "d9edce5cc424444d5c03fb834de779e9924eb69d05ea3f7be7dd5041bb87864e18b1b75c4d7a9b4abd9d9c784dc482701bdb711256c1f93610a107a161ceb2c2",
-                            RoleId = new Guid("c0f08afd-19df-4c48-b022-8ad1bbf2e132")
+                            RoleId = new Guid("2b7a277d-1ded-4dfd-bd80-1b4433c7e6b8")
                         },
                         new
                         {
                             Id = 2,
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 3, 28, 18, 41, 33, 814, DateTimeKind.Utc).AddTicks(614),
+                            CreatedDate = new DateTime(2020, 4, 3, 10, 29, 35, 887, DateTimeKind.Utc).AddTicks(2691),
                             Email = "almasgaara@mail.ru",
                             IsDeleted = false,
                             Password = "d9edce5cc424444d5c03fb834de779e9924eb69d05ea3f7be7dd5041bb87864e18b1b75c4d7a9b4abd9d9c784dc482701bdb711256c1f93610a107a161ceb2c2",
-                            RoleId = new Guid("67258a53-b254-41af-9d26-5200835986b3")
+                            RoleId = new Guid("f00f2d1d-1929-4cad-914a-5bc4e6ad35a3")
                         });
                 });
 

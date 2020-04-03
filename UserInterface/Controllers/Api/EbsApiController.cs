@@ -228,7 +228,7 @@ namespace UserInterface.Controllers
         [HttpGet("admin/getBooksAuthor")]
         public async Task<IActionResult> GetBooksCountByAuthor()
         {
-            var groups = await adminBusinessService.GetBooksCountByAuthor(0);
+            var groups = await adminBusinessService.GetBooksCountByAuthor();
             var excel = new Excel();
 
             excel.WriteCell(0, 0, "Author");
@@ -299,6 +299,29 @@ namespace UserInterface.Controllers
 
             return File(GetBytes(excel.xlsWorkBook, excel.xlsOptions), 
                 excel.xlsOptions.ContentType, "GetCommentsCountByUsers.xls");
+        }
+
+        [HttpGet("admin/getBooksInGoodConditon")]
+        public async Task<IActionResult> GetBooksInGoodCondition()
+        {
+            var groups = await adminBusinessService.GetBooksByCondition();
+            var excel = new Excel();
+
+            excel.WriteCell(0, 0, "Author");
+            excel.WriteCell(0, 1, "BookName");
+            excel.WriteCell(0, 2, "LastCommentText");
+            excel.WriteCell(0, 3, "LastCommnetTime");
+
+            for (var i = 0; i < groups.Count; i++)
+            {
+                excel.WriteCell(i + 1, 0, groups[i].Author);
+                excel.WriteCell(i + 1, 1, groups[i].Title);
+                excel.WriteCell(i + 1, 2, groups[i].LastCommentText);
+                excel.WriteCell(i + 1, 3, groups[i].LastCommnetTime.ToShortDateString());
+            }
+
+            return File(GetBytes(excel.xlsWorkBook, excel.xlsOptions),
+                excel.xlsOptions.ContentType, "GetBooksInGoodCondition.xls");
         }
 
         private static byte[] GetBytes(ExcelFile file, SaveOptions options)
