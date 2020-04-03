@@ -4,21 +4,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using UserInterface.ViewModels;
-using Common;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using System.Security.Claims;
 using BusinessLogic.Services.BusinessService;
 using UserInterface.ViewModels.Entities;
-using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
-using System.IO;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Linq;
-using BusinessLogic.Dto;
 using UserInterface.Controllers.Base;
-
+using BusinessLogic.Dto;
+using System.Linq;
+using AutoMapper;
+using Common;
 namespace UserInterface.Controllers
 {
     [Authorize]
@@ -141,17 +137,7 @@ namespace UserInterface.Controllers
                     await userBusinessService.UpdateUser(entity);
 
                     if (User.Identity.Name != entity.Email)
-                    {
-                        await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-                        var claims = new List<Claim>
-                        {
-                            new Claim(ClaimsIdentity.DefaultNameClaimType, entity.Email)
-                        };
-
-                        ClaimsIdentity claimsId = new ClaimsIdentity(claims, "ApplicationCookie", 
-                            ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-                        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsId));
-                    }
+                        await UpdateCookie(entity);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -286,23 +272,6 @@ namespace UserInterface.Controllers
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login", "User");
-        }
-
-        /// <summary>
-        /// Алгоритм аутентификации
-        /// </summary>
-        /// <param name="user">Пользователь</param>
-        private async Task Authenticate(UserDto user)
-        {
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email.ToLower()),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role?.Name)
-            };
-            
-            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, 
-                ClaimsIdentity.DefaultRoleClaimType);
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
 
         /// <summary>
