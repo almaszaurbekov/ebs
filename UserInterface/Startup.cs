@@ -47,6 +47,7 @@ namespace UserInterface
             services.AddTransient<IUserBusinessService, UserBusinessService>();
             services.AddTransient<IBookBusinessService, BookBusinessService>();
             services.AddTransient<IMessageBusinessService, MessageBusinessService>();
+            services.AddTransient<IAdminBusinessService, AdminBusinessService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IBookService, BookService>();
             services.AddTransient<IRoleService, RoleService>();

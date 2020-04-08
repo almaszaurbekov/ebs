@@ -7,29 +7,27 @@ using BusinessLogic.Dto;
 using BusinessLogic.Services.BusinessService;
 using DataAccess.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using UserInterface.Controllers.Base;
 using UserInterface.ViewModels;
 
 namespace UserInterface.Controllers
 {
     [Authorize]
-    public class MessageController : Controller
+    public class MessageController : BaseMvcController
     {
-        #region Initialize
-
         private readonly IUserBusinessService userBusinessService;
         private readonly IMessageBusinessService messageBusinessService;
-        private readonly IMapper mapper;
+
         public MessageController(IUserBusinessService userBusinessService,
-            IMessageBusinessService messageBusinessService, IMapper mapper)
+            IMessageBusinessService messageBusinessService, IMapper mapper, 
+            IWebHostEnvironment hostEnvironment) : base(mapper, hostEnvironment)
         {
             this.userBusinessService = userBusinessService;
             this.messageBusinessService = messageBusinessService;
-            this.mapper = mapper;
         }
-
-        #endregion
 
         /// <summary>
         /// Список диалогов

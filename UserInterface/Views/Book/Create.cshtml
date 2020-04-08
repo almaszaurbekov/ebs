@@ -102,45 +102,9 @@
     </div>
 </section>
 @section Scripts {
+    <script src="~/js/app/bookController.js"></script>
     <script>
         $(document).ready(function () {
-            $("#book-search-auto").click(function () {
-                var value = $("#book-auto").val();
-                if (value.trim() != "") {
-                    $.ajax({
-                        method: "GET",
-                        url: "/api/ebs/books/byvalue",
-                        data: {
-                            value: value.trim()
-                        },
-                        headers: {
-                            RequestVerificationToken:
-                                $('input:hidden[name="__RequestVerificationToken"]').val()
-                        },
-                        beforeSend: function () {
-                            $("#book-list").empty();
-                            $('.wait-pre-con').show();
-                            toastr.info("Your book is searching, please wait", "Got it!");
-                        }
-                    })
-                        .done(function (result) {
-                            $('.wait-pre-con').hide();
-                            if (result.length > 0) {
-                                toastr.success("A lot of books", "Yeah, we have it!");
-                                for (let val of result) {
-                                    $("#book-list").append(`<div class="row bg-light mb-2 pl-2 pt-2 pr-2 pb-2">
-                                                                <div class="col-md-4"><img src="/img/no-book.png" width="100%"></div>
-                                                                <div class="col-md-8"><p class="border-bottom"><b>${val.title}</b></p>
-                                                                <button data-id="${val.id}" class="book-auto-details btn btn-primary pull-right">Добавить</button>
-                                                                <p>${val.author}</p></div>
-                                                            </div>`);
-                                }
-                            } else {
-                                toastr.error("There is no one book what you are looking for", "Oops...");
-                            }
-                        });
-                }
-            });
             $("#book-search-bc").click(function () {
                 var value = $("#book-bc").val();
                 if (value.trim() != "") {

@@ -3,6 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using Common;
 using DataAccess.Context;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using DataAccess.Models;
+using Microsoft.Data.SqlClient;
 
 namespace DataAccess
 {
@@ -21,8 +25,53 @@ namespace DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder = SeedData.Initialize(modelBuilder);
+            SeedData.Initialize(modelBuilder);
             base.OnModelCreating(modelBuilder);
+        }
+
+        public async Task<List<GoodBookList>> GetBooksByCondition(string sql, bool inGoodCondition)
+        {
+            try
+            {
+                SqlParameter param = new SqlParameter("@inGoodCondition", 
+                    Convert.ToInt32(inGoodCondition));
+
+                return await Set<GoodBookList>()
+                    .FromSqlRaw(sql, param)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<BookGroup>> GetBooksCountByAuthor(string sql)
+        {
+            try
+            {
+                return await Set<BookGroup>()
+                    .FromSqlRaw(sql)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<List<ShortUserList>> GetShortUserList(string sql)
+        {
+            try
+            {
+                return await Set<ShortUserList>()
+                    .FromSqlRaw(sql)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

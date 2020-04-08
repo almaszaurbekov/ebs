@@ -1,14 +1,11 @@
 ﻿using AutoMapper;
 using BusinessLogic.Dto;
 using BusinessLogic.Mappings;
-using BusinessLogic.Models;
 using DataAccess.Entities;
 using Microsoft.Extensions.Caching.Memory;
 using Common;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BusinessLogic.Services.BusinessService
@@ -26,9 +23,6 @@ namespace BusinessLogic.Services.BusinessService
         Task<RoleDto> GetRoleById(Guid? id);
         Task<RoleDto> GetRoleByName(string name);
         Task<List<RoleDto>> GetRoles();
-        Task<List<ShortUserList>> GetBooksCountByUsers();
-        Task<List<ShortUserList>> GetMessagesCountByUsers();
-        Task<List<ShortUserList>> GetCommentsCountByUsers();
     }
 
     public class UserBusinessService : IUserBusinessService
@@ -147,31 +141,6 @@ namespace BusinessLogic.Services.BusinessService
         {
             var users = await userService.Filter(s => s.Email.Contains(email.ToLower()));
             return mapper.Map<List<User>, List<UserDto>>(users);
-        }
-
-        public async Task<List<ShortUserList>> GetBooksCountByUsers()
-        {
-            var sql = @"SELECT u.Id, COUNT(*) FROM Users AS u 
-                        JOIN Books AS b ON u.Id = b.UserId
-                        GROUP BY u.Id";
-            return await userService.GetShortUserList(sql);
-        }
-
-        public async Task<List<ShortUserList>> GetMessagesCountByUsers()
-        {
-            var sql = @"SELECT u.Id, COUNT(*) FROM Users AS u 
-                        JOIN Messages AS m ON u.Id = m.UserSenderId OR
-                        u.Id = m.UserReceiverId
-                        GROUP BY u.Id";
-            return await userService.GetShortUserList(sql);
-        }
-
-        public async Task<List<ShortUserList>> GetCommentsCountByUsers()
-        {
-            var sql = @"SELECT u.Id, COUNT(*) FROM Users AS u 
-                        JOIN Comments AS c ON u.Id = c.UserId
-                        GROUP BY u.Id";
-            return await userService.GetShortUserList(sql);
         }
     }
 }

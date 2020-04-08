@@ -1,5 +1,6 @@
 ﻿using Common;
 using DataAccess.Entities;
+using DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,41 +9,56 @@ namespace DataAccess.Context
 {
     public class SeedData
     {
-        public static ModelBuilder Initialize(ModelBuilder modelBuilder)
+        public static void Initialize(ModelBuilder modelBuilder)
         {
             // Добавление пользователей с правами доступа
             string adminRoleName = "admin";
             string userRoleName = "user";
             string password = "123qweAS1!";
 
-            Role adminRole = new Role 
-            { 
-                Id = Guid.NewGuid(), 
-                Name = adminRoleName 
-            };
-            Role userRole = new Role 
-            { 
-                Id = Guid.NewGuid(), 
-                Name = userRoleName 
-            };
+            Role adminRole = new Role { Id = Guid.NewGuid(), Name = adminRoleName };
+            Role userRole = new Role { Id = Guid.NewGuid(), Name = userRoleName };
 
-            User adminUser = new User 
-            { 
-                Id = 1, 
-                Email = "foxxychmoxy@gmail.com", 
-                Password = PasswordHelper.Hash(password), 
-                RoleId = adminRole.Id 
-            };
-            User simpleUser = new User 
-            { 
-                Id = 2, 
-                Email = "almasgaara@mail.ru", 
-                Password = PasswordHelper.Hash(password), 
-                RoleId = userRole.Id 
-            };
+            User adminUser = new User { Id = 1, Email = "foxxychmoxy@gmail.com", 
+                Password = PasswordHelper.Hash(password), RoleId = adminRole.Id };
+            User simpleUser = new User { Id = 2, Email = "almasgaara@mail.ru",
+                Password = PasswordHelper.Hash(password), RoleId = userRole.Id };
 
             // Добавление книг для двух пользователей
-            List<Book> books = new List<Book>()
+            List<Book> books = InitBooks(adminUser, simpleUser);
+
+            // Добавление комментариев двум книгам от двух пользователей
+            List<Comment> comments = InitComments();
+
+            // Добавление сообщений от двух пользователей (переписка между собой)
+            // Добавление диалога - контроль над сообщениями
+            DialogControl dialog = InitDialog(adminUser, simpleUser);
+
+            List<Message> messages = InitMessages(dialog, adminUser, simpleUser);
+
+            modelBuilder.Entity<Role>().HasData(new Role[] { adminRole, userRole });
+            modelBuilder.Entity<User>().HasData(new User[] { adminUser, simpleUser });
+            modelBuilder.Entity<Book>().HasData(books);
+            modelBuilder.Entity<Comment>().HasData(comments);
+            modelBuilder.Entity<DialogControl>().HasData(dialog);
+            modelBuilder.Entity<Message>().HasData(messages);
+
+            // Добавление моделей для Excel выкачки
+            InitModels(modelBuilder);
+        }
+
+        private static void InitModels(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<GoodBookList>().HasNoKey();
+            modelBuilder.Entity<BookGroup>().HasNoKey();
+            modelBuilder.Entity<ShortUserList>().HasNoKey();
+        }
+
+        #region InitBooks
+
+        private static List<Book> InitBooks(User adminUser, User simpleUser)
+        {
+            return new List<Book>()
             {
                 new Book()
                 {
@@ -149,9 +165,15 @@ namespace DataAccess.Context
                     InGoodCondition = true
                 }
             };
+        }
 
-            // Добавление комментариев двум книгам от двух пользователей
-            List<Comment> comments = new List<Comment>()
+        #endregion
+
+        #region InitComments
+
+        private static List<Comment> InitComments()
+        {
+            return new List<Comment>()
             {
                 new Comment()
                 {
@@ -168,10 +190,15 @@ namespace DataAccess.Context
                     Text = "This is awful book..."
                 }
             };
+        }
 
-            // Добавление сообщений от двух пользователей (переписка между собой)
-            // Добавление диалога - контроль над сообщениями
-            DialogControl dialog = new DialogControl()
+        #endregion
+
+        #region InitDialog
+
+        private static DialogControl InitDialog(User adminUser, User simpleUser)
+        {
+            return new DialogControl()
             {
                 Id = 1,
                 FirstInterlocutorEmail = adminUser.Email,
@@ -181,7 +208,15 @@ namespace DataAccess.Context
                 LastMessage = "Hello! Yes, I know. Thank you!",
                 LastMessageDate = DateTime.UtcNow
             };
-            List<Message> messages = new List<Message>()
+        }
+
+        #endregion
+
+        #region InitMessages
+
+        private static List<Message> InitMessages(DialogControl dialog, User adminUser, User simpleUser)
+        {
+           return new List<Message>()
             {
                 new Message()
                 {
@@ -206,15 +241,9 @@ namespace DataAccess.Context
                     UserReceiverId = adminUser.Id
                 }
             };
-
-            modelBuilder.Entity<Role>().HasData(new Role[] { adminRole, userRole });
-            modelBuilder.Entity<User>().HasData(new User[] { adminUser, simpleUser });
-            modelBuilder.Entity<Book>().HasData(books);
-            modelBuilder.Entity<Comment>().HasData(comments);
-            modelBuilder.Entity<DialogControl>().HasData(dialog);
-            modelBuilder.Entity<Message>().HasData(messages);
-
-            return modelBuilder;
         }
+
+        #endregion
+
     }
 }

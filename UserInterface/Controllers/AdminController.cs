@@ -24,16 +24,8 @@ namespace UserInterface.Controllers
             this.mapper = mapper;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var books = await bookBusinessService.GetBooks();
-            var users = await userBusinessService.GetUsers();
-
-            ViewData["BookList"] = mapper.Map<List<BookDto>,
-                List<BookListViewModel>>(books.TakeLast(5).ToList());
-            ViewData["UserList"] = mapper.Map<List<UserDto>, 
-                List<UserListViewModel>>(users.TakeLast(5).ToList());
-
             return View();
         }
     }

@@ -1,4 +1,4 @@
-﻿namespace BusinessLogic.Models
+﻿namespace DataAccess.Models
 {
     public class ShortUserList
     {
