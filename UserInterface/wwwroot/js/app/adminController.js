@@ -20,7 +20,8 @@
         this.__clear();
 
         var url = "/api/ebs/books/index";
-        var ajax = this.__ajaxQuery("GET", url, {});
+        var data = { "minCount": 5 };
+        var ajax = this.__ajaxQuery("GET", url, data);
 
         this.thead.append("<th scope='col'>Id</th>");
         this.thead.append("<th scope='col'>Title</th>");
@@ -116,7 +117,8 @@
         this.__clear();
 
         var url = "/api/ebs/users";
-        var ajax = this.__ajaxQuery("GET", url, {});
+        var data = { "minCount": 5 };
+        var ajax = this.__ajaxQuery("GET", url, data);
 
         this.thead.append("<th scope='col'>#</th>");
         this.thead.append("<th scope='col'>Email</th>");

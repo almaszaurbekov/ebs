@@ -96,9 +96,10 @@ namespace UserInterface.Controllers.Api
         /// </summary>
         /// <param name="search">Ключевой текст</param>
         [HttpGet("books/index")]
-        public async Task<IActionResult> GetBooksBySearch(string search)
+        public async Task<IActionResult> GetBooksBySearch(string search, int minCount = 0)
         {
             var books = await bookBusinessService.GetBooksBySearchValue(search);
+            books = GetMinCountOfBooks(minCount, books);
             var booksVM = new List<BookListViewModel>();
             foreach (var book in books)
             {
@@ -107,6 +108,16 @@ namespace UserInterface.Controllers.Api
                 booksVM.Add(entity);
             }
             return Ok(booksVM);
+        }
+
+        private List<BookDto> GetMinCountOfBooks(int minCount, List<BookDto> books)
+        {
+            if(minCount > 0)
+            {
+                return books.Take(minCount).ToList();
+            }
+
+            return books;
         }
     }
 }

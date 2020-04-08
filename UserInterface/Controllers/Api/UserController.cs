@@ -20,9 +20,20 @@ namespace UserInterface.Controllers.Api
         /// Список всех пользователей
         /// </summary>
         [HttpGet("users")]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(int minCount = 0)
         {
             var users = await userBusinessService.GetUsers();
+            return GetMinCountOfUsers(minCount, users);
+        }
+
+        private OkObjectResult GetMinCountOfUsers(int minCount, List<UserDto> users)
+        {
+            if (minCount > 0)
+            {
+                return Ok(mapper.Map<List<UserDto>,
+                    List<UserListViewModel>>(users).Take(minCount).ToList());   
+            }
+
             return Ok(mapper.Map<List<UserDto>, List<UserListViewModel>>(users));
         }
 
