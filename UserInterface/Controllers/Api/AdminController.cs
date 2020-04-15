@@ -40,8 +40,11 @@ namespace UserInterface.Controllers.Api
 
             for (var i = 0; i < groups.Count; i++)
             {
-                excel.WriteCell(i + 1, 0, groups[i].Author);
-                excel.WriteCell(i + 1, 1, groups[i].Count.ToString());
+                var author = NonEmptyValue(groups[i].Author);
+                var count = NonEmptyValue(groups[i].Count.ToString());
+
+                excel.WriteCell(i + 1, 0, author);
+                excel.WriteCell(i + 1, 1, count);
             }
 
             return File(GetBytes(excel.xlsWorkBook, excel.xlsOptions),
@@ -65,8 +68,11 @@ namespace UserInterface.Controllers.Api
 
             for (var i = 0; i < groups.Count; i++)
             {
-                excel.WriteCell(i + 1, 0, groups[i].Id.ToString());
-                excel.WriteCell(i + 1, 1, groups[i].Count.ToString());
+                var id = NonEmptyValue(groups[i].Id.ToString());
+                var count = NonEmptyValue(groups[i].Count.ToString());
+
+                excel.WriteCell(i + 1, 0, id);
+                excel.WriteCell(i + 1, 1, count);
             }
 
             return File(GetBytes(excel.xlsWorkBook, excel.xlsOptions),
@@ -90,8 +96,11 @@ namespace UserInterface.Controllers.Api
 
             for (var i = 0; i < groups.Count; i++)
             {
-                excel.WriteCell(i + 1, 0, groups[i].Id.ToString());
-                excel.WriteCell(i + 1, 1, groups[i].Count.ToString());
+                var id = NonEmptyValue(groups[i].Id.ToString());
+                var count = NonEmptyValue(groups[i].Count.ToString());
+
+                excel.WriteCell(i + 1, 0, id);
+                excel.WriteCell(i + 1, 1, count);
             }
 
             return File(GetBytes(excel.xlsWorkBook, excel.xlsOptions),
@@ -115,8 +124,11 @@ namespace UserInterface.Controllers.Api
 
             for (var i = 0; i < groups.Count; i++)
             {
-                excel.WriteCell(i + 1, 0, groups[i].Id.ToString());
-                excel.WriteCell(i + 1, 1, groups[i].Count.ToString());
+                var id = NonEmptyValue(groups[i].Id.ToString());
+                var count = NonEmptyValue(groups[i].Count.ToString());
+
+                excel.WriteCell(i + 1, 0, id);
+                excel.WriteCell(i + 1, 1, count);
             }
 
             return File(GetBytes(excel.xlsWorkBook, excel.xlsOptions),
@@ -144,14 +156,14 @@ namespace UserInterface.Controllers.Api
 
                 for (var i = 0; i < groups.Count; i++)
                 {
-                    string LastCommentTime = groups[i].LastCommentTime.HasValue ?
-                        groups[i].LastCommentTime.Value.ToShortDateString().ToString() : string.Empty;
+                    var author = NonEmptyValue(groups[i].Author);
+                    var title = NonEmptyValue(groups[i].Title);
+                    var LastCommentText = NonEmptyValue(groups[i].LastCommentText);
+                    var LastCommentTime = groups[i].LastCommentTime.HasValue ?
+                        groups[i].LastCommentTime.Value.ToShortDateString().ToString() : "Пусто";
 
-                    string LastCommentText = groups[i].LastCommentText != null ?
-                        groups[i].LastCommentText : string.Empty;
-
-                    excel.WriteCell(i + 1, 0, groups[i].Author);
-                    excel.WriteCell(i + 1, 1, groups[i].Title);
+                    excel.WriteCell(i + 1, 0, author);
+                    excel.WriteCell(i + 1, 1, title);
                     excel.WriteCell(i + 1, 2, LastCommentText);
                     excel.WriteCell(i + 1, 3, LastCommentTime);
                 }
@@ -182,14 +194,17 @@ namespace UserInterface.Controllers.Api
 
                 for (var i = 0; i < usersVM.Count; i++)
                 {
-                    var address = usersVM[i].Address != null ?
-                        usersVM[i].Address : string.Empty;
+                    var id = NonEmptyValue(usersVM[i].Id.ToString());
+                    var email = NonEmptyValue(usersVM[i].Email);
+                    var fullName = NonEmptyValue(usersVM[i].FullName);
+                    var address = NonEmptyValue(usersVM[i].Address);
+                    var roleName = NonEmptyValue(usersVM[i].RoleName);
 
-                    excel.WriteCell(i + 1, 0, usersVM[i].Id.ToString());
-                    excel.WriteCell(i + 1, 1, usersVM[i].Email);
-                    excel.WriteCell(i + 1, 2, usersVM[i].FullName);
+                    excel.WriteCell(i + 1, 0, id);
+                    excel.WriteCell(i + 1, 1, email);
+                    excel.WriteCell(i + 1, 2, fullName);
                     excel.WriteCell(i + 1, 3, address);
-                    excel.WriteCell(i + 1, 4, usersVM[i].RoleName);
+                    excel.WriteCell(i + 1, 4, roleName);
                 }
 
                 return File(GetBytes(excel.xlsWorkBook, excel.xlsOptions),
@@ -214,10 +229,15 @@ namespace UserInterface.Controllers.Api
 
             for (var i = 0; i < groups.Count; i++)
             {
-                excel.WriteCell(i + 1, 0, groups[i].Id.ToString());
-                excel.WriteCell(i + 1, 1, groups[i].Title);
-                excel.WriteCell(i + 1, 2, groups[i].Author);
-                excel.WriteCell(i + 1, 3, groups[i].UserId.ToString());
+                var id = NonEmptyValue(groups[i].Id.ToString());
+                var title = NonEmptyValue(groups[i].Title);
+                var author = NonEmptyValue(groups[i].Author);
+                var userId = NonEmptyValue(groups[i].UserId.ToString());
+
+                excel.WriteCell(i + 1, 0, id);
+                excel.WriteCell(i + 1, 1, title);
+                excel.WriteCell(i + 1, 2, author);
+                excel.WriteCell(i + 1, 3, userId);
             }
 
             return File(GetBytes(excel.xlsWorkBook, excel.xlsOptions),
@@ -231,6 +251,13 @@ namespace UserInterface.Controllers.Api
                 file.Save(stream, options);
                 return stream.ToArray();
             }
+        }
+
+        private string NonEmptyValue(string value)
+        {
+            if(string.IsNullOrWhiteSpace(value))
+                return "Пусто";
+            return value;
         }
 
         /// <summary>

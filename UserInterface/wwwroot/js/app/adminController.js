@@ -32,10 +32,10 @@
             var tr = $("<tr></tr>");
             const { id, title, author, userId } = obj;
 
-            tr.append(`<th scope="row">${id}</th>`);
-            tr.append(`<td>${title}</td>`);
-            tr.append(`<td>${author}</td>`);
-            tr.append(`<td>${userId}</td>`);
+            tr.append(`<th scope="row">${this.__nonEmptyValue(id)}</th>`);
+            tr.append(`<td>${this.__nonEmptyValue(title)}</td>`);
+            tr.append(`<td>${this.__nonEmptyValue(author)}</td>`);
+            tr.append(`<td>${this.__nonEmptyValue(userId)}</td>`);
 
             this.tbody.append(tr);
         }
@@ -56,8 +56,8 @@
             var tr = $("<tr></tr>");
             const { author, count } = obj;
 
-            tr.append(`<th scope="row">${author}</th>`);
-            tr.append(`<td>${count}</td>`);
+            tr.append(`<th scope="row">${this.__nonEmptyValue(author)}</th>`);
+            tr.append(`<td>${this.__nonEmptyValue(count)}</td>`);
 
             this.tbody.append(tr);
         }
@@ -79,11 +79,12 @@
         for (let obj of ajax.responseJSON) {
             var tr = $("<tr></tr>");
             const { author, title, lastCommentText, lastCommentTime } = obj;
+            var lastCommentDate = this.__getDateTime(lastCommentTime);
 
-            tr.append(`<th scope="row">${author}</th>`);
-            tr.append(`<td>${title}</td>`);
-            tr.append(`<td>${lastCommentText}</td>`);
-            tr.append(`<td>${this.__getDateTime(lastCommentTime)}</td>`);
+            tr.append(`<th scope="row">${this.__nonEmptyValue(author)}</th>`);
+            tr.append(`<td>${this.__nonEmptyValue(title)}</td>`);
+            tr.append(`<td>${this.__nonEmptyValue(lastCommentText)}</td>`);
+            tr.append(`<td>${this.__nonEmptyValue(lastCommentDate)}</td>`);
 
             this.tbody.append(tr);
         }
@@ -104,8 +105,8 @@
             var tr = $("<tr></tr>");
             const { id, count } = obj;
 
-            tr.append(`<th scope="row">${id}</th>`);
-            tr.append(`<td>${count}</td>`);
+            tr.append(`<th scope="row">${this.__nonEmptyValue(id)}</th>`);
+            tr.append(`<td>${this.__nonEmptyValue(count)}</td>`);
 
             this.tbody.append(tr);
         }
@@ -131,10 +132,10 @@
             const { id, email, fullName, address, roleName } = obj;
 
             tr.append(`<th scope="row">${id}</th>`);
-            tr.append(`<td>${email}</td>`);
-            tr.append(`<td>${fullName}</td>`);
-            tr.append(`<td>${address}</td>`);
-            tr.append(`<td>${roleName}</td>`);
+            tr.append(`<td>${this.__nonEmptyValue(email)}</td>`);
+            tr.append(`<td>${this.__nonEmptyValue(fullName)}</td>`);
+            tr.append(`<td>${this.__nonEmptyValue(address)}</td>`);
+            tr.append(`<td>${this.__nonEmptyValue(roleName)}</td>`);
 
             this.tbody.append(tr);
         }
@@ -155,8 +156,8 @@
             var tr = $("<tr></tr>");
             const { id, count } = obj;
 
-            tr.append(`<th scope="row">${id}</th>`);
-            tr.append(`<td>${count}</td>`);
+            tr.append(`<th scope="row">${this.__nonEmptyValue(id)}</th>`);
+            tr.append(`<td>${this.__nonEmptyValue(count)}</td>`);
 
             this.tbody.append(tr);
         }
@@ -177,8 +178,8 @@
             var tr = $("<tr></tr>");
             const { id, count } = obj;
 
-            tr.append(`<th scope="row">${id}</th>`);
-            tr.append(`<td>${count}</td>`);
+            tr.append(`<th scope="row">${this.__nonEmptyValue(id)}</th>`);
+            tr.append(`<td>${this.__nonEmptyValue(count)}</td>`);
 
             this.tbody.append(tr);
         }
@@ -195,6 +196,18 @@
             return date[0];
         }
         return time;
+    }
+
+    __nonEmptyValue(value) {
+        if (value == null || this.__isEmpty(value))
+            return "Пусто";
+        return value;
+    }
+
+    __isEmpty(value) {
+        if (typeof (value) == typeof ('str'))
+            return value.trim() === "";
+        return false;
     }
 
     __ajaxQuery(method, url, data) {
