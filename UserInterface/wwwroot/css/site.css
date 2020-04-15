@@ -230,4 +230,7 @@ section {
         margin-top:10px;
         width:100%;
     }
+    .ebs-search {
+        display: none;
+    }
 }
