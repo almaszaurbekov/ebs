@@ -4,6 +4,3 @@
         this.contentType = 'application/json; charset=utf-8';
     }
 }
-
-asdsad
-asdasd

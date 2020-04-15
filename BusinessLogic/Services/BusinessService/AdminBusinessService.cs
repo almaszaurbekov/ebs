@@ -51,7 +51,7 @@ namespace BusinessLogic.Services.BusinessService
         /// <returns></returns>
         public async Task<List<BookGroup>> GetBooksCountByAuthor(int minCount = 1)
         {
-            var sql = $@"SELECT TOP 5 b.Author, COUNT(*) as Count FROM Books AS b
+            var sql = $@"SELECT b.Author, COUNT(*) as Count FROM Books AS b
                         GROUP BY b.Author
                         HAVING COUNT(*) >= {minCount}";
 
@@ -60,7 +60,7 @@ namespace BusinessLogic.Services.BusinessService
 
         public async Task<List<ShortUserList>> GetBooksCountByUsers()
         {
-            var sql = @"SELECT TOP 5 u.Id, COUNT(*) as Count FROM Users AS u 
+            var sql = @"SELECT u.Id, COUNT(*) as Count FROM Users AS u 
                         JOIN Books AS b ON u.Id = b.UserId
                         GROUP BY u.Id";
             return await userService.GetShortUserList(sql);
@@ -68,7 +68,7 @@ namespace BusinessLogic.Services.BusinessService
 
         public async Task<List<ShortUserList>> GetMessagesCountByUsers()
         {
-            var sql = @"SELECT TOP 5 u.Id, COUNT(*) as Count FROM Users AS u 
+            var sql = @"SELECT u.Id, COUNT(*) as Count FROM Users AS u 
                         JOIN Messages AS m ON u.Id = m.UserSenderId OR
                         u.Id = m.UserReceiverId
                         GROUP BY u.Id";
@@ -77,7 +77,7 @@ namespace BusinessLogic.Services.BusinessService
 
         public async Task<List<ShortUserList>> GetCommentsCountByUsers()
         {
-            var sql = @"SELECT TOP 5 u.Id, COUNT(*) as Count FROM Users AS u 
+            var sql = @"SELECT u.Id, COUNT(*) as Count FROM Users AS u 
                         JOIN Comments AS c ON u.Id = c.UserId
                         GROUP BY u.Id";
             return await userService.GetShortUserList(sql);

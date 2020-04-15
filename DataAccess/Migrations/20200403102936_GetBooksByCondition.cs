@@ -12,7 +12,7 @@ namespace DataAccess.Migrations
 								@inGoodCondition bit
 							AS
 							BEGIN
-								SELECT TOP 5
+								SELECT
 								b.Author,
 								b.Title, 
 

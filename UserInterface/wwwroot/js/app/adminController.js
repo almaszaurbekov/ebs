@@ -52,9 +52,14 @@
         this.thead.append("<th scope='col'>Author</th>");
         this.thead.append("<th scope='col'>Books Count</th>");
 
-        for (let obj of ajax.responseJSON) {
+        var maxCount = 5;
+        if (ajax.responseJSON.length < 5) {
+            maxCount = ajax.responseJSON.length;
+        }
+
+        for (let i = 0; i < maxCount; i++) {
             var tr = $("<tr></tr>");
-            const { author, count } = obj;
+            const { author, count } = ajax.responseJSON[i];
 
             tr.append(`<th scope="row">${this.__nonEmptyValue(author)}</th>`);
             tr.append(`<td>${this.__nonEmptyValue(count)}</td>`);
@@ -76,9 +81,14 @@
         this.thead.append("<th scope='col'>Last Comment</th>");
         this.thead.append("<th scope='col'>Last Comment Time</th>");
 
-        for (let obj of ajax.responseJSON) {
+        var maxCount = 5;
+        if (ajax.responseJSON.length < 5) {
+            maxCount = ajax.responseJSON.length;
+        }
+
+        for (let i = 0; i < maxCount; i++) {
             var tr = $("<tr></tr>");
-            const { author, title, lastCommentText, lastCommentTime } = obj;
+            const { author, title, lastCommentText, lastCommentTime } = ajax.responseJSON[i];
             var lastCommentDate = this.__getDateTime(lastCommentTime);
 
             tr.append(`<th scope="row">${this.__nonEmptyValue(author)}</th>`);
@@ -101,9 +111,14 @@
         this.thead.append("<th scope='col'>User ID</th>");
         this.thead.append("<th scope='col'>Books Count</th>");
 
-        for (let obj of ajax.responseJSON) {
+        var maxCount = 5;
+        if (ajax.responseJSON.length < 5) {
+            maxCount = ajax.responseJSON.length;
+        }
+
+        for (let i = 0; i < maxCount; i++) {
             var tr = $("<tr></tr>");
-            const { id, count } = obj;
+            const { id, count } = ajax.responseJSON[i];
 
             tr.append(`<th scope="row">${this.__nonEmptyValue(id)}</th>`);
             tr.append(`<td>${this.__nonEmptyValue(count)}</td>`);
@@ -127,9 +142,14 @@
         this.thead.append("<th scope='col'>Address</th>");
         this.thead.append("<th scope='col'>Role</th>");
 
-        for (let obj of ajax.responseJSON) {
+        var maxCount = 5;
+        if (ajax.responseJSON.length < 5) {
+            maxCount = ajax.responseJSON.length;
+        }
+
+        for (let i = 0; i < maxCount; i++) {
             var tr = $("<tr></tr>");
-            const { id, email, fullName, address, roleName } = obj;
+            const { id, email, fullName, address, roleName } = ajax.responseJSON[i];
 
             tr.append(`<th scope="row">${id}</th>`);
             tr.append(`<td>${this.__nonEmptyValue(email)}</td>`);
@@ -152,9 +172,14 @@
         this.thead.append("<th scope='col'>User ID</th>");
         this.thead.append("<th scope='col'>Books Count</th>");
 
-        for (let obj of ajax.responseJSON) {
+        var maxCount = 5;
+        if (ajax.responseJSON.length < 5) {
+            maxCount = ajax.responseJSON.length;
+        }
+
+        for (let i = 0; i < maxCount; i++) {
             var tr = $("<tr></tr>");
-            const { id, count } = obj;
+            const { id, count } = ajax.responseJSON[i];
 
             tr.append(`<th scope="row">${this.__nonEmptyValue(id)}</th>`);
             tr.append(`<td>${this.__nonEmptyValue(count)}</td>`);
