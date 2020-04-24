@@ -24,7 +24,8 @@
                 <a class="ebs-title mr-5" asp-controller="User" asp-action="Index" style="text-decoration:none;text-transform:none;float:left;">
                     ebs<span class="ebs-dot">.</span>
                 </a>
-                <form class="ebs-search ml-5" method="GET" asp-controller="Book" asp-action="Index">
+                <button class="btn btn-primary" id="sm-search-button"><i class="fa fa-search"></i></button>
+                <form class="ebs-search" method="GET" asp-controller="Book" asp-action="Index">
                     <div class="input-group mb-3">
                         <input type="text" placeholder="Search book" name="search">
                         <div class="input-group-append">

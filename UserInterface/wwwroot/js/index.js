@@ -66,3 +66,7 @@ $("#RemoveImage").change(function () {
 
 scrollLoader();
 navbarScroll();
+
+$("#sm-search-button").click(function () {
+    $(".ebs-search").slideToggle();
+});

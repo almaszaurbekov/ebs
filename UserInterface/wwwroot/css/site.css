@@ -204,7 +204,7 @@ section {
 }
 .ebs-search{
     top:12px;
-    left:70px;
+    left:120px;
     position:absolute;
     padding-top:10px;
     font-size:17px;
@@ -229,7 +229,9 @@ section {
 #ebs-top-books .card{
     min-height:350px;
 }
-
+#sm-search-button{
+    display:none;
+}
 @media only screen and (max-width: 600px) {
     .ebs-menu-body {
         padding-top: 100px;
@@ -242,6 +244,21 @@ section {
         width:100%;
     }
     .ebs-search {
-        display: none;
+        top: 70px;
+        left: 0px;
+        width:100%;
+    }
+    .ebs-search .input-group {
+        width: 100%;
+    }
+    .ebs-search input[type="text"] {
+        width: 75%;
+    }
+    #sm-search-button {
+        margin-top: 6px;
+        right: 30px;
+        display: block;
+        position: absolute;
+        right: 100px;
     }
 }
