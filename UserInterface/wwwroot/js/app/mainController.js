@@ -108,7 +108,7 @@
     __createCol(title, text, buttonText, href, isSuccess) {
         var constructor = this.__ajaxQuery("GET", "/js/app/bootstrapCard.json", {}).responseJSON;
 
-        var column = $(constructor.column);
+        var column = $(constructor.col_md_3);
         var card = $(constructor.card);
         var cardBody = $(constructor.cardBody);
         var cardTitle = $(constructor.cardTitle);
@@ -149,7 +149,37 @@
     }
 
     initTopBooks() {
+        var url = this.api.book + "top";
+        var response = this.__ajaxQuery("GET", url, {}).responseJSON;
+        var constructor = this.__ajaxQuery("GET", "/js/app/bootstrapCard.json", {}).responseJSON;
 
+        for (let i in response.books) {
+            const { id, author, title, imageSource, userId, сlickCount } = response.books[i];
+
+            var card = $(constructor.card);
+
+            var img = $("<div class='ebs-book-img'></div>").append(
+                $(constructor.img).attr("src", imageSource)
+            );
+
+            var cardTitle = $(constructor.cardTitle).html(title);
+            var cardText = $(constructor.cardText).html(author);
+
+            var cardBody = $(constructor.cardBody);
+            cardBody.append(cardTitle);
+            cardBody.append(cardText);
+
+            var cardFooter = $(constructor.cardFooter)
+                .html(`<span class="badge badge-pill badge-dark">Views: ${сlickCount}</span>`)
+                .append(`<a class="btn btn-primary pull-right" href="/Book/Details/${id}">View</a>`);
+
+            card.append(img);
+            card.append(cardBody);
+            card.append(cardFooter);
+
+            var column = $(constructor.col_md_4).append(card);
+            this.options.topBooks.append(column);
+        }
     }
 
     getCurrentUser() {

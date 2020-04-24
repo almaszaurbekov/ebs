@@ -131,6 +131,16 @@ namespace UserInterface.Controllers.Api
             return Ok(new { count = books.Count });
         }
 
+        [HttpGet("books/top")]
+        public async Task<IActionResult> GetTopBooksByClickCount()
+        {
+            var books = await bookBusinessService.GetBooks();
+            var topBooks = books.OrderByDescending(s => s.СlickCount).Take(3).ToList();
+            var booksVM = mapper.Map<List<BookDto>, 
+                List<BookListViewModel>>(topBooks.Take(3).ToList());
+            return Ok(new { books = booksVM });
+        }
+
         private List<BookDto> GetMinCountOfBooks(int minCount, List<BookDto> books)
         {
             if(minCount > 0)
