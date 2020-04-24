@@ -20,19 +20,9 @@ namespace UserInterface.Controllers.Api
         /// </summary>
         /// <param name="id">Идентификатор транзакции</param>
         [HttpGet("transactions/accept")]
-        public async Task<bool> TransactionAccept(string id)
+        public async Task<int> TransactionAccept(string id)
         {
-            try
-            {
-                var transaction = await bookBusinessService.GetBookTransactionById(new Guid(id));
-                transaction.OwnerAgreed = 1;
-                await bookBusinessService.UpdateBookTransaction(transaction);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+            return await bookBusinessService.BookTransactionOwnerAgreed(id, true);
         }
 
         /// <summary>
@@ -40,20 +30,9 @@ namespace UserInterface.Controllers.Api
         /// </summary>
         /// <param name="id">Идентификатор транзакции</param>
         [HttpGet("transactions/cancel")]
-        public async Task<bool> TransactionCancel(string id)
+        public async Task<int> TransactionCancel(string id)
         {
-            try
-            {
-                var transaction = await bookBusinessService.GetBookTransactionById(new Guid(id));
-                transaction.OwnerAgreed = 0;
-                transaction.IsSuccess = 0;
-                await bookBusinessService.UpdateBookTransaction(transaction);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+            return await bookBusinessService.BookTransactionOwnerAgreed(id, false);
         }
     }
 }
