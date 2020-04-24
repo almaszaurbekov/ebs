@@ -18,6 +18,7 @@ namespace BusinessLogic.Services
         Task<List<Book>> GetBooksSortedByDate();
         Task<List<BookGroup>> GetBooksCountByAuthor(string sql);
         Task<List<GoodBookList>> GetBooksByCondition(string sql, bool inGoodCondition);
+        Task ViewBook(int bookId, int userId);
     }
 
     public class BookService : EntityService<Book>, IBookService
@@ -64,6 +65,20 @@ namespace BusinessLogic.Services
         public async Task<List<GoodBookList>> GetBooksByCondition(string sql, bool inGoodCondition)
         {
             return await context.GetBooksByCondition(sql, inGoodCondition);
+        }
+
+        /// <summary>
+        /// Пользователь посмотрел эту книгу
+        /// </summary>
+        /// <param name="userId">Идентификатор пользователя</param>
+        public async Task ViewBook(int bookId, int userId)
+        {
+            var book = await Find(s => s.Id == bookId);
+            if(book.UserId != userId)
+            {
+                book.СlickCount++;
+                await Update(book);
+            }
         }
     }
 }

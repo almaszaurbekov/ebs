@@ -62,7 +62,7 @@ namespace UserInterface.Controllers
         [HttpGet]
         public async Task<IActionResult> Borrow(int id)
         {
-            var book = await bookBusinessService.GetBookById(id, false);
+            var book = await bookBusinessService.GetBookById(id, null, false);
             var currentUser = await userBusinessService.GetUserByEmail(User.Identity.Name);
             var transactions = await bookBusinessService.GetBookTransactionsByBookId(id);
             var transactionsVM = mapper.Map<List<BookTransactionDto>, 

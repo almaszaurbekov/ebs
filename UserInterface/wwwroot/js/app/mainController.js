@@ -18,6 +18,9 @@
 
         // Инициализируем список дел для пользователя
         this.initToDoList(user.data);
+
+        // Инициализируем топ-3 книг по откликам
+        this.initTopBooks();
     }
 
     initToDoList(user) {

@@ -17,6 +17,7 @@ namespace DataAccess.Entities
         public bool IsBorrowed { get; set; }
         public bool InGoodCondition { get; set; }
         public bool IsPainted { get; set; }
+        public int СlickCount { get; set; }
 
         public Book()
         {

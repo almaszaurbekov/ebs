@@ -71,7 +71,8 @@ namespace DataAccess.Context
                     Description = "Very good book",
                     IsBorrowed = false,
                     IsPainted = false,
-                    InGoodCondition = true
+                    InGoodCondition = true,
+                    СlickCount = 30
                 },
                 new Book()
                 {
@@ -84,7 +85,8 @@ namespace DataAccess.Context
                     Description = "Very good book",
                     IsBorrowed = false,
                     IsPainted = false,
-                    InGoodCondition = true
+                    InGoodCondition = true,
+                    СlickCount = 20
                 },
                 new Book()
                 {
@@ -97,7 +99,8 @@ namespace DataAccess.Context
                     Description = "Very good book",
                     IsBorrowed = false,
                     IsPainted = false,
-                    InGoodCondition = true
+                    InGoodCondition = true,
+                    СlickCount = 15
                 },
                 new Book()
                 {
@@ -110,7 +113,8 @@ namespace DataAccess.Context
                     Description = "Very good book",
                     IsBorrowed = false,
                     IsPainted = false,
-                    InGoodCondition = true
+                    InGoodCondition = true,
+                    СlickCount = 20
                 },
                 new Book()
                 {
@@ -123,7 +127,8 @@ namespace DataAccess.Context
                     Description = "Very good book",
                     IsBorrowed = false,
                     IsPainted = false,
-                    InGoodCondition = true
+                    InGoodCondition = true,
+                    СlickCount = 35
                 },
                 new Book()
                 {
@@ -136,7 +141,8 @@ namespace DataAccess.Context
                     Description = "Very good book",
                     IsBorrowed = false,
                     IsPainted = false,
-                    InGoodCondition = true
+                    InGoodCondition = true,
+                    СlickCount = 56
                 },
                 new Book()
                 {
@@ -149,7 +155,8 @@ namespace DataAccess.Context
                     Description = "Very good book",
                     IsBorrowed = false,
                     IsPainted = false,
-                    InGoodCondition = true
+                    InGoodCondition = true,
+                    СlickCount = 23
                 },
                 new Book()
                 {
@@ -162,7 +169,8 @@ namespace DataAccess.Context
                     Description = "Very good book",
                     IsBorrowed = false,
                     IsPainted = false,
-                    InGoodCondition = true
+                    InGoodCondition = true,
+                    СlickCount = 76
                 }
             };
         }
