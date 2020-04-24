@@ -67,5 +67,17 @@ namespace UserInterface.Controllers.Api
             }
             return Ok(new { isSuccess = false });
         }
+
+        /// <summary>
+        /// Пользователи, у которых много книг
+        /// </summary>
+        [HttpGet("users/top")]
+        public async Task<IActionResult> GetUsersOrderDescByBookCount()
+        {
+            var users = await userBusinessService.GetUsers();
+            var topUsers = users.OrderByDescending(s => s.Books.Count).Take(3).ToList();
+            var usersVM = mapper.Map<List<UserDto>, List<UserViewModel>>(topUsers);
+            return Ok(new { data = usersVM } );
+        }
     }
 }

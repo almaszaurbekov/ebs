@@ -21,6 +21,9 @@
 
         // Инициализируем топ-3 книг по откликам
         this.initTopBooks();
+
+        // Инициализируем топ-3 пользователей по книгам
+        this.initTopUsers();
     }
 
     initToDoList(user) {
@@ -145,7 +148,18 @@
     }
 
     initTopUsers() {
+        var url = this.api.user + "top";
+        var users = this.__ajaxQuery("GET", url, {}).responseJSON;
+        var constructor = this.__ajaxQuery("GET", "/js/app/bootstrapCard.json", {}).responseJSON;
 
+        for (let user of users.data) {
+            const { email, id } = user;
+            var card = $(constructor.card)
+                .html($(constructor.cardBody).html(email))
+                .append($(constructor.cardFooter).html(`<a href="Book/ByUser/${id}">ELibrary</a>`));
+            var column = $(constructor.col_md_4).append(card);
+            this.options.topUsers.append(column);
+        }
     }
 
     initTopBooks() {

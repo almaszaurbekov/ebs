@@ -21,10 +21,12 @@
                 @await Html.PartialAsync("../Shared/PartialViews/_MenuComponent.cshtml", ViewData["Id"])
             </div>
             <div class="col-md-9">
-                <p>Your current status: <span id="user-status"></span></p>
-                <p>Until the next status you have left:</p>
-                <div class="row" id="user-status-todolist"></div>
-                <div class="row" id="ebs-top-books"></div>
+                <h3>Your current status: <span class="badge badge-light" id="user-status"></span></h3>
+                <h5>Until the next status you have left:</h5>
+                <div class="row mb-1" id="user-status-todolist"></div>
+                <h3 class="display-4 border-bottom mb-4">Top-3 Books</h3>
+                <div class="row mb-1" id="ebs-top-books"></div>
+                <h3 class="display-4 border-bottom mb-4">Top-3 Users</h3>
                 <div class="row" id="ebs-top-users"></div>
             </div>
         </div>
