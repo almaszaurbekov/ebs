@@ -154,11 +154,6 @@ namespace UserInterface.Controllers
             var user = await userBusinessService.GetUserByEmail(User.Identity.Name);
 
             var transactions = await bookBusinessService.GetBookTransactionsByOwnerId(user.Id);
-            foreach(var transaction in transactions)
-            {
-                transaction.OwnerHasSeen = true;
-                await bookBusinessService.UpdateBookTransaction(transaction);
-            }
 
             var requestsVM = mapper.Map<List<BookTransactionDto>, 
                 List<BookTransactionViewModel>>(transactions);

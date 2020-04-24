@@ -118,6 +118,11 @@ namespace BusinessLogic.Services.BusinessService
         public async Task<List<BookTransactionDto>> GetBookTransactionsByOwnerId(int? id)
         {
             var trans = await transactionService.Filter(s => s.OwnerId == id && s.OwnerAgreed == -1);
+            foreach(var tran in trans)
+            {
+                tran.OwnerHasSeen = true;
+                await transactionService.Update(tran);
+            }
             return mapper.Map<List<BookTransaction>, List<BookTransactionDto>>(trans);
         }
 
