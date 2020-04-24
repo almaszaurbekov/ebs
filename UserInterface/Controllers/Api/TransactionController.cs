@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BusinessLogic.Dto;
 using BusinessLogic.Services.BusinessService;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UserInterface.ViewModels;
 
 namespace UserInterface.Controllers.Api
 {
@@ -54,6 +56,20 @@ namespace UserInterface.Controllers.Api
             {
                 return false;
             }
+        }
+
+
+        /// <summary>
+        /// Список транзакции по пользователю
+        /// </summary>
+        /// <param name="id">Идентификатор пользователя</param>
+        [HttpGet("transactions/user/{id}")]
+        public async Task<IActionResult> GetTransactionsByUserId(int id)
+        {
+            var transactions = await bookBusinessService.GetBookTransactionsByUserId(id);
+            var transactionsVM = mapper.Map<List<BookTransactionDto>, 
+                List<BookTransactionViewModel>>(transactions);
+            return Ok(new { data = transactionsVM });
         }
     }
 }

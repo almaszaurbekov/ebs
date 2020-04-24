@@ -3,7 +3,8 @@
         this.options = options;
         this.api = {
             user: "/api/ebs/users/",
-            book: "/api/ebs/books/"
+            book: "/api/ebs/books/",
+            transaction: "/api/ebs/transactions/"
         };
         this._init();
     }
@@ -24,20 +25,53 @@
             privateData: this.__isUserDataIsFull(user.data),
             books: { isSuccess: false, currentCount: 0 },
             // Успешно одолженные книги
-            successBorrow: { isSuccess: false, currentCount: 0 },
+            successBorrow: { isSuccess: false, currentCount: 0, waitList: 0 },
             // Успешно закрытые долги по книгам
-            successRequest: { isSuccess: false, currentCount: 0 }
+            successRequest: { isSuccess: false, currentCount: 0, waitList: 0 }
         };
 
         var url = this.api.book + `count/user/${user.data.id}`;
         var books = this.__ajaxQuery("GET", url, {}).responseJSON;
 
+        url = this.api.transaction + `user/${user.data.id}`;
+        var transactions = this.__ajaxQuery("GET", url, {}).responseJSON;
+
+        // Проверка на заполнение библиотеки 5 книгами
         progress.books.currentCount = books.count;
         if (books.count >= 5) progress.books.isSuccess = true;
 
-        console.log(progress);
-        
+        // Пробегаемся по всем транзакциям, где пользователь принимал участие
+        for (let tr of transactions.data) {
+            if (tr.borrowerId == user.data.id) {
+                if (tr.isSuccess == 1) {
+                    progress.successBorrow.currentCount += 1;
+                }
+                else {
+                    progress.successBorrow.waitList += 1;
+                }
+            }
+            if (tr.ownerId == user.data.id) {
+                if (tr.isSuccess == 1) {
+                    progress.successRequest.currentCount += 1;
+                }
+                else {
+                    progress.successRequest.waitList += 1;
+                }
+            }
+        }
+
+        // Проверка на количество успешно одолженных книг (мин. 3)
+        if (progress.successBorrow.currentCount >= 3) {
+            progress.successBorrow.isSuccess = true;
+        }
+
+        // Проверка на количество успешно закрытых долгов по книгам (мин. 3)
+        if (progress.successRequest.currentCount >= 3) {
+            progress.successRequest.isSuccess = true;
+        }
     }
+
+    
 
     initTopUsers() {
 
