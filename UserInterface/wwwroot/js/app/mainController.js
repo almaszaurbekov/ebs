@@ -76,10 +76,10 @@
             progress.successRequest.isSuccess = true;
         }
 
-        this.showToDoList(progress);
+        this.showToDoList(progress, user);
     }
 
-    showToDoList(progress) {
+    showToDoList(progress, user) {
         var keys = ['privateData', 'books', 'successBorrow', 'successRequest'];
         var status = this.__ajaxQuery("GET", "/js/app/userStatus.json", {}).responseJSON;
 
@@ -90,17 +90,21 @@
             var href = status.beginner[key].href;
 
             switch (key) {
+                case 'privateData':
+                    href += user.id;
+                    break;
                 case 'books':
                     title += ` (5/${progress[key].currentCount})`;
-                    break
+                    break;
                 case 'successBorrow':
+                    href += user.id;
                     title += ` (3/${progress[key].currentCount})`;
-                    break
+                    break;
                 case 'successRequest':
                     title += ` (3/${progress[key].currentCount})`;
                     break;
                 default:
-                    break
+                    break;
             }
 
             var column = this.__createCol(title, text, buttonText, href, progress[key].isSuccess);
