@@ -2,7 +2,8 @@
     constructor(options = {}) {
         this.options = options;
         this.api = {
-            user: "/api/ebs/users/"
+            user: "/api/ebs/users/",
+            book: "/api/ebs/books/"
         };
         this._init();
     }
@@ -19,6 +20,22 @@
     }
 
     initToDoList(user) {
+        var progress = {
+            privateData: this.__isUserDataIsFull(user.data),
+            books: { isSuccess: false, currentCount: 0 },
+            // Успешно одолженные книги
+            successBorrow: { isSuccess: false, currentCount: 0 },
+            // Успешно закрытые долги по книгам
+            successRequest: { isSuccess: false, currentCount: 0 }
+        };
+
+        var url = this.api.book + `count/user/${user.data.id}`;
+        var books = this.__ajaxQuery("GET", url, {}).responseJSON;
+
+        progress.books.currentCount = books.count;
+        if (books.count >= 5) progress.books.isSuccess = true;
+
+        console.log(progress);
         
     }
 
@@ -33,6 +50,16 @@
     getCurrentUser() {
         var url = this.api.user + "me";
         return this.__ajaxQuery("GET", url, {}).responseJSON;
+    }
+
+    __isUserDataIsFull(user) {
+        const { address, firstName, lastName } = user;
+        return { isSuccess: (this.__isNotNull(address) & this.__isNotNull(firstName) &
+            this.__isNotNull(lastName)) == 1 };
+    }
+
+    __isNotNull(data) {
+        return data != null;
     }
 
     __ajaxQuery(method, url, data) {

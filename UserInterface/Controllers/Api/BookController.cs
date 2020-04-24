@@ -110,6 +110,27 @@ namespace UserInterface.Controllers.Api
             return Ok(booksVM);
         }
 
+        /// <summary>
+        /// Получить список книг по идентификатору пользователя
+        /// </summary>
+        [HttpGet("books/user/{id}")]
+        public async Task<IActionResult> GetBooksByUserId(int id)
+        {
+            var books = await bookBusinessService.GetBooksByUserId(id);
+            var booksVM = mapper.Map<List<BookDto>, List<BookListViewModel>>(books);
+            return Ok(new { books = booksVM });
+        }
+
+        /// <summary>
+        /// Получить количество книг в библиотеке по идентификатору пользователя
+        /// </summary>
+        [HttpGet("books/count/user/{id}")]
+        public async Task<IActionResult> GetBooksCountByUserId(int id)
+        {
+            var books = await bookBusinessService.GetBooksByUserId(id);
+            return Ok(new { count = books.Count });
+        }
+
         private List<BookDto> GetMinCountOfBooks(int minCount, List<BookDto> books)
         {
             if(minCount > 0)
