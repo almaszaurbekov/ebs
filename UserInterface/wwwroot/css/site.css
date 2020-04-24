@@ -218,6 +218,9 @@ section {
 .ebs-search input:focus {
     outline:none;
 }
+#user-status-todolist .card{
+    min-height:330px;
+}
 
 @media only screen and (max-width: 600px) {
     .ebs-menu-body {
