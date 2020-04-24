@@ -51,5 +51,21 @@ namespace UserInterface.Controllers.Api
                 usersVM.Remove(me);
             return Ok(usersVM);
         }
+
+        /// <summary>
+        /// Получить текущего аутентифицированного пользователя
+        /// </summary>
+        [HttpGet("users/me")]
+        public async Task<IActionResult> GetCurrentUser()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var userEmail = User.Identity.Name;
+                var user = await userBusinessService.GetUserByEmail(userEmail);
+                var userVM = mapper.Map<UserDto, UserViewModel>(user);
+                return Ok(new { data = userVM, isSuccess = true });
+            }
+            return Ok(new { isSuccess = false });
+        }
     }
 }

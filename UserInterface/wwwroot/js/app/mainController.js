@@ -1,23 +1,38 @@
 ﻿class MainController {
     constructor(options = {}) {
         this.options = options;
+        this.api = {
+            user: "/api/ebs/users/"
+        };
         this._init();
     }
 
     _init() {
-        var url = "/api/ebs/books/index";
-        var data = { "minCount": 5 };
-        var ajax = this.__ajaxQuery("GET", url, data);
+        var user = this.getCurrentUser();
 
-        for (let obj of ajax.responseJSON) {
-            var tr = $("<div class='col-md-12 bg-dark text-light py-2 px-2 mb-3'></div>");
-            const { id, title, author, userId } = obj;
+        // у объекта user пока нет поля status
+        var status = "Newcomer";
+        this.options.status.html(status);
 
-            tr.append(`<p>Title: ${title}</p>`);
-            tr.append(`<p>Author: ${author}</p>`);
+        // Инициализируем список дел для пользователя
+        this.initToDoList(user);
+    }
 
-            this.options.target.append(tr);
-        }
+    initToDoList(user) {
+        
+    }
+
+    initTopUsers() {
+
+    }
+
+    initTopBooks() {
+
+    }
+
+    getCurrentUser() {
+        var url = this.api.user + "me";
+        return this.__ajaxQuery("GET", url, {}).responseJSON;
     }
 
     __ajaxQuery(method, url, data) {
@@ -38,7 +53,7 @@
             },
             error: function (xhr) {
                 $('.wait-pre-con').hide();
-                toastr.error("Failed to process request", "Error");
+                toastr.error("Обратитесь в тех поддержку", "Запрос вернул ошибку");
                 console.log(xhr);
             }
         });
@@ -48,7 +63,10 @@
 $(document).ready(function () {
 
     var options = {
-        target: $("#book-list-target")
+        toDoList: $("#user-status-todolist"),
+        status: $("#user-status"),
+        topBooks: $("#ebs-top-books"),
+        topUsers: $("#ebs-top-users")
     };
 
     var controller = new MainController(options);

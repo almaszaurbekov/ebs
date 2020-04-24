@@ -11,9 +11,10 @@
                 @await Html.PartialAsync("../Shared/PartialViews/_MenuComponent.cshtml", ViewData["Id"])
             </div>
             <div class="col-md-9">
-                <div class="row" id="book-list-target">
-
-                </div>
+                <p>Your current status: <span id="user-status"></span></p>
+                <div class="row" id="user-status-todolist"></div>
+                <div class="row" id="ebs-top-books"></div>
+                <div class="row" id="ebs-top-users"></div>
             </div>
         </div>
     </div>
