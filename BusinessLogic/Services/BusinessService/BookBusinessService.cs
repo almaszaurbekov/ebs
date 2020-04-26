@@ -31,6 +31,7 @@ namespace BusinessLogic.Services.BusinessService
         Task<int> DeleteBook(BookDto dtoModel);
         Task<List<BcBookDto>> GetBooksByValue(string value);
         Task<BcBookDto> GetBcBook(int id);
+        Task<int> BookTransactionOwnerAgreed(string id, bool accept);
     }
 
     public class BookBusinessService : IBookBusinessService
@@ -217,6 +218,19 @@ namespace BusinessLogic.Services.BusinessService
         {
             var books = await bookService.GetAll();
             return mapper.Map<List<Book>, List<BookDto>>(books);
+        }
+
+        public async Task<int> BookTransactionOwnerAgreed(string id, bool accept)
+        {
+            var transaction = await transactionService.Find(s => s.Id.ToString() == id);
+            if (accept)
+                transaction.OwnerAgreed = 1;
+            else
+            {
+                transaction.OwnerAgreed = 0;
+                transaction.IsSuccess = 0;
+            }
+            return await transactionService.Update(transaction);
         }
     }
 }

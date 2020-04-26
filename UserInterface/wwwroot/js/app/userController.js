@@ -4,8 +4,6 @@
         this.options = options;
         this.target = target;
         this.url = '/api/ebs/users/';
-
-        this._init();
     }
 
     getUserListBySearch(search) {

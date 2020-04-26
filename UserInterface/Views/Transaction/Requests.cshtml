@@ -20,56 +20,5 @@
 </section>
 
 @section Scripts {
-    <script>
-        $(document).ready(function () {
-            $(".ebs-btn-accept").click(function () {
-                var id = $(this).attr("data-id");
-                var target = `#ebs-${id}`;
-                $.ajax({
-                    method: "GET",
-                    url: "/api/ebs/transactions/accept",
-                    data: {
-                        id: id
-                    },
-                    headers: {
-                        RequestVerificationToken:
-                            $('input:hidden[name="__RequestVerificationToken"]').val()
-                    }
-                })
-                .done(function (result) {
-                    if (result) {
-                        toastr.success("Hello world!", "Success");
-                        $(target).toggle();
-                    }
-                    else {
-                        toastr.error("Hello world!", "Error");
-                    }
-                });
-            });
-
-            $(".ebs-btn-cancel").click(function () {
-                var id = $(this).attr("data-id");
-                var target = `#ebs-${id}`;
-                $.ajax({
-                    method: "GET",
-                    url: "/api/ebs/transactions/cancel",
-                    data: {
-                        id: id
-                    },
-                    headers: {
-                        RequestVerificationToken:
-                            $('input:hidden[name="__RequestVerificationToken"]').val()
-                    }
-                }).done(function (result) {
-                    if (result) {
-                        toastr.success("Hello world!", "Success");
-                        $(target).toggle();
-                    }
-                    else {
-                        toastr.error("Hello world!", "Error");
-                    }
-                });
-            });
-        });
-    </script>
+    <script src="~/js/app/transactionController.js"></script>
 }
