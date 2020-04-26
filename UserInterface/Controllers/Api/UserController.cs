@@ -71,7 +71,7 @@ namespace UserInterface.Controllers.Api
         /// <summary>
         /// Пользователи, у которых много книг
         /// </summary>
-        [HttpGet("users/top")]
+        [HttpGet("users/userTop")]
         public async Task<IActionResult> GetUsersOrderDescByBookCount()
         {
             var users = await userBusinessService.GetUsers();

@@ -131,7 +131,7 @@ namespace UserInterface.Controllers.Api
             return Ok(new { count = books.Count });
         }
 
-        [HttpGet("books/top")]
+        [HttpGet("books/bookTop")]
         public async Task<IActionResult> GetTopBooksByClickCount()
         {
             var books = await bookBusinessService.GetBooks();

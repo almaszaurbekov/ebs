@@ -152,7 +152,7 @@
     }
 
     initTopUsers() {
-        var url = this.api.user + "top";
+        var url = this.api.user + "userTop";
         var users = this.__ajaxQuery("GET", url, {}).responseJSON;
         var constructor = this.__ajaxQuery("GET", "/js/app/bootstrapCard.json", {}).responseJSON;
 
@@ -167,7 +167,7 @@
     }
 
     initTopBooks() {
-        var url = this.api.book + "top";
+        var url = this.api.book + "bookTop";
         var response = this.__ajaxQuery("GET", url, {}).responseJSON;
         var constructor = this.__ajaxQuery("GET", "/js/app/bootstrapCard.json", {}).responseJSON;
 
