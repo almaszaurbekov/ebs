@@ -74,7 +74,7 @@ namespace BusinessLogic.Services
         public async Task ViewBook(int bookId, int userId)
         {
             var book = await Find(s => s.Id == bookId);
-            if(book.UserId != userId)
+            if(book != null && book.UserId != userId)
             {
                 book.СlickCount++;
                 await Update(book);

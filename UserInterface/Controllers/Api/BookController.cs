@@ -137,7 +137,7 @@ namespace UserInterface.Controllers.Api
             var books = await bookBusinessService.GetBooks();
             var topBooks = books.OrderByDescending(s => s.СlickCount).Take(3).ToList();
             var booksVM = mapper.Map<List<BookDto>, 
-                List<BookListViewModel>>(topBooks.Take(3).ToList());
+                List<BookListViewModel>>(topBooks);
             return Ok(new { books = booksVM });
         }
 
