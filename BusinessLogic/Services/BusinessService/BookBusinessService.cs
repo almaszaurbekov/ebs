@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BusinessLogic.Dto;
 using BusinessLogic.Mappings;
+using Common.BookTransaction;
 using DataAccess.Entities;
 using Microsoft.Extensions.Caching.Memory;
 using System;
@@ -32,6 +33,7 @@ namespace BusinessLogic.Services.BusinessService
         Task<List<BcBookDto>> GetBooksByValue(string value);
         Task<BcBookDto> GetBcBook(int id);
         Task<int> BookTransactionOwnerAgreed(string id, bool accept);
+        Task<int> BookTransactionStatusEdit(string id, TransactionStatus status, string comment);
         Task ViewBook(int bookId, int userId);
     }
 
@@ -248,6 +250,14 @@ namespace BusinessLogic.Services.BusinessService
                 transaction.OwnerAgreed = false;
                 transaction.IsSuccess = false;
             }
+            return await transactionService.Update(transaction);
+        }
+
+        public async Task<int> BookTransactionStatusEdit(string id, TransactionStatus status, string comment)
+        {
+            var transaction = await transactionService.Find(s => s.Id.ToString() == id);
+            transaction.Status = status;
+            transaction.Comment = comment;
             return await transactionService.Update(transaction);
         }
 

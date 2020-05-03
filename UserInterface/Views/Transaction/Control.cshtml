@@ -1,0 +1,70 @@
+﻿@model List<UserInterface.ViewModels.BookTransactionViewModel>
+@{
+    ViewData["Title"] = "Control";
+}
+
+<section style="padding-top:60px;">
+    <div class="container pt-5">
+        <a class="btn btn-primary mb-3" asp-controller="User" asp-action="Index">Back</a>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-action="Index" asp-controller="User">EBookSharing</a></li>
+                <li class="breadcrumb-item">Transactions</li>
+                <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
+            </ol>
+        </nav>
+        <div class="row border-bottom pb-3 mb-3">
+            <div class="col-md-2">
+                <p>Title</p>
+            </div>
+            <div class="col-md-2">
+                <p>BorrowStartDate</p>
+            </div>
+            <div class="col-md-2">
+                <p>BorrowEndDate</p>
+            </div>
+            <div class="col-md-2">
+                <p>Status</p>
+            </div>
+            <div class="col-md-2">
+                <p>Comment</p>
+            </div>
+            <div class="col-md-2">
+                <p></p>
+            </div>
+        </div>
+        @foreach (var tr in Model)
+        {
+            <div class="row">
+                <div class="col-md-2">
+                    <p>@tr.Book.Title</p>
+                </div>
+                <div class="col-md-2">
+                    <p>@tr.BorrowStartDate</p>
+                </div>
+                <div class="col-md-2">
+                    <p>@tr.BorrowEndDate</p>
+                </div>
+                <div class="col-md-6">
+                    <form asp-action="ControlPost" method="post">
+                        <input type="hidden" name="Id" value="@tr.Id" />
+                        <input type="hidden" name="BookId" value="@tr.Book.Id" />
+                        <div class="row">
+                            <div class="col-md-4">
+                                <select name="Status" class="form-control" asp-items="Html.GetEnumSelectList<Common.BookTransaction.TransactionStatus>()">
+                                    <option selected="selected" value="@tr.Status">@tr.Status.ToString()</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <textarea name="Comment" class="form-control">@tr.Comment</textarea>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="submit" class="btn btn-outline-success" value="Save">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+</section>

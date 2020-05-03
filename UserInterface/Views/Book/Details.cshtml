@@ -21,7 +21,8 @@
                 <img src="@image" width="100%" />
                 @if (ViewBag.IsCurrentUser)
                 {
-                    <a asp-controller="Book" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-block mt-3">Edit</a>
+                    <a asp-controller="Book" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-block mt-3 mb-3">Edit</a>
+                    <a asp-controller="Transaction" asp-action="Control" asp-route-id="@Model.Id" class="btn btn-outline-success btn-block mt-3">Control</a>
                 }
             </div>
             <div class="col-md-8">
