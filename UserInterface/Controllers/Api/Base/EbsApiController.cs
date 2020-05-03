@@ -50,7 +50,7 @@ namespace UserInterface.Controllers
             this.adminBusinessService = adminBusinessService;
             this.userBusinessService = userBusinessService;
             this.bookBusinessService = bookBusinessService;
-            this.folder = Path.Combine(hostEnvironment.WebRootPath, "files");
+            this.hostEnvironment = hostEnvironment;
             this.mapper = mapper;
         }
 
