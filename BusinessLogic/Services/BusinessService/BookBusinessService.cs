@@ -98,17 +98,22 @@ namespace BusinessLogic.Services.BusinessService
         {
             var book = await bookService.Find(s => s.Id == id);
 
-            if (userId != null)
+            if(book != null)
             {
-                await ViewBook((int)id, (int)userId);
+                if (userId != null)
+                {
+                    await ViewBook((int)id, (int)userId);
+                }
+
+                if (needComments)
+                {
+                    book.Comments = await commentService.Filter(s => s.BookId == id);
+                }
+
+                return mapper.Map<Book, BookDto>(book);
             }
 
-            if (needComments)
-            {
-                book.Comments = await commentService.Filter(s => s.BookId == id);
-            }
-
-            return mapper.Map<Book, BookDto>(book);
+            return null;
         }
 
         public async Task<int> UpdateBook(BookDto dtoModel)

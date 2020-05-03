@@ -43,19 +43,19 @@ else
         string isSuccess = "";
         switch (transaction.IsSuccess)
         {
-            case -1:
+            case null:
                 isSuccess = "В процессе";
                 break;
-            case 0:
+            case false:
                 isSuccess = "Провал";
                 break;
-            case 1:
+            case true:
                 isSuccess = "Успешно";
                 break;
         }
         string isAgreed = "и неизвестно может ли одолжить";
-        if (transaction.OwnerHasSeen && transaction.OwnerAgreed == 1) isAgreed = "и согласился одолжить";
-        if (transaction.OwnerHasSeen && transaction.OwnerAgreed == 0) isAgreed = "и не согласился одолжить";
+        if (transaction.OwnerHasSeen && transaction.OwnerAgreed == true) isAgreed = "и согласился одолжить";
+        if (transaction.OwnerHasSeen && transaction.OwnerAgreed == false) isAgreed = "и не согласился одолжить";
 
         <div class="col-md-6 mb-3 pr-4 pl-4 pt-4 pb-5">
             <div class="row bg-light">
@@ -72,11 +72,11 @@ else
                     @*<a class="btn btn-outline-success" asp-controller="User" asp-action="Details" asp-route-id="@transaction.BorrowerId">Должник</a>*@
                 </div>
                 <div class="col-md-12 mt-4">
-                    @if (transaction.IsSuccess == -1)
+                    @if (transaction.IsSuccess == null)
                     {
                         <div class="progress-warning"></div>
                     }
-                    else if (transaction.IsSuccess == 0)
+                    else if (transaction.IsSuccess == false)
                     {
                         <div class="progress-danger"></div>
                     }
