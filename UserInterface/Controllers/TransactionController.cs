@@ -114,7 +114,9 @@ namespace UserInterface.Controllers
                         {
                             var dtoModel = mapper.Map<BookTransactionViewModel, BookTransactionDto>(model);
                             dtoModel.CreatedDate = DateTime.Now;
-                            
+                            dtoModel.IsSuccess = null;
+                            dtoModel.OwnerAgreed = null;
+
                             await bookBusinessService.CreateTransaction(dtoModel);
 
                             return RedirectToAction("Index", new { id = dtoModel.BorrowerId });
@@ -155,7 +157,7 @@ namespace UserInterface.Controllers
 
             var requestsVM = mapper.Map<List<BookTransactionDto>, 
                 List<BookTransactionViewModel>>(transactions);
-            return View(requestsVM.Where(s => s.OwnerAgreed == -1).ToList());
+            return View(requestsVM.ToList());
         }
     }
 }

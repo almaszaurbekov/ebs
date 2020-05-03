@@ -14,8 +14,8 @@ namespace BusinessLogic.Dto
         public int BookId { get; set; }
         public int OwnerId { get; set; }
         public int BorrowerId { get; set; }
-        public bool? IsSuccess { get; set; }
-        public bool? OwnerAgreed { get; set; }
+        public bool? IsSuccess { get; set; } = null;
+        public bool? OwnerAgreed { get; set; } = null;
         public bool OwnerHasSeen { get; set; } = false;
         public TransactionStatus Status { get; set; } = TransactionStatus.Unknown;
         public string Comment { get; set; }
