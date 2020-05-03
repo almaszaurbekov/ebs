@@ -40,6 +40,11 @@ namespace UserInterface.Controllers
             return View();
         }
 
+        public IActionResult Training()
+        {
+            return View();
+        }
+
         /// <summary>
         /// Подписка на еженедельные новости
         /// </summary>
