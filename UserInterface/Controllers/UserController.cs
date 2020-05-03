@@ -257,7 +257,7 @@ namespace UserInterface.Controllers
 
                     await Authenticate(user);
 
-                    return RedirectToAction("Index", "User");
+                    return RedirectToAction("Training", "Home");
                 }
                 else
                     ModelState.AddModelError("", "Пользователь с таким email уже существует");

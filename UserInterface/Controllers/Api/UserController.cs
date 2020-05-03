@@ -4,6 +4,7 @@ using BusinessLogic.Services.BusinessService;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using UserInterface.ViewModels;
@@ -78,6 +79,18 @@ namespace UserInterface.Controllers.Api
             var topUsers = users.OrderByDescending(s => s.Books.Count).Take(3).ToList();
             var usersVM = mapper.Map<List<UserDto>, List<UserViewModel>>(topUsers);
             return Ok(new { data = usersVM } );
+        }
+
+        /// <summary>
+        /// Скачать файл с тренингом
+        /// </summary>
+        [HttpGet("downloadTraining")]
+        public IActionResult DownloadTraining()
+        {
+            var fileName = "EBS_Introduction.pdf";
+            var filePath = $"~/pdf/{fileName}";
+            Response.Headers.Add("Content-Disposition", $"inline; filename={fileName}");
+            return File(filePath, "application/pdf");
         }
     }
 }
