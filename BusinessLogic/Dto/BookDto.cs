@@ -16,6 +16,7 @@ namespace BusinessLogic.Dto
         public UserDto User { get; set; }
         public List<CommentDto> Comments { get; set; }
         public List<BookTransactionDto> BookTransactions { get; set; }
+        public int СlickCount { get; set; }
         public bool IsBorrowed { get; set; } = false;
         public bool InGoodCondition { get; set; } = true;
         public bool IsPainted { get; set; } = false;

@@ -54,7 +54,8 @@ namespace UserInterface.Controllers
                 return NotFound();
             }
 
-            var book = await bookBusinessService.GetBookById(id);
+            var currentUser = await userBusinessService.GetUserByEmail(User.Identity.Name);
+            var book = await bookBusinessService.GetBookById(id, currentUser.Id);
             var bookVM = mapper.Map<BookDto, BookViewModel>(book);
             var user = await userBusinessService.GetUserById(book.UserId);
             ViewBag.IsCurrentUser = user.Email == User.Identity.Name;
@@ -114,7 +115,7 @@ namespace UserInterface.Controllers
                 return NotFound();
             }
 
-            var book = await bookBusinessService.GetBookById(id, false);
+            var book = await bookBusinessService.GetBookById(id, null, false);
 
             if(book == null)
             {
@@ -143,7 +144,7 @@ namespace UserInterface.Controllers
             {
                 try
                 {
-                    var entity = await bookBusinessService.GetBookById(model.Id, false);
+                    var entity = await bookBusinessService.GetBookById(model.Id, null, false);
                     entity = mapper.Map(model, entity);
 
                     if (model.Image != null)
@@ -178,7 +179,7 @@ namespace UserInterface.Controllers
                 return NotFound();
             }
 
-            var book = await bookBusinessService.GetBookById(id, false);
+            var book = await bookBusinessService.GetBookById(id, null, false);
 
             if (book == null)
             {
@@ -203,7 +204,7 @@ namespace UserInterface.Controllers
                 return NotFound();
             }
 
-            var entity = await bookBusinessService.GetBookById(model.Id, false);
+            var entity = await bookBusinessService.GetBookById(model.Id, null, false);
 
             if(entity.User.Email != User.Identity.Name)
             {
@@ -222,7 +223,7 @@ namespace UserInterface.Controllers
         /// <returns></returns>
         private async Task<bool> BookExists(int id)
         {
-            return await bookBusinessService.GetBookById(id) != null;
+            return await bookBusinessService.GetBookById(id, null) != null;
         }
     }
 }

@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ebs</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link href="https://fonts.googleapis.com/css?family=Pacifico|Vollkorn|Lato&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -23,7 +24,8 @@
                 <a class="ebs-title mr-5" asp-controller="User" asp-action="Index" style="text-decoration:none;text-transform:none;float:left;">
                     ebs<span class="ebs-dot">.</span>
                 </a>
-                <form class="ebs-search ml-5" method="GET" asp-controller="Book" asp-action="Index">
+                <button class="btn btn-primary" id="sm-search-button"><i class="fa fa-search"></i></button>
+                <form class="ebs-search" method="GET" asp-controller="Book" asp-action="Index">
                     <div class="input-group mb-3">
                         <input type="text" placeholder="Search book" name="search">
                         <div class="input-group-append">

@@ -12,7 +12,7 @@ namespace BusinessLogic.Services.BusinessService
 {
     public interface IBookBusinessService
     {
-        Task<BookDto> GetBookById(int? id, bool needComments = true);
+        Task<BookDto> GetBookById(int? id, int? userId, bool needComments = true);
         Task<List<BookDto>> GetBooks();
         Task<List<BookDto>> GetBooksByUserId(int? id);
         Task<List<BookDto>> GetBooksByUserEmail(string email);
@@ -32,6 +32,7 @@ namespace BusinessLogic.Services.BusinessService
         Task<List<BcBookDto>> GetBooksByValue(string value);
         Task<BcBookDto> GetBcBook(int id);
         Task<int> BookTransactionOwnerAgreed(string id, bool accept);
+        Task ViewBook(int bookId, int userId);
     }
 
     public class BookBusinessService : IBookBusinessService
@@ -87,9 +88,21 @@ namespace BusinessLogic.Services.BusinessService
             }
         }
 
-        public async Task<BookDto> GetBookById(int? id, bool needComments = true)
+        /// <summary>
+        /// Получить детальную информацию о книге
+        /// </summary>
+        /// <param name="id">Идентификатор книги</param>
+        /// <param name="userId">Идентификатор пользователя, который смотрит книгу</param>
+        /// <param name="needComments">Нужно ли отображать комменты</param>
+        public async Task<BookDto> GetBookById(int? id, int? userId, bool needComments = true)
         {
             var book = await bookService.Find(s => s.Id == id);
+
+            if (userId != null)
+            {
+                await ViewBook((int)id, (int)userId);
+            }
+
             if (needComments)
             {
                 book.Comments = await commentService.Filter(s => s.BookId == id);
@@ -232,5 +245,7 @@ namespace BusinessLogic.Services.BusinessService
             }
             return await transactionService.Update(transaction);
         }
+
+        public async Task ViewBook(int bookId, int userId) => await bookService.ViewBook(bookId, userId);
     }
 }

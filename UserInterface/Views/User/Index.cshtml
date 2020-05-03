@@ -3,9 +3,6 @@
 @{
     ViewData["Title"] = "Index";
 }
-<style>
-    .ebs-menu{display:none} .card{margin:0 auto;}
-</style>
 <section style="padding-top:60px;">
     <div class="container-fluid">
         <hr />
@@ -14,45 +11,19 @@
                 @await Html.PartialAsync("../Shared/PartialViews/_MenuComponent.cshtml", ViewData["Id"])
             </div>
             <div class="col-md-9">
-                <div class="row">
-                    <div class="col-md-4 mb-4">
-                        <div class="card" style="width: 18rem;">
-                            <img src="~/img/index-1.svg" class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title">Create your own ELibrary</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            </div>
-                            <div class="card-footer">
-                                <a href="#" class="btn btn-primary pull-right">View</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="card" style="width: 18rem;">
-                            <img src="~/img/index-3.svg" class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title">Looking for a book?</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            </div>
-                            <div class="card-footer">
-                                <a href="#" class="btn btn-primary pull-right">View</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="card" style="width: 18rem;">
-                            <img src="~/img/index-1.svg" class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title">Easy to track book</h5>
-                                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            </div>
-                            <div class="card-footer">
-                                <a href="#" class="btn btn-primary pull-right">View</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <h3>Your current status: <span class="badge badge-light" id="user-status"></span></h3>
+                <h5>Until the next status you have left:</h5>
+                <div class="row mb-1" id="user-status-todolist"></div>
+                <h3 class="display-4 border-bottom mb-4">Top-3 Books</h3>
+                <div class="row mb-1" id="ebs-top-books"></div>
+                <h3 class="display-4 border-bottom mb-4">Top-3 Users</h3>
+                <div class="row" id="ebs-top-users"></div>
             </div>
         </div>
     </div>
 </section>
+
+
+@section Scripts {
+    <script src="~/js/app/mainController.js"></script>
+}

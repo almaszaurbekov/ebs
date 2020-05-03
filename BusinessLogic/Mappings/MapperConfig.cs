@@ -36,6 +36,9 @@ namespace BusinessLogic.Mappings
             cfg.CreateMap<MessageDto, Message>(MemberList.Source);
             cfg.CreateMap<Message, MessageDto>(MemberList.None);
 
+            cfg.CreateMap<CommentDto, Comment>(MemberList.Source);
+            cfg.CreateMap<Comment, CommentDto>(MemberList.None);
+
             cfg.CreateMap<DialogControlDto, DialogControl>(MemberList.Source);
             cfg.CreateMap<DialogControl, DialogControlDto>(MemberList.Source);
 

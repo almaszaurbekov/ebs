@@ -1,0 +1,28 @@
+{
+  "beginner": {
+    "privateData": {
+      "title": "Fill in your personal details",
+      "text": "It's hard to borrow your book when you don't even know who and where it is.",
+      "buttonText": "Fill in",
+      "href": "/User/Edit/"
+    },
+    "books": {
+      "title": "Add books to the library",
+      "text": "When there are books in the library, users have more confidence in you.",
+      "buttonText": "Replenish",
+      "href": "/Book/Create"
+    },
+    "successBorrow": {
+      "title": "Successfully borrow books",
+      "text": "The larger your transaction history, the more books you lend, the more people will turn to you.",
+      "buttonText": "ELibrary",
+      "href": "/Book/ByUser/"
+    },
+    "successRequest": {
+      "title": "Successfully close debts",
+      "text": "Don't forget that your delays in closing the debt are disrespectful to the owner of the book and to the one who wants to borrow it next.",
+      "buttonText": "Books",
+      "href": "/Book"
+    }
+  }
+}

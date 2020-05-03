@@ -13,6 +13,7 @@ namespace UserInterface.ViewModels
         public string UserEmail { get; set; }
         public int UserId { get; set; }
         public string ImageSource { get; set; }
+        public int СlickCount { get; set; }
         public DateTime CreatedDate { get; set; }
     }
 }

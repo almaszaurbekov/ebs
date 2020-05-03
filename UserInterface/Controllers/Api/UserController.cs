@@ -4,6 +4,7 @@ using BusinessLogic.Services.BusinessService;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using UserInterface.ViewModels;
@@ -50,6 +51,46 @@ namespace UserInterface.Controllers.Api
             if (me != null)
                 usersVM.Remove(me);
             return Ok(usersVM);
+        }
+
+        /// <summary>
+        /// Получить текущего аутентифицированного пользователя
+        /// </summary>
+        [HttpGet("users/me")]
+        public async Task<IActionResult> GetCurrentUser()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var userEmail = User.Identity.Name;
+                var user = await userBusinessService.GetUserByEmail(userEmail);
+                var userVM = mapper.Map<UserDto, UserViewModel>(user);
+                return Ok(new { data = userVM, isSuccess = true });
+            }
+            return Ok(new { isSuccess = false });
+        }
+
+        /// <summary>
+        /// Пользователи, у которых много книг
+        /// </summary>
+        [HttpGet("users/userTop")]
+        public async Task<IActionResult> GetUsersOrderDescByBookCount()
+        {
+            var users = await userBusinessService.GetUsers();
+            var topUsers = users.OrderByDescending(s => s.Books.Count).Take(3).ToList();
+            var usersVM = mapper.Map<List<UserDto>, List<UserViewModel>>(topUsers);
+            return Ok(new { data = usersVM } );
+        }
+
+        /// <summary>
+        /// Скачать файл с тренингом
+        /// </summary>
+        [HttpGet("downloadTraining")]
+        public IActionResult DownloadTraining()
+        {
+            var fileName = "EBS_Introduction.pdf";
+            var filePath = $"~/pdf/{fileName}";
+            Response.Headers.Add("Content-Disposition", $"inline; filename={fileName}");
+            return File(filePath, "application/pdf");
         }
     }
 }
