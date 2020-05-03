@@ -114,8 +114,6 @@ namespace UserInterface.Controllers
                         {
                             var dtoModel = mapper.Map<BookTransactionViewModel, BookTransactionDto>(model);
                             dtoModel.CreatedDate = DateTime.Now;
-                            dtoModel.OwnerAgreed = -1;
-                            dtoModel.IsSuccess = -1;
                             
                             await bookBusinessService.CreateTransaction(dtoModel);
 
