@@ -131,7 +131,7 @@ namespace BusinessLogic.Services.BusinessService
 
         public async Task<List<BookTransactionDto>> GetBookTransactionsByOwnerId(int? id)
         {
-            var trans = await transactionService.Filter(s => s.OwnerId == id && s.OwnerAgreed == -1);
+            var trans = await transactionService.Filter(s => s.OwnerId == id && s.OwnerAgreed == null);
             foreach(var tran in trans)
             {
                 tran.OwnerHasSeen = true;
@@ -237,11 +237,11 @@ namespace BusinessLogic.Services.BusinessService
         {
             var transaction = await transactionService.Find(s => s.Id.ToString() == id);
             if (accept)
-                transaction.OwnerAgreed = 1;
+                transaction.OwnerAgreed = true;
             else
             {
-                transaction.OwnerAgreed = 0;
-                transaction.IsSuccess = 0;
+                transaction.OwnerAgreed = false;
+                transaction.IsSuccess = false;
             }
             return await transactionService.Update(transaction);
         }
