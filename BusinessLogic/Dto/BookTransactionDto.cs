@@ -13,8 +13,8 @@ namespace BusinessLogic.Dto
         public int BookId { get; set; }
         public int OwnerId { get; set; }
         public int BorrowerId { get; set; }
-        public int IsSuccess { get; set; } = -1;
+        public bool? IsSuccess { get; set; }
         public bool OwnerHasSeen { get; set; } = false;
-        public int OwnerAgreed { get; set; } = -1;
+        public bool? OwnerAgreed { get; set; }
     }
 }
