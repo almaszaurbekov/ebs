@@ -73,9 +73,17 @@ namespace BusinessLogic.Services.BusinessService
         {
             try
             {
+                await _logger.AddLog($"Pulling a books from a database", EbsLoggerLevel.Info);
+
+                if (id == null)
+                {
+                    await _logger.AddLog("It is not possible to pull out a list of books by user id, without the id itself", EbsLoggerLevel.Error);
+                    throw new Exception();
+                }
+
                 var books = await bookService.GetBooksByUserId(id);
 
-                await _logger.AddLog("Got books by user ID", EbsLoggerLevel.Debug);
+                await _logger.AddLog($"Got books by user ID: {id}", EbsLoggerLevel.Debug, (int) id);
 
                 return mapper.Map<List<Book>, List<BookDto>>(books);
             }
@@ -97,11 +105,16 @@ namespace BusinessLogic.Services.BusinessService
             try
             {
                 var entity = mapper.Map<BookDto, Book>(book);
-                await bookService.Create(entity);
+                entity = await bookService.Create(entity);
+
+                await _logger.AddLog($"Book ID: {entity.Id} was created successfully by User ID: {entity.UserId}",
+                    EbsLoggerLevel.Info, entity.UserId, entity.Id);
+
                 return book.Id;
             }
-            catch
+            catch (Exception ex)
             {
+                await _logger.AddLog(ex.Message, EbsLoggerLevel.Error);
                 return 0;
             }
         }
@@ -234,8 +247,23 @@ namespace BusinessLogic.Services.BusinessService
 
         public async Task<int> DeleteBook(BookDto modelDto)
         {
-            var entity = mapper.Map<BookDto, Book>(modelDto);
-            return await bookService.Delete(entity);
+            try
+            {
+                await _logger.AddLog("Removing a book from the database", EbsLoggerLevel.Warn, modelDto.UserId, modelDto.Id);
+
+                var entity = mapper.Map<BookDto, Book>(modelDto);
+                var result = await bookService.Delete(entity);
+
+                await _logger.AddLog($"Book ID: {modelDto.Id} was successfully deleted by User ID: {modelDto.UserId}",
+                    EbsLoggerLevel.Debug, modelDto.UserId, modelDto.Id);
+
+                return result;
+            }
+            catch(Exception ex)
+            {
+                await _logger.AddLog(ex.Message, EbsLoggerLevel.Error, modelDto.UserId, modelDto.Id);
+                return 0;
+            }
         }
 
         public async Task<List<BcBookDto>> GetBooksByValue(string value)
