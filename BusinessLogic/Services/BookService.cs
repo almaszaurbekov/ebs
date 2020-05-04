@@ -46,6 +46,7 @@ namespace BusinessLogic.Services
             return await DbSet
                 .Include(u => u.User)
                 .Where(predicate)
+                .AsNoTracking()
                 .FirstOrDefaultAsync();
         }
 
