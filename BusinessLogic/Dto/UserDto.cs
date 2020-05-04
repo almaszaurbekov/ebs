@@ -1,7 +1,7 @@
 ﻿using BusinessLogic.Dto.Base;
+using Common;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BusinessLogic.Dto
 {
@@ -16,6 +16,7 @@ namespace BusinessLogic.Dto
         public List<BookDto> Books { get; set; }
         public Guid RoleId { get; set; }
         public RoleDto Role { get; set; }
+        public UserStatus Status { get; set; }
         public List<DialogControlDto> Dialogs { get; set; }
 
         public UserDto()
