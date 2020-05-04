@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Common;
+using Microsoft.AspNetCore.Http;
+using System;
 using System.ComponentModel.DataAnnotations;
 using UserInterface.Mappings;
 
@@ -27,5 +29,19 @@ namespace UserInterface.ViewModels.Entities
         public string Address { get; set; }
 
         public bool RemoveImage { get; set; }
+
+        public UserStatus Status { get; set; }
+
+        public string StatusText
+        {
+            get
+            {
+                return Status.ToString();
+            }
+            set
+            {
+                Status = (UserStatus) Enum.Parse(typeof(UserStatus), value);
+            }
+        }
     }
 }
