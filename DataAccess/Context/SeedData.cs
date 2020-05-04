@@ -20,9 +20,9 @@ namespace DataAccess.Context
             Role userRole = new Role { Id = Guid.NewGuid(), Name = userRoleName };
 
             User adminUser = new User { Id = 1, Email = "foxxychmoxy@gmail.com", 
-                Password = PasswordHelper.Hash(password), RoleId = adminRole.Id };
+                Password = PasswordHelper.Hash(password), RoleId = adminRole.Id, Status = UserStatus.Newcomer };
             User simpleUser = new User { Id = 2, Email = "almasgaara@mail.ru",
-                Password = PasswordHelper.Hash(password), RoleId = userRole.Id };
+                Password = PasswordHelper.Hash(password), RoleId = userRole.Id, Status = UserStatus.Newcomer };
 
             // Добавление книг для двух пользователей
             List<Book> books = InitBooks(adminUser, simpleUser);

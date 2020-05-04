@@ -1,7 +1,7 @@
-﻿using DataAccess.Entities.Base;
+﻿using Common;
+using DataAccess.Entities.Base;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace DataAccess.Entities
 {
@@ -15,6 +15,7 @@ namespace DataAccess.Entities
         public string Address { get; set; }
         public List<Book> Books { get; set; }
         public Guid RoleId { get; set; }
+        public UserStatus Status { get; set; }
         public Role Role { get; set; }
         public List<DialogControl> Dialogs { get; set; }
 
