@@ -20,9 +20,10 @@ namespace UserInterface.Controllers
         protected string folder;
 
         public EbsApiController(IBookBusinessService bookBusinessService, IMapper mapper,
-            IWebHostEnvironment hostEnvironment)
+            IWebHostEnvironment hostEnvironment, IUserBusinessService userBusinessService)
         {
             this.bookBusinessService = bookBusinessService;
+            this.userBusinessService = userBusinessService;
             this.folder = Path.Combine(hostEnvironment.WebRootPath, "files");
             this.mapper = mapper;
         }
