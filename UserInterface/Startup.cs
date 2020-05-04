@@ -11,6 +11,7 @@ using BusinessLogic.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using BusinessLogic.Services.BusinessService;
 using UserInterface.Hubs;
+using BusinessLogic.Loggers;
 
 namespace UserInterface
 {
@@ -56,6 +57,7 @@ namespace UserInterface
             services.AddTransient<ICommentService, CommentService>();
             services.AddTransient<IBcBookService, BcBookService>();
             services.AddTransient<IBookTransactionService, BookTransactionService>();
+            services.AddTransient<IBookOperationsLogger, BookOperationsLogger>();
 
             #endregion
 

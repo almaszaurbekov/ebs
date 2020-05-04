@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using BusinessLogic.Dto;
+using BusinessLogic.Loggers;
 using BusinessLogic.Mappings;
+using Common;
 using DataAccess.Entities;
 using Microsoft.Extensions.Caching.Memory;
 using System;
@@ -46,10 +48,12 @@ namespace BusinessLogic.Services.BusinessService
         private readonly ICommentService commentService;
         private readonly IBcBookService bookcityService;
         private readonly IMapper mapper;
+        private readonly IBookOperationsLogger _logger;
 
         public BookBusinessService(IMemoryCache cache, IBookService bookService,
             IUserService userService, IBookTransactionService transactionService,
-            ICommentService commentService, IBcBookService bookcityService)
+            ICommentService commentService, IBcBookService bookcityService,
+            IBookOperationsLogger logger)
         {
             this.cache = cache;
             this.bookService = bookService;
@@ -57,6 +61,7 @@ namespace BusinessLogic.Services.BusinessService
             this.transactionService = transactionService;
             this.commentService = commentService;
             this.bookcityService = bookcityService;
+            _logger = logger;
             this.mapper = MapperConfig.MapperInitialize();
         }
 
@@ -64,8 +69,19 @@ namespace BusinessLogic.Services.BusinessService
 
         public async Task<List<BookDto>> GetBooksByUserId(int? id)
         {
-            var books = await bookService.GetBooksByUserId(id);
-            return mapper.Map<List<Book>, List<BookDto>>(books);
+            try
+            {
+                var books = await bookService.GetBooksByUserId(id);
+
+                await _logger.AddLog("Got books by user ID", EbsLoggerLevel.Debug);
+
+                return mapper.Map<List<Book>, List<BookDto>>(books);
+            }
+            catch (Exception ex)
+            {
+                await _logger.AddLog(ex.Message, EbsLoggerLevel.Fatal);
+                throw ex;
+            }
         }
         public async Task<List<BookDto>> GetBooksByUserEmail(string email)
         {
