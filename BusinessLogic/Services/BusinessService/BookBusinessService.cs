@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BusinessLogic.Dto;
 using BusinessLogic.Mappings;
+using Common.BookTransaction;
 using DataAccess.Entities;
 using Microsoft.Extensions.Caching.Memory;
 using System;
@@ -32,6 +33,7 @@ namespace BusinessLogic.Services.BusinessService
         Task<List<BcBookDto>> GetBooksByValue(string value);
         Task<BcBookDto> GetBcBook(int id);
         Task<int> BookTransactionOwnerAgreed(string id, bool accept);
+        Task<int> BookTransactionStatusEdit(string id, TransactionStatus status, string comment);
         Task ViewBook(int bookId, int userId);
     }
 
@@ -98,17 +100,22 @@ namespace BusinessLogic.Services.BusinessService
         {
             var book = await bookService.Find(s => s.Id == id);
 
-            if (userId != null)
+            if(book != null)
             {
-                await ViewBook((int)id, (int)userId);
+                if (userId != null)
+                {
+                    await ViewBook((int)id, (int)userId);
+                }
+
+                if (needComments)
+                {
+                    book.Comments = await commentService.Filter(s => s.BookId == id);
+                }
+
+                return mapper.Map<Book, BookDto>(book);
             }
 
-            if (needComments)
-            {
-                book.Comments = await commentService.Filter(s => s.BookId == id);
-            }
-
-            return mapper.Map<Book, BookDto>(book);
+            return null;
         }
 
         public async Task<int> UpdateBook(BookDto dtoModel)
@@ -131,7 +138,7 @@ namespace BusinessLogic.Services.BusinessService
 
         public async Task<List<BookTransactionDto>> GetBookTransactionsByOwnerId(int? id)
         {
-            var trans = await transactionService.Filter(s => s.OwnerId == id && s.OwnerAgreed == -1);
+            var trans = await transactionService.Filter(s => s.OwnerId == id && s.OwnerAgreed == null);
             foreach(var tran in trans)
             {
                 tran.OwnerHasSeen = true;
@@ -237,12 +244,20 @@ namespace BusinessLogic.Services.BusinessService
         {
             var transaction = await transactionService.Find(s => s.Id.ToString() == id);
             if (accept)
-                transaction.OwnerAgreed = 1;
+                transaction.OwnerAgreed = true;
             else
             {
-                transaction.OwnerAgreed = 0;
-                transaction.IsSuccess = 0;
+                transaction.OwnerAgreed = false;
+                transaction.IsSuccess = false;
             }
+            return await transactionService.Update(transaction);
+        }
+
+        public async Task<int> BookTransactionStatusEdit(string id, TransactionStatus status, string comment)
+        {
+            var transaction = await transactionService.Find(s => s.Id.ToString() == id);
+            transaction.Status = status;
+            transaction.Comment = comment;
             return await transactionService.Update(transaction);
         }
 

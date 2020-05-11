@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using UserInterface.Controllers.Base;
 using UserInterface.ViewModels;
+using Common.BookTransaction;
 
 namespace UserInterface.Controllers
 {
@@ -114,9 +115,9 @@ namespace UserInterface.Controllers
                         {
                             var dtoModel = mapper.Map<BookTransactionViewModel, BookTransactionDto>(model);
                             dtoModel.CreatedDate = DateTime.Now;
-                            dtoModel.OwnerAgreed = -1;
-                            dtoModel.IsSuccess = -1;
-                            
+                            dtoModel.IsSuccess = null;
+                            dtoModel.OwnerAgreed = null;
+
                             await bookBusinessService.CreateTransaction(dtoModel);
 
                             return RedirectToAction("Index", new { id = dtoModel.BorrowerId });
@@ -147,7 +148,6 @@ namespace UserInterface.Controllers
         /// <summary>
         /// Страница с запросами на одолжение
         /// </summary>
-        /// <param name="id">Идентификатор пользователя</param>
         [HttpGet]
         public async Task<IActionResult> Requests()
         {
@@ -157,7 +157,29 @@ namespace UserInterface.Controllers
 
             var requestsVM = mapper.Map<List<BookTransactionDto>, 
                 List<BookTransactionViewModel>>(transactions);
-            return View(requestsVM.Where(s => s.OwnerAgreed == -1).ToList());
+            return View(requestsVM.ToList());
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Control(int id)
+        {
+            var book = await bookBusinessService.GetBookById(id, null);
+            if(book != null && book.User.Email == User.Identity.Name)
+            {
+                var transactions = await bookBusinessService.GetBookTransactionsByBookId(id);
+                var transactionsVM = mapper.Map<List<BookTransactionDto>,
+                    List<BookTransactionViewModel>> (transactions);
+                return View(transactionsVM);
+            }
+
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ControlPost(int BookId, string Id, int Status, string Comment)
+        {
+            await bookBusinessService.BookTransactionStatusEdit(Id, (TransactionStatus)Status, Comment);
+            return RedirectToAction("Control", new { id = BookId });
         }
     }
 }

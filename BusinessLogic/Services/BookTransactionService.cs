@@ -55,21 +55,22 @@ namespace BusinessLogic.Services
         public async Task<bool> IsThisBookFree(int bookId, DateTime start, DateTime end)
         {
             var transactions = await DbSet.Where(s => s.BookId == bookId).ToListAsync();
-            foreach(var tr in transactions)
+
+            // We check only those transactions where the owner agreed to borrow the book
+            var ownerAgreedTransactions = transactions.Where(s => s.OwnerAgreed == true).ToList();
+            
+            foreach(var transaction in ownerAgreedTransactions)
             {
-                if ((IsDateInRange(start, end, tr.BorrowStartDate) || 
-                    IsDateInRange(start, end, tr.BorrowEndDate)) && tr.OwnerAgreed == 1)
+                if(transaction.BorrowEndDate > start)
                 {
-                    return false;
+                    if (transaction.BorrowStartDate <= start || transaction.BorrowStartDate <= end)
+                    {
+                        return false;
+                    }
                 }
             }
 
             return true;
-        }
-
-        private bool IsDateInRange(DateTime start, DateTime end, DateTime date)
-        {
-            return start.Date >= date.Date && date.Date <= end.Date;
         }
     }
 }

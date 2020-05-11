@@ -53,11 +53,11 @@ else
                     <a class="btn btn-primary" asp-controller="User" asp-action="Details" asp-route-id="@transaction.BorrowerId">Должник</a>
                 </div>
                 <div class="col-md-12 mt-4">
-                    @if (transaction.IsSuccess == -1)
+                    @if (transaction.IsSuccess == null)
                     {
                         <div class="progress-warning"></div>
                     }
-                    else if (transaction.IsSuccess == 0)
+                    else if (transaction.IsSuccess == false)
                     {
                         <div class="progress-danger"></div>
                     }

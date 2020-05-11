@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common.BookTransaction;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -23,8 +24,10 @@ namespace UserInterface.ViewModels
         public int BorrowerId { get; set; }
         public DateTime CreatedDate { get; set; }
         public BookViewModel Book { get; set; }
-        public int IsSuccess { get; set; }
-        public int OwnerAgreed { get; set; }
+        public bool? IsSuccess { get; set; }
+        public bool? OwnerAgreed { get; set; }
         public bool OwnerHasSeen { get; set; }
+        public TransactionStatus Status { get; set; }
+        public string Comment { get; set; }
     }
 }
