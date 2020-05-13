@@ -21,7 +21,7 @@ namespace DataAccess
         public DbSet<BcBook> BcBooks { get; set; }
         public DbSet<DialogControl> DialogControls { get; set; }
         public DbSet<BookTransaction> BookTransactions { get; set; }
-        public DbSet<BookOperationsLog> BookOperationsLogs { get; set; }
+        public DbSet<Log> Logs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
