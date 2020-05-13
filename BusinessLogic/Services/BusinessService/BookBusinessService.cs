@@ -81,7 +81,7 @@ namespace BusinessLogic.Services.BusinessService
 
                 var books = await bookService.GetBooksByUserId(id);
 
-                await _logger.AddLog($"Got books by user ID: {id}", EbsLoggerLevel.Debug, (int) id);
+                await _logger.AddLog($"Got books by user ID: {id}", EbsLoggerLevel.Debug, id.ToString());
 
                 return mapper.Map<List<Book>, List<BookDto>>(books);
             }
@@ -106,7 +106,7 @@ namespace BusinessLogic.Services.BusinessService
                 entity = await bookService.Create(entity);
 
                 await _logger.AddLog($"Book ID: {entity.Id} was created successfully by User ID: {entity.UserId}",
-                    EbsLoggerLevel.Info, entity.UserId, entity.Id);
+                    EbsLoggerLevel.Info, entity.Id.ToString());
 
                 return book.Id;
             }
@@ -242,19 +242,19 @@ namespace BusinessLogic.Services.BusinessService
         {
             try
             {
-                await _logger.AddLog("Removing a book from the database", EbsLoggerLevel.Warn, modelDto.UserId, modelDto.Id);
+                await _logger.AddLog("Removing a book from the database", EbsLoggerLevel.Warn, modelDto.Id.ToString());
 
                 var entity = mapper.Map<BookDto, Book>(modelDto);
                 var result = await bookService.Delete(entity);
 
                 await _logger.AddLog($"Book ID: {modelDto.Id} was successfully deleted by User ID: {modelDto.UserId}",
-                    EbsLoggerLevel.Debug, modelDto.UserId, modelDto.Id);
+                    EbsLoggerLevel.Debug, modelDto.Id.ToString());
 
                 return result;
             }
             catch(Exception ex)
             {
-                await _logger.AddLog(ex.Message, EbsLoggerLevel.Error, modelDto.UserId, modelDto.Id);
+                await _logger.AddLog(ex.Message, EbsLoggerLevel.Error, modelDto.Id.ToString());
                 return 0;
             }
         }
