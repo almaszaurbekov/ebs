@@ -16,9 +16,8 @@ using System.Linq;
 using AutoMapper;
 using Common;
 using System;
-using System.Net.Mail;
-using System.Net;
 using System.IO;
+using Microsoft.Extensions.Configuration;
 
 namespace UserInterface.Controllers
 {
@@ -27,13 +26,17 @@ namespace UserInterface.Controllers
     {
         private readonly IUserBusinessService userBusinessService;
         private readonly IBookBusinessService bookBusinessService;
+        private readonly IConfiguration configuration;
 
         public UserController(IUserBusinessService userBusinessService, IMapper mapper,
-            IWebHostEnvironment hostEnvironment, IBookBusinessService bookBusinessService)
-            : base(mapper, hostEnvironment)
+            IWebHostEnvironment hostEnvironment, IBookBusinessService bookBusinessService,
+            IConfiguration configuration) : base(mapper, hostEnvironment)
         {
             this.userBusinessService = userBusinessService;
             this.bookBusinessService = bookBusinessService;
+            this.configuration = configuration;
+
+
         }
 
         /// <summary>
@@ -261,7 +264,7 @@ namespace UserInterface.Controllers
                     user = await userBusinessService.CreateUser(user);
 
                     await Authenticate(user);
-                    await NotifyUser(user);
+                    await NotifyUser(user.Email);
 
                     return RedirectToAction("Training", "Home");
                 }
@@ -271,37 +274,30 @@ namespace UserInterface.Controllers
             return View(model);
         }
 
-        private async Task NotifyUser(UserDto user)
+        private async Task NotifyUser(string email)
         {
             try
             {
-                MailAddress from = new MailAddress("kz.ebooksharing@gmail.com", "kz.ebooksharing@gmail.com");
-                MailAddress to = new MailAddress(user.Email);
-                MailMessage message = new MailMessage(from, to);
-                message.Subject = "EBookSharing - Weekly news";
-                message.IsBodyHtml = true;
-                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-                smtp.Credentials = new NetworkCredential("kz.ebooksharing@gmail.com", PasswordHelper.EmailPassword());
-                smtp.EnableSsl = true;
-
-                var folder = Path.Combine(hostEnvironment.WebRootPath, "html");
-                string body = string.Empty;
-
-                using (var reader = new StreamReader(Path.Combine(folder, "MessageTemplate.html")))
-                {
-                    body = reader.ReadToEnd();
-                }
-
-                body = body.Replace("{name}", user.Email);
-
-                message.Body = body;
-
-                await smtp.SendMailAsync(message);
+                var message = GetTemplateHtml(email);
+                await userBusinessService.NotifyUser(email, message, configuration);
             }
             catch (Exception e)
             {
                 throw e;
             }
+        }
+
+        private string GetTemplateHtml(string email)
+        {
+            var folder = Path.Combine(hostEnvironment.WebRootPath, "html");
+            string template = string.Empty;
+
+            using (var reader = new StreamReader(Path.Combine(folder, "MessageTemplate.html")))
+            {
+                template = reader.ReadToEnd();
+            }
+
+            return template.Replace("{name}", email);
         }
 
         /// <summary>

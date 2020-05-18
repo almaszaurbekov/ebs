@@ -7,6 +7,7 @@ using Common;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace BusinessLogic.Services.BusinessService
 {
@@ -23,6 +24,7 @@ namespace BusinessLogic.Services.BusinessService
         Task<RoleDto> GetRoleById(Guid? id);
         Task<RoleDto> GetRoleByName(string name);
         Task<List<RoleDto>> GetRoles();
+        Task NotifyUser(string email, string message, IConfiguration configuration);
     }
 
     public class UserBusinessService : IUserBusinessService
@@ -31,14 +33,16 @@ namespace BusinessLogic.Services.BusinessService
 
         private readonly IUserService userService;
         private readonly IRoleService roleService;
+        private readonly IEmailService emailService;
         private readonly IMemoryCache cache;
         private readonly IMapper mapper;
 
         public UserBusinessService(IUserService userService, IMemoryCache cache,
-            IRoleService roleService)
+            IRoleService roleService, IEmailService emailService)
         {
             this.userService = userService;
             this.roleService = roleService;
+            this.emailService = emailService;
             this.cache = cache;
             this.mapper = MapperConfig.MapperInitialize();
         }
@@ -141,6 +145,11 @@ namespace BusinessLogic.Services.BusinessService
         {
             var users = await userService.Filter(s => s.Email.Contains(email.ToLower()));
             return mapper.Map<List<User>, List<UserDto>>(users);
+        }
+
+        public async Task NotifyUser(string email, string message, IConfiguration configuration)
+        {
+            await emailService.SendEmailAsync(email, message, configuration);
         }
     }
 }
