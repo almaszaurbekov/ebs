@@ -26,30 +26,36 @@ namespace BusinessLogic.Loggers
 
         public async Task AddLog(string message, EbsLoggerLevel level)
         {
-            var log = new Log()
+            if (!string.IsNullOrEmpty(message))
             {
-                Level = level,
-                LevelText = level.ToString(),
-                InfluencedObjectId = DefaultValue,
-                Message = message
-            };
+                var log = new Log()
+                {
+                    Level = level,
+                    LevelText = level.ToString(),
+                    InfluencedObjectId = DefaultValue,
+                    Message = message
+                };
 
-            var entry = DbSet.Add(log);
-            await _context.SaveChangesAsync();
+                var entry = DbSet.Add(log);
+                await _context.SaveChangesAsync();
+            }
         }
 
         public async Task AddLog(string message, EbsLoggerLevel level, string objectId)
         {
-            var log = new Log()
+            if (!string.IsNullOrEmpty(message))
             {
-                Level = level,
-                LevelText = level.ToString(),
-                InfluencedObjectId = objectId,
-                Message = message
-            };
+                var log = new Log()
+                {
+                    Level = level,
+                    LevelText = level.ToString(),
+                    InfluencedObjectId = objectId,
+                    Message = message
+                };
 
-            var entry = DbSet.Add(log);
-            await _context.SaveChangesAsync();
+                var entry = DbSet.Add(log);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }
