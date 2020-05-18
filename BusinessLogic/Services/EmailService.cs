@@ -6,39 +6,58 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Services
 {
-    public interface IEmailService { }
-    public class EmailService
+    public interface IEmailService
+    {
+        Task SendEmailAsync(string email, string message, IConfiguration configuration);
+    }
+
+    public class EmailService : IEmailService
     {
         private string Address { get; set; }
         private string DisplayName { get; set; }
         private string EmailPassword { get; set; }
         private string Host { get; set; }
         private int Port { get; set; }
+        private string Subject { get; set; }
+        private MailAddress Sender { get; set; }
+        private MailAddress Recipient { get; set; }
+        private MailMessage Message { get; set; }
+        private SmtpClient SmtpClient { get; set; }
 
-        public EmailService(IConfiguration configuration)
+        public async Task SendEmailAsync(string email, string message, IConfiguration configuration)
         {
-            Address = configuration["Address"];
-            DisplayName = configuration["DisplayName"];
-            EmailPassword = configuration["Password"];
-            Host = configuration["Host"];
-            Port = Convert.ToInt32(configuration["Port"]);
+            SetUpService(configuration);
+            SetUpEmail(email, message);
+            SetUpSmtpClient();
+            await SmtpClient.SendMailAsync(Message);
         }
 
-        public async Task SendEmailAsync(string email, string subject, string message)
+        private void SetUpService(IConfiguration configuration)
         {
-            MailAddress from = new MailAddress(Address, DisplayName);
-            MailAddress to = new MailAddress(email);
-            MailMessage _message = new MailMessage(from, to);
+            Address = configuration["EmailService:Address"];
+            DisplayName = configuration["EmailService:DisplayName"];
+            EmailPassword = configuration["EmailService:Password"];
+            Host = configuration["EmailService:Host"];
+            Port = Convert.ToInt32(configuration["EmailService:Port"]);
+            Subject = configuration["EmailService:Subject"];
+        }
 
-            _message.Subject = subject;
-            _message.Body = message;
-            _message.IsBodyHtml = true;
+        private void SetUpEmail(string email, string message)
+        {
+            Sender = new MailAddress(Address, DisplayName);
+            Recipient = new MailAddress(email);
+            Message = new MailMessage(Sender, Recipient);
 
-            SmtpClient smtp = new SmtpClient(Host, Port);
-            smtp.Credentials = new NetworkCredential(Address, EmailPassword);
-            smtp.EnableSsl = true;
+            Message.Subject = Subject;
+            Message.Body = message;
+            Message.IsBodyHtml = true;
+        }
 
-            await smtp.SendMailAsync(_message);
+        private void SetUpSmtpClient()
+        {
+            SmtpClient = new SmtpClient(Host, Port);
+            SmtpClient.Credentials = new NetworkCredential(Address, EmailPassword);
+            SmtpClient.EnableSsl = true;
         }
     }
 }

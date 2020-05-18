@@ -68,6 +68,9 @@ namespace UserInterface
                 options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/User");
             });
 
+            // General Configuration
+            services.AddSingleton(Configuration);
+
             // SignalR Configurations
             services.AddSignalR();
         }
