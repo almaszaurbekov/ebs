@@ -48,12 +48,12 @@ namespace BusinessLogic.Services.BusinessService
         private readonly ICommentService commentService;
         private readonly IBcBookService bookcityService;
         private readonly IMapper mapper;
-        private readonly IBookOperationsLogger _logger;
+        private readonly ILogger _logger;
 
         public BookBusinessService(IMemoryCache cache, IBookService bookService,
             IUserService userService, IBookTransactionService transactionService,
             ICommentService commentService, IBcBookService bookcityService,
-            IBookOperationsLogger logger)
+            ILogger logger)
         {
             this.cache = cache;
             this.bookService = bookService;

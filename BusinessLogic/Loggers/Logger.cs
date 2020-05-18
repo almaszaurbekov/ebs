@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Loggers
 {
-    public interface IBookOperationsLogger
+    public interface ILogger
     {
         Task AddLog(string message, EbsLoggerLevel level);
         Task AddLog(string message, EbsLoggerLevel level, string objectId);
     }
 
-    public class Logger : IBookOperationsLogger
+    public class Logger : ILogger
     {
         private readonly string DefaultValue = "Пусто";
         private EbsContext _context { get; set; }
