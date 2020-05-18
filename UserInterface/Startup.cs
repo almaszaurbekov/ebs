@@ -56,6 +56,7 @@ namespace UserInterface
             services.AddTransient<ICommentService, CommentService>();
             services.AddTransient<IBcBookService, BcBookService>();
             services.AddTransient<IBookTransactionService, BookTransactionService>();
+            services.AddTransient<IEmailService, EmailService>();
 
             #endregion
 
