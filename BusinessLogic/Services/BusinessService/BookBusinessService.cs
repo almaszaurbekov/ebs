@@ -71,14 +71,6 @@ namespace BusinessLogic.Services.BusinessService
         {
             try
             {
-                await _logger.AddLog($"Pulling a books from a database", EbsLoggerLevel.Info);
-
-                if (id == null)
-                {
-                    await _logger.AddLog("It is not possible to pull out a list of books by user id, without the id itself", EbsLoggerLevel.Error);
-                    throw new Exception();
-                }
-
                 var books = await bookService.GetBooksByUserId(id);
 
                 await _logger.AddLog($"Got books by user ID: {id}", EbsLoggerLevel.Debug, id.ToString());
@@ -98,15 +90,15 @@ namespace BusinessLogic.Services.BusinessService
             return mapper.Map<List<Book>, List<BookDto>>(books);
         }
 
-        public async Task<int> AddBook(BookDto book)
+        public async Task<int> AddBook(BookDto model)
         {
             try
             {
-                var entity = mapper.Map<BookDto, Book>(book);
-                entity = await bookService.Create(entity);
+                var book = mapper.Map<BookDto, Book>(model);
+                book = await bookService.Create(book);
 
-                await _logger.AddLog($"Book ID: {entity.Id} was created successfully by User ID: {entity.UserId}",
-                    EbsLoggerLevel.Info, entity.Id.ToString());
+                await _logger.AddLog($"Book ID: {book.Id} was created successfully by User ID: {book.UserId}",
+                    EbsLoggerLevel.Info, book.Id.ToString());
 
                 return book.Id;
             }
@@ -242,8 +234,6 @@ namespace BusinessLogic.Services.BusinessService
         {
             try
             {
-                await _logger.AddLog("Removing a book from the database", EbsLoggerLevel.Warn, modelDto.Id.ToString());
-
                 var entity = mapper.Map<BookDto, Book>(modelDto);
                 var result = await bookService.Delete(entity);
 
