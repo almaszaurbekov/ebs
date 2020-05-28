@@ -7,9 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using DataAccess;
 using AutoMapper;
 using UserInterface.Mappings;
-using BusinessLogic.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using BusinessLogic.Services.BusinessService;
+using UserInterface.Extensions;
 using UserInterface.Hubs;
 
 namespace UserInterface
@@ -42,22 +41,7 @@ namespace UserInterface
             services.AddSingleton(mapper);
 
             // Dependency Injection Configurations
-            #region AddTransient
-
-            services.AddTransient<IUserBusinessService, UserBusinessService>();
-            services.AddTransient<IBookBusinessService, BookBusinessService>();
-            services.AddTransient<IMessageBusinessService, MessageBusinessService>();
-            services.AddTransient<IAdminBusinessService, AdminBusinessService>();
-            services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IBookService, BookService>();
-            services.AddTransient<IRoleService, RoleService>();
-            services.AddTransient<IMessageService, MessageService>();
-            services.AddTransient<IDialogControlService, DialogControlService>();
-            services.AddTransient<ICommentService, CommentService>();
-            services.AddTransient<IBcBookService, BcBookService>();
-            services.AddTransient<IBookTransactionService, BookTransactionService>();
-
-            #endregion
+            services.AddEbsServices();
 
             // Authentication Configurations
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
