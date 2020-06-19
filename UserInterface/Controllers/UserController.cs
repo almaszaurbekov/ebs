@@ -15,6 +15,10 @@ using BusinessLogic.Dto;
 using System.Linq;
 using AutoMapper;
 using Common;
+using System;
+using System.IO;
+using Microsoft.Extensions.Configuration;
+
 namespace UserInterface.Controllers
 {
     [Authorize]
@@ -22,13 +26,17 @@ namespace UserInterface.Controllers
     {
         private readonly IUserBusinessService userBusinessService;
         private readonly IBookBusinessService bookBusinessService;
+        private readonly IConfiguration configuration;
 
         public UserController(IUserBusinessService userBusinessService, IMapper mapper,
-            IWebHostEnvironment hostEnvironment, IBookBusinessService bookBusinessService)
-            : base(mapper, hostEnvironment)
+            IWebHostEnvironment hostEnvironment, IBookBusinessService bookBusinessService,
+            IConfiguration configuration) : base(mapper, hostEnvironment)
         {
             this.userBusinessService = userBusinessService;
             this.bookBusinessService = bookBusinessService;
+            this.configuration = configuration;
+
+
         }
 
         /// <summary>
@@ -256,6 +264,7 @@ namespace UserInterface.Controllers
                     user = await userBusinessService.CreateUser(user);
 
                     await Authenticate(user);
+                    await NotifyUser(user.Email);
 
                     return RedirectToAction("Training", "Home");
                 }
@@ -263,6 +272,32 @@ namespace UserInterface.Controllers
                     ModelState.AddModelError("", "Пользователь с таким email уже существует");
             }
             return View(model);
+        }
+
+        private async Task NotifyUser(string email)
+        {
+            try
+            {
+                var message = GetTemplateHtml(email);
+                await userBusinessService.NotifyUser(email, message);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        private string GetTemplateHtml(string email)
+        {
+            var folder = Path.Combine(hostEnvironment.WebRootPath, "html");
+            string template = string.Empty;
+
+            using (var reader = new StreamReader(Path.Combine(folder, "MessageTemplate.html")))
+            {
+                template = reader.ReadToEnd();
+            }
+
+            return template.Replace("{name}", email);
         }
 
         /// <summary>
