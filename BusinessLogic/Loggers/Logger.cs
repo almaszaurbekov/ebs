@@ -14,7 +14,7 @@ namespace BusinessLogic.Loggers
 
     public class Logger : ILogger
     {
-        private readonly string DefaultValue = "Пусто";
+        private const string DefaultValue = "Пусто";
         private EbsContext _context { get; set; }
         private DbSet<Log> DbSet => _context.Set<Log>();
         public virtual Task<int> Count => DbSet.CountAsync();
@@ -26,36 +26,30 @@ namespace BusinessLogic.Loggers
 
         public async Task AddLog(string message, EbsLoggerLevel level)
         {
-            if (!string.IsNullOrEmpty(message))
+            var log = new Log()
             {
-                var log = new Log()
-                {
-                    Level = level,
-                    LevelText = level.ToString(),
-                    InfluencedObjectId = DefaultValue,
-                    Message = message
-                };
+                Level = level,
+                LevelText = level.ToString(),
+                InfluencedObjectId = DefaultValue,
+                Message = message
+            };
 
-                var entry = DbSet.Add(log);
-                await _context.SaveChangesAsync();
-            }
+            var entry = DbSet.Add(log);
+            await _context.SaveChangesAsync();
         }
 
         public async Task AddLog(string message, EbsLoggerLevel level, string objectId)
         {
-            if (!string.IsNullOrEmpty(message))
+            var log = new Log()
             {
-                var log = new Log()
-                {
-                    Level = level,
-                    LevelText = level.ToString(),
-                    InfluencedObjectId = objectId,
-                    Message = message
-                };
+                Level = level,
+                LevelText = level.ToString(),
+                InfluencedObjectId = objectId,
+                Message = message
+            };
 
-                var entry = DbSet.Add(log);
-                await _context.SaveChangesAsync();
-            }
+            var entry = DbSet.Add(log);
+            await _context.SaveChangesAsync();
         }
     }
 }
