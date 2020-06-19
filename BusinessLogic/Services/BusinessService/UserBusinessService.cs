@@ -24,7 +24,7 @@ namespace BusinessLogic.Services.BusinessService
         Task<RoleDto> GetRoleById(Guid? id);
         Task<RoleDto> GetRoleByName(string name);
         Task<List<RoleDto>> GetRoles();
-        Task NotifyUser(string email, string message, IConfiguration configuration);
+        Task NotifyUser(string email, string message);
     }
 
     public class UserBusinessService : IUserBusinessService
@@ -147,9 +147,9 @@ namespace BusinessLogic.Services.BusinessService
             return mapper.Map<List<User>, List<UserDto>>(users);
         }
 
-        public async Task NotifyUser(string email, string message, IConfiguration configuration)
+        public async Task NotifyUser(string email, string message)
         {
-            await emailService.SendEmailAsync(email, message, configuration);
+            await emailService.SendEmailAsync(email, message);
         }
     }
 }

@@ -279,7 +279,7 @@ namespace UserInterface.Controllers
             try
             {
                 var message = GetTemplateHtml(email);
-                await userBusinessService.NotifyUser(email, message, configuration);
+                await userBusinessService.NotifyUser(email, message);
             }
             catch (Exception e)
             {

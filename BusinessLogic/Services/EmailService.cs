@@ -8,11 +8,12 @@ namespace BusinessLogic.Services
 {
     public interface IEmailService
     {
-        Task SendEmailAsync(string email, string message, IConfiguration configuration);
+        Task SendEmailAsync(string email, string message);
     }
 
     public class EmailService : IEmailService
     {
+        private IConfiguration Configuration;
         private string Address { get; set; }
         private string DisplayName { get; set; }
         private string EmailPassword { get; set; }
@@ -24,22 +25,32 @@ namespace BusinessLogic.Services
         private MailMessage Message { get; set; }
         private SmtpClient SmtpClient { get; set; }
 
-        public async Task SendEmailAsync(string email, string message, IConfiguration configuration)
+        public EmailService(IConfiguration configuration)
         {
-            SetUpService(configuration);
-            SetUpEmail(email, message);
+            SetUpConfiguration(configuration);
+        }
+
+        public void SetUpConfiguration(IConfiguration configuration)
+        {
+            Configuration = configuration;
+            SetUpService();
             SetUpSmtpClient();
+        }
+
+        public async Task SendEmailAsync(string email, string message)
+        {
+            SetUpEmail(email, message);
             await SmtpClient.SendMailAsync(Message);
         }
 
-        private void SetUpService(IConfiguration configuration)
+        private void SetUpService()
         {
-            Address = configuration["EmailService:Address"];
-            DisplayName = configuration["EmailService:DisplayName"];
-            EmailPassword = configuration["EmailService:Password"];
-            Host = configuration["EmailService:Host"];
-            Port = Convert.ToInt32(configuration["EmailService:Port"]);
-            Subject = configuration["EmailService:Subject"];
+            Address = Configuration["EmailService:Address"];
+            DisplayName = Configuration["EmailService:DisplayName"];
+            EmailPassword = Configuration["EmailService:Password"];
+            Host = Configuration["EmailService:Host"];
+            Port = Convert.ToInt32(Configuration["EmailService:Port"]);
+            Subject = Configuration["EmailService:Subject"];
         }
 
         private void SetUpEmail(string email, string message)
@@ -56,6 +67,7 @@ namespace BusinessLogic.Services
         private void SetUpSmtpClient()
         {
             SmtpClient = new SmtpClient(Host, Port);
+            SmtpClient.UseDefaultCredentials = false;
             SmtpClient.Credentials = new NetworkCredential(Address, EmailPassword);
             SmtpClient.EnableSsl = true;
         }
