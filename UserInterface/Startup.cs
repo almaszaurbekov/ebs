@@ -10,6 +10,7 @@ using UserInterface.Mappings;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using UserInterface.Extensions;
 using UserInterface.Hubs;
+using BusinessLogic.Loggers;
 
 namespace UserInterface
 {

@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using BusinessLogic.Dto;
+using BusinessLogic.Loggers;
 using BusinessLogic.Mappings;
 using Common.BookTransaction;
+using Common;
 using DataAccess.Entities;
 using Microsoft.Extensions.Caching.Memory;
 using System;
@@ -48,10 +50,12 @@ namespace BusinessLogic.Services.BusinessService
         private readonly ICommentService commentService;
         private readonly IBcBookService bookcityService;
         private readonly IMapper mapper;
+        private readonly ILogger _logger;
 
         public BookBusinessService(IMemoryCache cache, IBookService bookService,
             IUserService userService, IBookTransactionService transactionService,
-            ICommentService commentService, IBcBookService bookcityService)
+            ICommentService commentService, IBcBookService bookcityService,
+            ILogger logger)
         {
             this.cache = cache;
             this.bookService = bookService;
@@ -59,6 +63,7 @@ namespace BusinessLogic.Services.BusinessService
             this.transactionService = transactionService;
             this.commentService = commentService;
             this.bookcityService = bookcityService;
+            _logger = logger;
             this.mapper = MapperConfig.MapperInitialize();
         }
 
@@ -66,8 +71,19 @@ namespace BusinessLogic.Services.BusinessService
 
         public async Task<List<BookDto>> GetBooksByUserId(int? id)
         {
-            var books = await bookService.GetBooksByUserId(id);
-            return mapper.Map<List<Book>, List<BookDto>>(books);
+            try
+            {
+                var books = await bookService.GetBooksByUserId(id);
+
+                await _logger.AddLog($"Got books by user ID: {id}", EbsLoggerLevel.Debug, id.ToString());
+
+                return mapper.Map<List<Book>, List<BookDto>>(books);
+            }
+            catch (Exception ex)
+            {
+                await _logger.AddLog(ex.Message, EbsLoggerLevel.Fatal);
+                throw ex;
+            }
         }
         public async Task<List<BookDto>> GetBooksByUserEmail(string email)
         {
@@ -76,16 +92,21 @@ namespace BusinessLogic.Services.BusinessService
             return mapper.Map<List<Book>, List<BookDto>>(books);
         }
 
-        public async Task<int> AddBook(BookDto book)
+        public async Task<int> AddBook(BookDto model)
         {
             try
             {
-                var entity = mapper.Map<BookDto, Book>(book);
-                await bookService.Create(entity);
+                var book = mapper.Map<BookDto, Book>(model);
+                book = await bookService.Create(book);
+
+                await _logger.AddLog($"Book ID: {book.Id} was created successfully by User ID: {book.UserId}",
+                    EbsLoggerLevel.Info, book.Id.ToString());
+
                 return book.Id;
             }
-            catch
+            catch (Exception ex)
             {
+                await _logger.AddLog(ex.Message, EbsLoggerLevel.Error);
                 return 0;
             }
         }
@@ -218,8 +239,21 @@ namespace BusinessLogic.Services.BusinessService
 
         public async Task<int> DeleteBook(BookDto modelDto)
         {
-            var entity = mapper.Map<BookDto, Book>(modelDto);
-            return await bookService.Delete(entity);
+            try
+            {
+                var entity = mapper.Map<BookDto, Book>(modelDto);
+                var result = await bookService.Delete(entity);
+
+                await _logger.AddLog($"Book ID: {modelDto.Id} was successfully deleted by User ID: {modelDto.UserId}",
+                    EbsLoggerLevel.Debug, modelDto.Id.ToString());
+
+                return result;
+            }
+            catch(Exception ex)
+            {
+                await _logger.AddLog(ex.Message, EbsLoggerLevel.Error, modelDto.Id.ToString());
+                return 0;
+            }
         }
 
         public async Task<List<BcBookDto>> GetBooksByValue(string value)

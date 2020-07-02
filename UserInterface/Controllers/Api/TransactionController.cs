@@ -13,8 +13,9 @@ namespace UserInterface.Controllers.Api
 {
     public class TransactionController : EbsApiController
     {
-        public TransactionController(IBookBusinessService bookBusinessService,
-           IMapper mapper, IWebHostEnvironment hostEnvironment) : base(bookBusinessService, mapper, hostEnvironment)
+        public TransactionController(IBookBusinessService bookBusinessService, 
+            IUserBusinessService userBusinessService, IMapper mapper, IWebHostEnvironment hostEnvironment) 
+            : base(bookBusinessService, mapper, hostEnvironment, userBusinessService)
         { }
 
         /// <summary>

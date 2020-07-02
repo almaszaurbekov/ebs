@@ -4,14 +4,16 @@ using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(EbsContext))]
-    partial class EbsContextModelSnapshot : ModelSnapshot
+    [Migration("20200504225227_BookOperationsLogIsAdded")]
+    partial class BookOperationsLogIsAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -149,7 +151,7 @@ namespace DataAccess.Migrations
                             Id = 1,
                             Author = "Жюль Верн",
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 5, 13, 17, 45, 38, 460, DateTimeKind.Utc).AddTicks(5638),
+                            CreatedDate = new DateTime(2020, 5, 4, 22, 52, 26, 448, DateTimeKind.Utc).AddTicks(6299),
                             Description = "Very good book",
                             ImageSource = "https://static.librebook.me/uploads/pics/01/61/852.jpg",
                             InGoodCondition = true,
@@ -166,7 +168,7 @@ namespace DataAccess.Migrations
                             Id = 2,
                             Author = "Жюль Верн",
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 5, 13, 17, 45, 38, 461, DateTimeKind.Utc).AddTicks(3712),
+                            CreatedDate = new DateTime(2020, 5, 4, 22, 52, 26, 449, DateTimeKind.Utc).AddTicks(3493),
                             Description = "Very good book",
                             ImageSource = "https://www.mann-ivanov-ferber.ru/assets/images/covers/37/21737/1.00x-thumb.png",
                             InGoodCondition = true,
@@ -183,7 +185,7 @@ namespace DataAccess.Migrations
                             Id = 3,
                             Author = "Жюль Верн",
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 5, 13, 17, 45, 38, 461, DateTimeKind.Utc).AddTicks(3861),
+                            CreatedDate = new DateTime(2020, 5, 4, 22, 52, 26, 449, DateTimeKind.Utc).AddTicks(3620),
                             Description = "Very good book",
                             ImageSource = "https://be2.aldebaran.ru/static/bookimages/42/41/09/42410912.bin.dir/42410912.cover.jpg",
                             InGoodCondition = true,
@@ -200,7 +202,7 @@ namespace DataAccess.Migrations
                             Id = 4,
                             Author = "Жюль Верн",
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 5, 13, 17, 45, 38, 461, DateTimeKind.Utc).AddTicks(3866),
+                            CreatedDate = new DateTime(2020, 5, 4, 22, 52, 26, 449, DateTimeKind.Utc).AddTicks(3625),
                             Description = "Very good book",
                             ImageSource = "https://j.livelib.ru/boocover/1001542410/o/1833/Zhyul_Vern__Puteshestvie_k_tsentru_Zemli.jpeg",
                             InGoodCondition = true,
@@ -217,7 +219,7 @@ namespace DataAccess.Migrations
                             Id = 5,
                             Author = "Джоан Роулинг",
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 5, 13, 17, 45, 38, 461, DateTimeKind.Utc).AddTicks(3869),
+                            CreatedDate = new DateTime(2020, 5, 4, 22, 52, 26, 449, DateTimeKind.Utc).AddTicks(3627),
                             Description = "Very good book",
                             ImageSource = "https://i4.mybook.io/p/512x852/book_covers/86/25/86251214-92ea-44e9-a394-1a9ef1211400.jpe?v2",
                             InGoodCondition = true,
@@ -234,7 +236,7 @@ namespace DataAccess.Migrations
                             Id = 6,
                             Author = "Джоан Роулинг",
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 5, 13, 17, 45, 38, 461, DateTimeKind.Utc).AddTicks(3879),
+                            CreatedDate = new DateTime(2020, 5, 4, 22, 52, 26, 449, DateTimeKind.Utc).AddTicks(3636),
                             Description = "Very good book",
                             ImageSource = "https://i4.mybook.io/p/512x852/book_covers/37/81/37811194-8ad9-45a1-b394-9960b57b511f.jpe?v2",
                             InGoodCondition = true,
@@ -251,7 +253,7 @@ namespace DataAccess.Migrations
                             Id = 7,
                             Author = "Джоан Роулинг",
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 5, 13, 17, 45, 38, 461, DateTimeKind.Utc).AddTicks(3883),
+                            CreatedDate = new DateTime(2020, 5, 4, 22, 52, 26, 449, DateTimeKind.Utc).AddTicks(3639),
                             Description = "Very good book",
                             ImageSource = "https://i4.mybook.io/p/512x852/book_covers/db/53/db53dd7e-10da-471a-b33e-2669f5a5abe9.jpe?v2",
                             InGoodCondition = true,
@@ -268,7 +270,7 @@ namespace DataAccess.Migrations
                             Id = 8,
                             Author = "Федор Достоевский",
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 5, 13, 17, 45, 38, 461, DateTimeKind.Utc).AddTicks(3940),
+                            CreatedDate = new DateTime(2020, 5, 4, 22, 52, 26, 449, DateTimeKind.Utc).AddTicks(3641),
                             Description = "Very good book",
                             ImageSource = "https://azbyka.ru/fiction/wp-content/uploads/2013/02/55.jpg",
                             InGoodCondition = true,
@@ -280,6 +282,39 @@ namespace DataAccess.Migrations
                             UserId = 2,
                             СlickCount = 76
                         });
+                });
+
+            modelBuilder.Entity("DataAccess.Entities.BookOperationsLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Level")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LevelText")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BookOperationsLogs");
                 });
 
             modelBuilder.Entity("DataAccess.Entities.BookTransaction", b =>
@@ -395,7 +430,7 @@ namespace DataAccess.Migrations
                             Id = 1,
                             BookId = 1,
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 5, 13, 17, 45, 38, 461, DateTimeKind.Utc).AddTicks(6194),
+                            CreatedDate = new DateTime(2020, 5, 4, 22, 52, 26, 449, DateTimeKind.Utc).AddTicks(5646),
                             IsDeleted = false,
                             Text = "I think this is amazing book!",
                             UserId = 2
@@ -405,7 +440,7 @@ namespace DataAccess.Migrations
                             Id = 2,
                             BookId = 6,
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 5, 13, 17, 45, 38, 461, DateTimeKind.Utc).AddTicks(7574),
+                            CreatedDate = new DateTime(2020, 5, 4, 22, 52, 26, 449, DateTimeKind.Utc).AddTicks(7199),
                             IsDeleted = false,
                             Text = "This is awful book...",
                             UserId = 1
@@ -475,42 +510,15 @@ namespace DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 5, 13, 17, 45, 38, 461, DateTimeKind.Utc).AddTicks(9586),
+                            CreatedDate = new DateTime(2020, 5, 4, 22, 52, 26, 449, DateTimeKind.Utc).AddTicks(9264),
                             FirstInterlocutorEmail = "foxxychmoxy@gmail.com",
                             FirstInterlocutorId = 1,
                             IsDeleted = false,
                             LastMessage = "Hello! Yes, I know. Thank you!",
-                            LastMessageDate = new DateTime(2020, 5, 13, 17, 45, 38, 462, DateTimeKind.Utc).AddTicks(2918),
+                            LastMessageDate = new DateTime(2020, 5, 4, 22, 52, 26, 450, DateTimeKind.Utc).AddTicks(2654),
                             SecondInterlocutorEmail = "almasgaara@mail.ru",
                             SecondInterlocutorId = 2
                         });
-                });
-
-            modelBuilder.Entity("DataAccess.Entities.Log", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("InfluencedObjectId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Level")
-                        .HasColumnType("int");
-
-                    b.Property<string>("LevelText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Message")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Logs");
                 });
 
             modelBuilder.Entity("DataAccess.Entities.Message", b =>
@@ -576,7 +584,7 @@ namespace DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 5, 13, 17, 45, 38, 462, DateTimeKind.Utc).AddTicks(6259),
+                            CreatedDate = new DateTime(2020, 5, 4, 22, 52, 26, 450, DateTimeKind.Utc).AddTicks(5947),
                             DialogControlId = 1,
                             HasRead = true,
                             IsDeleted = false,
@@ -590,7 +598,7 @@ namespace DataAccess.Migrations
                         {
                             Id = 2,
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 5, 13, 17, 45, 38, 462, DateTimeKind.Utc).AddTicks(9417),
+                            CreatedDate = new DateTime(2020, 5, 4, 22, 52, 26, 451, DateTimeKind.Utc).AddTicks(3),
                             DialogControlId = 1,
                             HasRead = true,
                             IsDeleted = false,
@@ -642,17 +650,17 @@ namespace DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("612d3a8a-a687-4ac5-b78a-db0c96efee60"),
+                            Id = new Guid("3bb87380-bf6f-409d-8d87-feb1c909a4f3"),
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 5, 13, 17, 45, 38, 453, DateTimeKind.Utc).AddTicks(8933),
+                            CreatedDate = new DateTime(2020, 5, 4, 22, 52, 26, 440, DateTimeKind.Utc).AddTicks(8085),
                             IsDeleted = false,
                             Name = "admin"
                         },
                         new
                         {
-                            Id = new Guid("b6620c44-1b22-4c5a-85bd-fff0df99c824"),
+                            Id = new Guid("5bd8b862-8ee8-40ef-ae20-f8084fd85c46"),
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 5, 13, 17, 45, 38, 454, DateTimeKind.Utc).AddTicks(890),
+                            CreatedDate = new DateTime(2020, 5, 4, 22, 52, 26, 441, DateTimeKind.Utc).AddTicks(931),
                             IsDeleted = false,
                             Name = "user"
                         });
@@ -724,22 +732,22 @@ namespace DataAccess.Migrations
                         {
                             Id = 1,
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 5, 13, 17, 45, 38, 454, DateTimeKind.Utc).AddTicks(2936),
+                            CreatedDate = new DateTime(2020, 5, 4, 22, 52, 26, 441, DateTimeKind.Utc).AddTicks(4125),
                             Email = "foxxychmoxy@gmail.com",
                             IsDeleted = false,
                             Password = "d9edce5cc424444d5c03fb834de779e9924eb69d05ea3f7be7dd5041bb87864e18b1b75c4d7a9b4abd9d9c784dc482701bdb711256c1f93610a107a161ceb2c2",
-                            RoleId = new Guid("612d3a8a-a687-4ac5-b78a-db0c96efee60"),
+                            RoleId = new Guid("3bb87380-bf6f-409d-8d87-feb1c909a4f3"),
                             Status = 0
                         },
                         new
                         {
                             Id = 2,
                             CreatedBy = "ebs",
-                            CreatedDate = new DateTime(2020, 5, 13, 17, 45, 38, 459, DateTimeKind.Utc).AddTicks(7962),
+                            CreatedDate = new DateTime(2020, 5, 4, 22, 52, 26, 447, DateTimeKind.Utc).AddTicks(9034),
                             Email = "almasgaara@mail.ru",
                             IsDeleted = false,
                             Password = "d9edce5cc424444d5c03fb834de779e9924eb69d05ea3f7be7dd5041bb87864e18b1b75c4d7a9b4abd9d9c784dc482701bdb711256c1f93610a107a161ceb2c2",
-                            RoleId = new Guid("b6620c44-1b22-4c5a-85bd-fff0df99c824"),
+                            RoleId = new Guid("5bd8b862-8ee8-40ef-ae20-f8084fd85c46"),
                             Status = 0
                         });
                 });

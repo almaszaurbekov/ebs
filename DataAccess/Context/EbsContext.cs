@@ -1,7 +1,6 @@
 ﻿using DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
-using Common;
 using DataAccess.Context;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -22,6 +21,7 @@ namespace DataAccess
         public DbSet<BcBook> BcBooks { get; set; }
         public DbSet<DialogControl> DialogControls { get; set; }
         public DbSet<BookTransaction> BookTransactions { get; set; }
+        public DbSet<Log> Logs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

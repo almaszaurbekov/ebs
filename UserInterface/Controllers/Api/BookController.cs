@@ -4,6 +4,7 @@ using BusinessLogic.Services.BusinessService;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -15,7 +16,9 @@ namespace UserInterface.Controllers.Api
     public class BookController : EbsApiController
     {
         public BookController(IBookBusinessService bookBusinessService, 
-            IMapper mapper, IWebHostEnvironment hostEnvironment) : base(bookBusinessService, mapper, hostEnvironment)
+            IUserBusinessService userBusinessService,
+            IMapper mapper, IWebHostEnvironment hostEnvironment) 
+            : base(bookBusinessService, mapper, hostEnvironment, userBusinessService)
         { }
 
         /// <summary>
@@ -60,10 +63,12 @@ namespace UserInterface.Controllers.Api
                 var result = response.Content.ReadAsStringAsync().Result;
                 var book = JsonConvert.DeserializeObject<BookDto>(result);
                 book.UserId = user.Id;
-                return await bookBusinessService.AddBook(book);
+                await bookBusinessService.AddBook(book);
+                return 1;
             }
-            catch
+            catch(Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return -1;
             }
         }

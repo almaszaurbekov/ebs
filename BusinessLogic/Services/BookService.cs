@@ -9,6 +9,7 @@ using System.Data.Common;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using BusinessLogic.Loggers;
 
 namespace BusinessLogic.Services
 {
@@ -46,6 +47,7 @@ namespace BusinessLogic.Services
             return await DbSet
                 .Include(u => u.User)
                 .Where(predicate)
+                .AsNoTracking()
                 .FirstOrDefaultAsync();
         }
 

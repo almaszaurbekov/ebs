@@ -12,8 +12,7 @@
     _init() {
         var user = this.getCurrentUser();
 
-        // у объекта user пока нет поля status
-        var status = "Newcomer";
+        var status = user.data.statusText;
         this.options.status.html(status);
 
         // Инициализируем список дел для пользователя
