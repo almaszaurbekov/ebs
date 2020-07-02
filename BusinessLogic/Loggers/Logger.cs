@@ -14,7 +14,7 @@ namespace BusinessLogic.Loggers
 
     public class Logger : ILogger
     {
-        private const string DefaultValue = "Пусто";
+        private const string DefaultValue = null;
         private EbsContext _context { get; set; }
         private DbSet<Log> DbSet => _context.Set<Log>();
         public virtual Task<int> Count => DbSet.CountAsync();
