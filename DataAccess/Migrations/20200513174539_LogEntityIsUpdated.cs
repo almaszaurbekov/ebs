@@ -80,6 +80,17 @@ namespace DataAccess.Migrations
                 keyColumn: "Id",
                 keyValue: new Guid("5bd8b862-8ee8-40ef-ae20-f8084fd85c46"));
 
+            migrationBuilder.DeleteData(
+                table: "Roles",
+                keyColumn: "Id",
+                keyValue: new Guid("c0f08afd-19df-4c48-b022-8ad1bbf2e132"));
+
+            migrationBuilder.DeleteData(
+                table: "Roles",
+                keyColumn: "Id",
+                keyValue: new Guid("67258a53-b254-41af-9d26-5200835986b3"));
+
+
             migrationBuilder.CreateTable(
                 name: "Logs",
                 columns: table => new

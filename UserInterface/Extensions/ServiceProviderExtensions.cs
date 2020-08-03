@@ -1,4 +1,5 @@
-﻿using BusinessLogic.Services;
+﻿using BusinessLogic.Loggers;
+using BusinessLogic.Services;
 using BusinessLogic.Services.BusinessService;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -21,6 +22,8 @@ namespace UserInterface.Extensions
             services.AddTransient<ICommentService, CommentService>();
             services.AddTransient<IBcBookService, BcBookService>();
             services.AddTransient<IBookTransactionService, BookTransactionService>();
+            services.AddTransient<IEmailService, EmailService>();
+            services.AddTransient<ILogger, Logger>();
         }
     }
 }
