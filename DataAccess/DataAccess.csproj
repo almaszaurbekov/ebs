@@ -5,6 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200810080059_EbsIntegrationProcedure.cs" />
+    <Compile Remove="Migrations\20200810080059_EbsIntegrationProcedure.Designer.cs" />
+    <Compile Remove="Migrations\20200810080200_ModelSnapshotCorrection.cs" />
+    <Compile Remove="Migrations\20200810080200_ModelSnapshotCorrection.Designer.cs" />
+    <Compile Remove="Migrations\20200810080212_EbsIntegrationProcedure.cs" />
+    <Compile Remove="Migrations\20200810080212_EbsIntegrationProcedure.Designer.cs" />
+    <Compile Remove="Migrations\20200810080349_ModelSnapshotCorrection.cs" />
+    <Compile Remove="Migrations\20200810080349_ModelSnapshotCorrection.Designer.cs" />
+    <Compile Remove="Migrations\20200810080359_EbsIntegrationProcedure.cs" />
+    <Compile Remove="Migrations\20200810080359_EbsIntegrationProcedure.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.3" />

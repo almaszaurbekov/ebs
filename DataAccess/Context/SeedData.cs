@@ -16,13 +16,17 @@ namespace DataAccess.Context
             string userRoleName = "user";
             string password = "123qweAS1!";
 
-            Role adminRole = new Role { Id = Guid.NewGuid(), Name = adminRoleName };
-            Role userRole = new Role { Id = Guid.NewGuid(), Name = userRoleName };
+            Role adminRole = new Role { Id = new Guid("612d3a8a-a687-4ac5-b78a-db0c96efee60"), Name = adminRoleName, CreatedDate = new DateTime(2020, 07, 20) };
+            Role userRole = new Role { Id = new Guid("b6620c44-1b22-4c5a-85bd-fff0df99c824"), Name = userRoleName, CreatedDate = new DateTime(2020, 07, 20) };
 
             User adminUser = new User { Id = 1, Email = "foxxychmoxy@gmail.com", 
-                Password = PasswordHelper.Hash(password), RoleId = adminRole.Id, Status = UserStatus.Newcomer };
+                Password = PasswordHelper.Hash(password), RoleId = adminRole.Id, Status = UserStatus.Newcomer,
+                CreatedDate = new DateTime(2020, 07, 20)
+            };
             User simpleUser = new User { Id = 2, Email = "almasgaara@mail.ru",
-                Password = PasswordHelper.Hash(password), RoleId = userRole.Id, Status = UserStatus.Newcomer };
+                Password = PasswordHelper.Hash(password), RoleId = userRole.Id, Status = UserStatus.Newcomer,
+                CreatedDate = new DateTime(2020, 07, 20)
+            };
 
             // Добавление книг для двух пользователей
             List<Book> books = InitBooks(adminUser, simpleUser);
@@ -72,7 +76,8 @@ namespace DataAccess.Context
                     IsBorrowed = false,
                     IsPainted = false,
                     InGoodCondition = true,
-                    СlickCount = 30
+                    СlickCount = 30,
+                    CreatedDate = new DateTime(2020, 07, 20)
                 },
                 new Book()
                 {
@@ -86,7 +91,8 @@ namespace DataAccess.Context
                     IsBorrowed = false,
                     IsPainted = false,
                     InGoodCondition = true,
-                    СlickCount = 20
+                    СlickCount = 20,
+                    CreatedDate = new DateTime(2020, 07, 20)
                 },
                 new Book()
                 {
@@ -100,7 +106,8 @@ namespace DataAccess.Context
                     IsBorrowed = false,
                     IsPainted = false,
                     InGoodCondition = true,
-                    СlickCount = 15
+                    СlickCount = 15,
+                    CreatedDate = new DateTime(2020, 07, 20)
                 },
                 new Book()
                 {
@@ -114,7 +121,8 @@ namespace DataAccess.Context
                     IsBorrowed = false,
                     IsPainted = false,
                     InGoodCondition = true,
-                    СlickCount = 20
+                    СlickCount = 20,
+                    CreatedDate = new DateTime(2020, 07, 20)
                 },
                 new Book()
                 {
@@ -128,7 +136,8 @@ namespace DataAccess.Context
                     IsBorrowed = false,
                     IsPainted = false,
                     InGoodCondition = true,
-                    СlickCount = 35
+                    СlickCount = 35,
+                    CreatedDate = new DateTime(2020, 07, 20)
                 },
                 new Book()
                 {
@@ -142,7 +151,8 @@ namespace DataAccess.Context
                     IsBorrowed = false,
                     IsPainted = false,
                     InGoodCondition = true,
-                    СlickCount = 56
+                    СlickCount = 56,
+                    CreatedDate = new DateTime(2020, 07, 20)
                 },
                 new Book()
                 {
@@ -156,7 +166,8 @@ namespace DataAccess.Context
                     IsBorrowed = false,
                     IsPainted = false,
                     InGoodCondition = true,
-                    СlickCount = 23
+                    СlickCount = 23,
+                    CreatedDate = new DateTime(2020, 07, 20)
                 },
                 new Book()
                 {
@@ -170,7 +181,8 @@ namespace DataAccess.Context
                     IsBorrowed = false,
                     IsPainted = false,
                     InGoodCondition = true,
-                    СlickCount = 76
+                    СlickCount = 76,
+                    CreatedDate = new DateTime(2020, 07, 20)
                 }
             };
         }
@@ -188,14 +200,16 @@ namespace DataAccess.Context
                     Id = 1,
                     BookId = 1,
                     UserId = 2,
-                    Text = "I think this is amazing book!"
+                    Text = "I think this is amazing book!",
+                    CreatedDate = new DateTime(2020, 07, 20)
                 },
                 new Comment()
                 {
                     Id = 2,
                     BookId = 6,
                     UserId = 1,
-                    Text = "This is awful book..."
+                    Text = "This is awful book...",
+                    CreatedDate = new DateTime(2020, 07, 20)
                 }
             };
         }
@@ -214,7 +228,8 @@ namespace DataAccess.Context
                 SecondInterlocutorEmail = simpleUser.Email,
                 SecondInterlocutorId = simpleUser.Id,
                 LastMessage = "Hello! Yes, I know. Thank you!",
-                LastMessageDate = DateTime.UtcNow
+                LastMessageDate = new DateTime(2020, 07, 20),
+                CreatedDate = new DateTime(2020, 07, 20)
             };
         }
 
@@ -235,7 +250,8 @@ namespace DataAccess.Context
                     UserSenderEmail = adminUser.Email,
                     UserSenderId = adminUser.Id,
                     UserReceiverEmail = simpleUser.Email,
-                    UserReceiverId = simpleUser.Id
+                    UserReceiverId = simpleUser.Id,
+                    CreatedDate = new DateTime(2020, 07, 20)
                 },
                 new Message()
                 {
@@ -246,7 +262,8 @@ namespace DataAccess.Context
                     UserSenderEmail = simpleUser.Email,
                     UserSenderId = simpleUser.Id,
                     UserReceiverEmail = adminUser.Email,
-                    UserReceiverId = adminUser.Id
+                    UserReceiverId = adminUser.Id,
+                    CreatedDate = new DateTime(2020, 07, 20)
                 }
             };
         }
